@@ -1,0 +1,5 @@
+#!/bin/bash
+DISPLAY=:0
+./myxephyr :1 -ac -screen 1024x640 &
+DISPLAY=:1
+/usr/bin/antico-deluxe
