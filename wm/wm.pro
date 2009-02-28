@@ -17,7 +17,7 @@ RESOURCES = theme/std.qrc
 UI_HEADERS_DIR = forms
 FORMS +=	forms/frm_quit.ui \
 			forms/frm_about.ui
-			
+	
 HEADERS += 	defs.h \
 			atoms.h \
 			netwm.h \
@@ -39,7 +39,7 @@ HEADERS += 	defs.h \
 			aboutdlg.h \
 			quitdlg.h \
 			alttab.h
-			
+
 SOURCES += 	main.cpp \
 			netwm.cpp \
 			atoms.cpp \
@@ -87,3 +87,4 @@ exec_files.files += antico-deluxe-session
 exec_files.path=/usr/bin
 
 INSTALLS += target exec_files theme_files session_files
+

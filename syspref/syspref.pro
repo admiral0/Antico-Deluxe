@@ -1,6 +1,9 @@
+TEMPLATE = app
+QT += xml dbus
+CONFIG += qt release
+
 RESOURCES = syspref.qrc
 
-QT += xml dbus
 UI_HEADERS_DIR = forms
 
 FORMS += forms/wallpaper.ui \
@@ -36,9 +39,6 @@ OBJECTS_DIR += ../build
 MOC_DIR += ../build
 QMAKE_INCDIR += /usr/include forms/
 QMAKE_CLEAN += antico-pref
-TEMPLATE = app
-QT += dbus
-CONFIG += qt release
 
 TARGET = antico-pref
 target.path=/usr/bin
