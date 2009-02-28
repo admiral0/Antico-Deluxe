@@ -228,13 +228,23 @@ private:
 	//alsa
 	snd_pcm_t *pcm_handle;
 	char *pcm_name;
-	//alsa
+
 	snd_pcm_uframes_t m_chunk_size;
 	size_t m_bits_per_frame;
+	long m_totalWritten;
+    
+	void reset();
+
+    // helper functions
+    void status();
+	long alsaWrite(unsigned char *data, long size);
 
 	//
     QMutex mtx;
     Recycler r;
+	
+	// Thread run
+	void run();
 	
 	//alsa mixer
 	bool useMixer;
@@ -318,6 +328,10 @@ bool AmeSystemSound::SoundOutput::initialize()
 	
 	m_inited = TRUE;
 	return m_inited;
+}
+
+void AmeSystemSound::SoundOutput::reset()
+{
 }
 
 void AmeSystemSound::SoundOutput::configure(long freq, int chan, int prec, int brate)
@@ -466,7 +480,7 @@ void AmeSystemSound::SoundOutput::run()
 	long m = 0;
 	snd_pcm_uframes_t l;
 	
-	long prebuffer_size = Buffer::size() + m_bits_per_frame * m_chunk_size / 8;
+	long prebuffer_size = BLOCK_SIZE + m_bits_per_frame * m_chunk_size / 8;
 	
 	unsigned char *prebuffer = (unsigned uchar *)malloc(prebuffer_size);
 	ulong prebuffer_fill = 0;
@@ -730,6 +744,8 @@ int AmeSystemSound::SoundOutput::getMixer(snd_mixer_t **mixer, QString card)
 	return (*mixer != NULL);
 }
 
+// Helper functions
+
 Recycler *AmeSystemSound::SoundOutput::recycler()
 {
 	return &r;
@@ -738,6 +754,10 @@ Recycler *AmeSystemSound::SoundOutput::recycler()
 QMutex *AmeSystemSound::SoundOutput::mutex()
 {
 	return &mtx;
+}
+
+void AmeSystemSound::SoundOutput::status()
+{
 }
 
 #endif
