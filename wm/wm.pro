@@ -1,66 +1,70 @@
-RESOURCES = theme/std.qrc
+TEMPLATE = app
+VERSION = 0.1.96
 
-UI_HEADERS_DIR = forms
-FORMS +=	forms/frm_quit.ui \
-			forms/frm_about.ui	
-			
-HEADERS = defs.h \
-	atoms.h \
-	netwm.h \
-	adx.h \
-	dbusadaptor.h \
-	decor.h \
-	client.h \
-	desktop.h \
-	dockicon.h \
-	dockbar.h \
-	button.h \
-	menu.h \
-	currentapp.h \
-	sysmenu.h \
-	showdesktop.h \
-	clock.h \
-	volumectrl.h \
-	panel.h \
-	aboutdlg.h \
-	quitdlg.h \
-	alttab.h \
+QT += dbus
+CONFIG += qt release
 
-SOURCES = main.cpp \
-	netwm.cpp \
-	atoms.cpp \
-    adx.cpp \
-	adxsettings.cpp \
-	keybindings.cpp \
-	dbusadaptor.cpp \
-	events.cpp \
-	decor.cpp \
-	client.cpp \
-	x11management.cpp \
-	desktop.cpp \
-	dockicon.cpp \
-	dockbar.cpp \
-	button.cpp \
-	menu.cpp \
-	currentapp.cpp \
-	sysmenu.cpp \
-	showdesktop.cpp \
-	clock.cpp \
-	volumectrl.cpp \
-	panel.cpp \
-	aboutdlg.cpp \
-	quitdlg.cpp \
-	alttab.cpp
-
-INCLUDEPATH += ../amelib /usr/include/ame/ 
-LIBS += -L/usr/lib -L../amelib -lame
 OBJECTS_DIR += ../build
 MOC_DIR += ../build
 QMAKE_INCDIR += /usr/include forms/
 QMAKE_CLEAN += antico-deluxe
-TEMPLATE = app
-QT += dbus
-CONFIG += qt release
+
+INCLUDEPATH += ../amelib /usr/include/ame/ 
+LIBS += -L/usr/lib -L../amelib -lame
+
+RESOURCES = theme/std.qrc
+
+UI_HEADERS_DIR = forms
+FORMS +=	forms/frm_quit.ui \
+			forms/frm_about.ui
+			
+HEADERS += 	defs.h \
+			atoms.h \
+			netwm.h \
+			adx.h \
+			dbusadaptor.h \
+			decor.h \
+			client.h \
+			desktop.h \
+			dockicon.h \
+			dockbar.h \
+			button.h \
+			menu.h \
+			currentapp.h \
+			sysmenu.h \
+			showdesktop.h \
+			clock.h \
+			volumectrl.h \
+			panel.h \
+			aboutdlg.h \
+			quitdlg.h \
+			alttab.h
+			
+SOURCES += 	main.cpp \
+			netwm.cpp \
+			atoms.cpp \
+			adx.cpp \
+			adxsettings.cpp \
+			keybindings.cpp \
+			dbusadaptor.cpp \
+			events.cpp \
+			decor.cpp \
+			client.cpp \
+			x11management.cpp \
+			desktop.cpp \
+			dockicon.cpp \
+			dockbar.cpp \
+			button.cpp \
+			menu.cpp \
+			currentapp.cpp \
+			sysmenu.cpp \
+			showdesktop.cpp \
+			clock.cpp \
+			volumectrl.cpp \
+			panel.cpp \
+			aboutdlg.cpp \
+			quitdlg.cpp \
+			alttab.cpp
 
 TARGET = antico-deluxe
 target.path=/usr/bin
