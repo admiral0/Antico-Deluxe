@@ -4,6 +4,12 @@ VERSION = 0.1.96
 QT += dbus
 CONFIG += qt release
 
+RESOURCES = theme/std.qrc
+
+UI_HEADERS_DIR = forms
+FORMS +=	forms/frm_quit.ui \
+			forms/frm_about.ui
+
 OBJECTS_DIR += ../build
 MOC_DIR += ../build
 QMAKE_INCDIR += /usr/include forms/
@@ -11,16 +17,12 @@ QMAKE_CLEAN += antico-deluxe
 
 INCLUDEPATH += ../amelib /usr/include/ame/ 
 LIBS += -L/usr/lib -L../amelib -lame
-
-RESOURCES = theme/std.qrc
-
-UI_HEADERS_DIR = forms
-FORMS +=	forms/frm_quit.ui \
-			forms/frm_about.ui
-	
-HEADERS += 	defs.h \
+			
+HEADERS += defs.h \
+			aboutdlg.h \
+			quitdlg.h \
+			alttab.h \
 			atoms.h \
-			netwm.h \
 			adx.h \
 			dbusadaptor.h \
 			decor.h \
@@ -35,13 +37,12 @@ HEADERS += 	defs.h \
 			showdesktop.h \
 			clock.h \
 			volumectrl.h \
-			panel.h \
-			aboutdlg.h \
-			quitdlg.h \
-			alttab.h
+			panel.h
 
-SOURCES += 	main.cpp \
-			netwm.cpp \
+SOURCES += main.cpp \
+			aboutdlg.cpp \
+			quitdlg.cpp \
+			alttab.cpp \
 			atoms.cpp \
 			adx.cpp \
 			adxsettings.cpp \
@@ -51,21 +52,18 @@ SOURCES += 	main.cpp \
 			decor.cpp \
 			client.cpp \
 			x11management.cpp \
+			panel.cpp \
 			desktop.cpp \
 			dockicon.cpp \
-			dockbar.cpp \
+			dockbar.cpp \ 
 			button.cpp \
 			menu.cpp \
 			currentapp.cpp \
 			sysmenu.cpp \
 			showdesktop.cpp \
 			clock.cpp \
-			volumectrl.cpp \
-			panel.cpp \
-			aboutdlg.cpp \
-			quitdlg.cpp \
-			alttab.cpp
-
+			volumectrl.cpp
+			
 TARGET = antico-deluxe
 target.path=/usr/bin
 
@@ -78,7 +76,8 @@ theme_files.files += theme/default/ame-logo.png \
 	theme/default/header.png \
 	theme/default/show-desk.png \
 	theme/default/show-desk-active.png
-theme_files.path=/usr/share/themes/antico/default
+
+theme_files.path = /usr/share/themes/antico/default
 
 session_files.files += antico-deluxe.desktop
 session_files.path=/usr/share/xsessions

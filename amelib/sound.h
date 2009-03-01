@@ -3,8 +3,9 @@
 
 #include <Global>
 #include <QFile>
-#include <phonon/mediaobject.h>
-#include <phonon/audiooutput.h>
+
+class SoundOutput;
+class VorbisDecoder;
 
 class AME_EXPORT AmeSystemSound : public QObject
 {
@@ -25,21 +26,20 @@ public:
 	bool play();
 	virtual bool decode();
 	
-	qreal volume();
-	void setVolume(qreal);
+	int volume();
+	void setVolume(int);
 	bool isMuted();
 	
 public slots:
 	void stopPlaying();
 	void onQuit();
-	void onVolumeChanged(qreal);
+	void onVolumeChanged(int);
 
 signals:
-	void systemVolumeChanged(qreal);
+	void systemVolumeChanged(int);
 	
-protected:
-	Phonon::MediaObject *media;
-	Phonon::AudioOutput *audio;
+protected slots:
+	void onDecoderState(int);
 
 private:
 	bool blocked;
@@ -48,8 +48,6 @@ private:
 	QString source;
 	QFile *input;
 
-	class SoundOutput;
-	class VorbisDecoder;
 	SoundOutput *output;
 	VorbisDecoder *decoder;
 };

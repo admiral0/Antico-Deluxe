@@ -12,7 +12,7 @@ PrefWidget::PrefWidget(QWidget *parent)
 
 PrefWidget::~PrefWidget()
 {
-	snd->quit();
+	//snd->quit();
 	delete snd;
 }
 

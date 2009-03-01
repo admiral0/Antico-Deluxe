@@ -26,7 +26,6 @@ private:
 
 class VolumeCtrl : public GenericButton
 {
-	Q_OBJECT
 public:
 	VolumeCtrl(Panel *p, QWidget *parent = 0);
 	~VolumeCtrl();

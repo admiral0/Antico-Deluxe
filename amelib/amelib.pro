@@ -1,8 +1,8 @@
 TEMPLATE = lib
 VERSION = 0.0.1
 
-QT += xml phonon
-CONFIG += warn_on qt thread dll x11 release link_pkgconfig
+QT += xml
+CONFIG += warn_on qt thread dll x11 debug link_pkgconfig
 PKGCONFIG += alsa ogg vorbisfile vorbis
 
 RESOURCES = amelib.qrc
@@ -16,7 +16,7 @@ QMAKE_INCDIR += /usr/include forms/
 
 INCLUDEPATH +=
 
-HEADERS += 	global.h \
+MAIN_HEADERS += global.h \
 			utils.h \
 			mime.h \
 			sound.h \
@@ -36,6 +36,10 @@ HEADERS += 	global.h \
 			staticiconlist.h \
 			passworddlg.h \
 			app.h
+			
+EXTRA_HEADERS += vorbisdecoder.h soundoutput.h
+
+HEADERS += $$MAIN_HEADERS $$EXTRA_HEADERS 
 
 FLAT_HEADERS += Global \
 				Utils \
@@ -59,6 +63,8 @@ FLAT_HEADERS += Global \
 			
 SOURCES += 	utils.cpp \
 			mime.cpp \
+			vorbisdecoder.cpp \
+			soundoutput.cpp \
 			sound.cpp \
 			user.cpp \
 			simplerc.cpp \
@@ -81,7 +87,7 @@ TARGET = ame
 
 target.path=/usr/lib
 
-flat_headers.files += $$HEADERS
+flat_headers.files += $$MAIN_HEADERS
 flat_headers.files += $$FLAT_HEADERS
 flat_headers.path=/usr/include/ame
 

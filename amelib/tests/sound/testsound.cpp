@@ -9,6 +9,6 @@ int main(int argc, char **argv)
 	AmeSystemSound *snd = new AmeSystemSound();
 	snd->setSound(AmeSystemSound::Popup);
 	snd->play();
-	return 0;
+	return app.exec();
 }
 

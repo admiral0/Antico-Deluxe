@@ -7,9 +7,7 @@ class Panel;
 
 class GenericButton : public QToolButton
 {
-
 	Q_OBJECT
-
 public:
 
 	enum ButtonType {APixmap, AText};

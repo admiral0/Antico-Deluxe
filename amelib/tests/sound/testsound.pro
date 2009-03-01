@@ -1,5 +1,5 @@
 TEMPLATE = app
-CONFIG += qt release
+CONFIG += qt debug
 
 INCLUDEPATH += /usr/include/ame/
 LIBS += -L/usr/lib -lame

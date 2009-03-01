@@ -34,11 +34,11 @@ SliderWidget::SliderWidget(QWidget *parent)
 	snd->setSound(AmeSystemSound::Popup);
 	
 	slider->setMinimum(0);
-	slider->setMaximum(160);
+	slider->setMaximum(100);
 	if (snd->isMuted())
 		slider->setValue(0);
 	else
-		slider->setValue(snd->volume()*100.0);
+		slider->setValue(snd->volume());
 	
 	connect(slider, SIGNAL(sliderReleased()), this, SLOT(onSlider()));
 	connect(snd, SIGNAL(systemVolumeChanged(qreal)), this, SLOT(onSystemVolume(qreal)));
@@ -48,9 +48,8 @@ SliderWidget::SliderWidget(QWidget *parent)
 
 void SliderWidget::onSlider()
 {
-	
 	changing = true;
-	snd->setVolume(slider->value()/100.0);
+	//snd->setVolume(slider->value());
 	changing = false;
 	snd->play();
 	qDebug() << "VOLUME = " << snd->volume();
@@ -59,7 +58,7 @@ void SliderWidget::onSlider()
 void SliderWidget::onSystemVolume(qreal volume)
 {
 	if (!changing) {
-		snd->setVolume(volume);
+		//snd->setVolume(volume);
 	}
 }
 
@@ -87,8 +86,8 @@ void VolumeCtrl::activate()
 {
 	if (!(activated) ) {
 		panel->deactivateLast(this);
-		volumeSlider->show();
 		volumeSlider->move(this->mapToGlobal(QPoint(0, height())));
+		volumeSlider->show();
 		activated = true;
 		panel->setCurrentWidget(this, volumeSlider->winId());
 	}
@@ -121,3 +120,4 @@ void VolumeCtrl::mousePressEvent(QMouseEvent *)
 	
 }
 */
+

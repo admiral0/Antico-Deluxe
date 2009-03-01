@@ -1,9 +1,8 @@
 #include <Sound>
 #include <QString>
-#include <phonon/mediaobject.h>
 
-#include "soundoutput_p.h"
-#include "vorbisdecoder_p.h"
+#include "soundoutput.h"
+#include "vorbisdecoder.h"
 
 AmeSystemSound::AmeSystemSound(QObject *parent)
 	: QObject(parent)
@@ -12,14 +11,9 @@ AmeSystemSound::AmeSystemSound(QObject *parent)
 	paused = false;
 	
 	output = new SoundOutput(true, this);
+	connect(output, SIGNAL(stopped()), this, SLOT(stopPlaying()));
 	decoder = NULL;
-	
-	media = new Phonon::MediaObject(this);
-	audio = new Phonon::AudioOutput(Phonon::MusicCategory, this);
-	//audio->setOutputDevice("hw:0,0");
-	Phonon::createPath(media, audio);
-	connect(media, SIGNAL(finished()), this, SLOT(onQuit()));
-	connect(audio, SIGNAL(volumeChanged(qreal)), this, SLOT(onVolumeChanged(qreal)));
+	input = NULL;
 	source = "";
 }
 
@@ -83,8 +77,6 @@ void AmeSystemSound::setSound(int soundType)
 			break;
 		}
 	}
-	media->stop();
-	media->setCurrentSource(source);
 }
 
 bool AmeSystemSound::play()
@@ -107,7 +99,54 @@ void AmeSystemSound::stopPlaying()
 	if (blocked)
 		return;
 	paused = false;
+	qDebug() << "STOP PLAYING, BEGIN STOPPING THREADS";
+	if (decoder && decoder->isRunning()) {
+		decoder->mutex()->lock();
+		decoder->stop();
+		decoder->mutex()->unlock();
+	}
 	
+	if (output) {
+		output->mutex()->lock();
+		qDebug() << "STOP PLAYING, BEGIN STOPPING OUTPUT";
+		output->stop();
+		output->mutex()->unlock();
+	}
+	
+	// wake up threads
+	if (decoder) {
+		decoder->mutex()->lock();
+		decoder->cond()->wakeAll();
+		decoder->mutex()->unlock();
+	}
+    
+	if (output) {
+		output->recycler()->mutex()->lock();
+		output->recycler()->cond()->wakeAll();
+		output->recycler()->mutex()->unlock();
+	}
+	if (decoder)
+		decoder->wait();
+	if (output) {
+		output->wait();
+		output->close();
+	}
+	//if (output && output->isInitialized()) {
+	//	output->uninitialize();
+	//}
+	
+	if (decoder) {
+		//decoder->deinit();
+		disconnect(decoder, SIGNAL(decoderState(int)), 0, 0);
+		delete decoder;
+		decoder = 0;
+	}
+	
+	if (input) {
+		input->close();
+		delete input;
+		input = 0;
+	}	
 }
 
 bool AmeSystemSound::decode()
@@ -116,18 +155,28 @@ bool AmeSystemSound::decode()
 	if (!decoder) {
 		decoder = new VorbisDecoder(input, output, this);
 		qDebug() << "create new decoder";
+		connect(decoder, SIGNAL(decoderState(int)), this, SLOT(onDecoderState(int)));
 	}
-	
-	blocked = false;
-	
+		
 	if (decoder->initialize()) {
 		output->start();
 		decoder->start();
+		blocked = false;
 		qDebug() << "now playing";
 		return true;
 	}
 	stopPlaying();
+	blocked = false;
 	return false;
+}
+
+void AmeSystemSound::onDecoderState(int state)
+{
+	qDebug() << "VORBIS DECODER STATE: " << state;
+	if (state == VorbisDecoder::Finished) {
+		qDebug() << "VORBIS DECODER FINISHED";
+		stopPlaying();
+	}
 }
 
 void AmeSystemSound::onQuit()
@@ -136,22 +185,26 @@ void AmeSystemSound::onQuit()
 	//quit();
 }
 
-qreal AmeSystemSound::volume()
+int AmeSystemSound::volume()
 {
-	return audio->volume();
+	int l, r;
+	output->volume(&l, &r);
+	qDebug() << "VOLUME l=" << l << "r=" << r;
+	return (l+r)/2;
 }
 
-void AmeSystemSound::setVolume(qreal v)
+void AmeSystemSound::setVolume(int v)
 {
-	audio->setVolume(v);
+	output->setVolume(v, v);
 }
 
 bool AmeSystemSound::isMuted()
 {
-	return audio->isMuted();
+	//return audio->isMuted();
+	return false;
 }
 
-void AmeSystemSound::onVolumeChanged(qreal volume)
+void AmeSystemSound::onVolumeChanged(int volume)
 {
 	emit systemVolumeChanged(volume);
 }
