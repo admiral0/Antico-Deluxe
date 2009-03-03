@@ -15,7 +15,7 @@ public:
 
 public slots:
 	void onSlider();
-	void onSystemVolume(qreal);
+	void onSystemVolume(int);
 
 public:
 	QSlider *slider;

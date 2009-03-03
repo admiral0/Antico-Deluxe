@@ -1,3 +1,9 @@
+//////////////////////////////////////////
+//  File      : settings.cpp			//
+//  Written by: ludmiloff@gmail.com		//
+//  Copyright : GPL2					//
+//////////////////////////////////////////
+
 #include <Settings>
 
 AmeSettings::AmeSettings(const QString &fileName, Format format, QObject *parent)

@@ -1,3 +1,9 @@
+//////////////////////////////////////////
+//  File      : pixmapwidget.h			//
+//  Written by: ludmiloff@gmail.com		//
+//  Copyright : GPL2					//
+//////////////////////////////////////////
+
 #ifndef __AMEPIXMAPWIDGET_H
 #define __AMEPIXMAPWIDGET_H
 

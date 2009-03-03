@@ -1,6 +1,11 @@
 ***********
 CHANGELOG
 ***********
+03/03/09: Some fixes in SoundVolume panel widget, need more polishment
+28/02/09: QMMP modules partially rejected, now AmeSystemSound is based on ogg123 code (http://www.xiph.org/) 
+24/02/09: Try some QMMP (http://qmmp.ylsoftware.com/index_en.php) modules for reimplementing AmeSystemSound class
+		  with play sound and mixer ability
+12/02/09: A new top panel widget - SoundVolume mixer
 09/02/09: Add shortcut to SystemPreferences.app "Dock" module in System menu; Focus next topmost window when
 		  destroying/close a window;
 08/02/09: Dockbar show/hide functions in system menu and SystemPreferences.app "Dock" module

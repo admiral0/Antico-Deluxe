@@ -1,3 +1,9 @@
+//////////////////////////////////////////
+//  File      : pixmapwidget.cpp		//
+//  Written by: ludmiloff@gmail.com		//
+//  Copyright : GPL2					//
+//////////////////////////////////////////
+
 #include <QPixmap>
 #include <QImage>
 #include <QPainter>

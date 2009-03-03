@@ -12,17 +12,21 @@ SliderWidget::SliderWidget(QWidget *parent)
 	
 	QVBoxLayout *layout = new QVBoxLayout;
 	layout->setSpacing(0);
-	layout->setContentsMargins(7, 2, 2, 5);
+	layout->setContentsMargins(5, 2, 5, 5);
 	
-	QLabel *plus = new QLabel("+ ");
+	QLabel *plus = new QLabel("+");
 	plus->setFont(f);
 	plus->setAlignment(Qt::AlignHCenter);
 	layout->addWidget(plus);
 	
 	slider = new QSlider(Qt::Vertical);
-	layout->addWidget(slider);
+	QHBoxLayout *hlayout = new QHBoxLayout;
+	hlayout->setSpacing(0);
+	hlayout->setContentsMargins(0, 0, 0, 0);
+	hlayout->addWidget(slider);
+	layout->addLayout(hlayout);
 	
-	QLabel *minus = new QLabel("- ");
+	QLabel *minus = new QLabel("-");
 	minus->setAlignment(Qt::AlignHCenter);
 	minus->setFont(f);
 	layout->addWidget(minus);
@@ -31,7 +35,7 @@ SliderWidget::SliderWidget(QWidget *parent)
 	setFixedWidth(28);
 	
 	snd = new AmeSystemSound();
-	snd->setSound(AmeSystemSound::Popup);
+	snd->setEmbedSound(AmeSystemSound::Popup);
 	
 	slider->setMinimum(0);
 	slider->setMaximum(100);
@@ -41,7 +45,7 @@ SliderWidget::SliderWidget(QWidget *parent)
 		slider->setValue(snd->volume());
 	
 	connect(slider, SIGNAL(sliderReleased()), this, SLOT(onSlider()));
-	connect(snd, SIGNAL(systemVolumeChanged(qreal)), this, SLOT(onSystemVolume(qreal)));
+	connect(snd, SIGNAL(systemVolumeChanged(int)), this, SLOT(onSystemVolume(int)));
 	
 	changing = false;
 }
@@ -49,16 +53,16 @@ SliderWidget::SliderWidget(QWidget *parent)
 void SliderWidget::onSlider()
 {
 	changing = true;
-	//snd->setVolume(slider->value());
+	snd->setVolume(slider->value());
 	changing = false;
 	snd->play();
 	qDebug() << "VOLUME = " << snd->volume();
 }
 
-void SliderWidget::onSystemVolume(qreal volume)
+void SliderWidget::onSystemVolume(int volume)
 {
 	if (!changing) {
-		//snd->setVolume(volume);
+		snd->setVolume(volume);
 	}
 }
 
@@ -98,6 +102,7 @@ void VolumeCtrl::deactivate()
 	if (activated) {
 		volumeSlider->hide();
 		activated = false;
+		panel->unfocusChilds();
 		panel->clearCurrentWidget();
 		m_Focus = false;
 		update();

@@ -2,8 +2,8 @@ TEMPLATE = lib
 VERSION = 0.0.1
 
 QT += xml
-CONFIG += warn_on qt thread dll x11 debug link_pkgconfig
-PKGCONFIG += alsa ogg vorbisfile vorbis
+CONFIG += warn_on qt thread dll x11 release link_pkgconfig
+PKGCONFIG += alsa ogg vorbisfile vorbis ao
 
 RESOURCES = amelib.qrc
 
@@ -37,7 +37,7 @@ MAIN_HEADERS += global.h \
 			passworddlg.h \
 			app.h
 			
-EXTRA_HEADERS += vorbisdecoder.h soundoutput.h
+EXTRA_HEADERS += vorbisdecoder.h
 
 HEADERS += $$MAIN_HEADERS $$EXTRA_HEADERS 
 
@@ -64,7 +64,6 @@ FLAT_HEADERS += Global \
 SOURCES += 	utils.cpp \
 			mime.cpp \
 			vorbisdecoder.cpp \
-			soundoutput.cpp \
 			sound.cpp \
 			user.cpp \
 			simplerc.cpp \

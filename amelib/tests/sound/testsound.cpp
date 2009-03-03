@@ -7,8 +7,11 @@ int main(int argc, char **argv)
 	QCoreApplication app(argc, argv);
 	qDebug() << "begin";
 	AmeSystemSound *snd = new AmeSystemSound();
-	snd->setSound(AmeSystemSound::Popup);
+	snd->setEmbedSound(AmeSystemSound::Popup);
 	snd->play();
+	while (snd->isRunning()) {
+	    qDebug() << "waiting";
+	}
 	return app.exec();
 }
 

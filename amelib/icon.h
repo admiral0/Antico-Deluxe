@@ -1,3 +1,9 @@
+//////////////////////////////////////////
+//  File      : icon.h					//
+//  Written by: ludmiloff@gmail.com		//
+//  Copyright : GPL2					//
+//////////////////////////////////////////
+
 #ifndef __AMEICON_H
 #define __AMEICON_H
 

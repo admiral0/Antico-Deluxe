@@ -6,7 +6,7 @@ PrefWidget::PrefWidget(QWidget *parent)
 	state = Normal;
 	moduleName = "";
 	snd = new AmeSystemSound(this);
-	snd->setSound(AmeSystemSound::ShadeUp);
+	snd->setEmbedSound(AmeSystemSound::ShadeUp);
 	connect(this, SIGNAL(moduleIsUnlocked(bool)), this, SLOT(onUnlock(bool)));
 }
 

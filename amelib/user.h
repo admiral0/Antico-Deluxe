@@ -1,7 +1,7 @@
 //////////////////////////////////////////
 //  File      : user.h					//
 //  Written by: ludmiloff@gmail.com		//
-//  Copyright : GPL						//
+//  Copyright : GPL2					//
 //////////////////////////////////////////
 
 #ifndef __AMEUSER_H

@@ -1,7 +1,7 @@
 //////////////////////////////////////////
 //  File      : passworddlg.h			//
 //  Written by: ludmiloff@gmail.com		//
-//  Copyright : GPL						//
+//  Copyright : GPL2					//
 //////////////////////////////////////////
 
 #ifndef __PASSWORDDLG_H

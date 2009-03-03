@@ -1,3 +1,9 @@
+//////////////////////////////////////////
+//  File      : settings.h				//
+//  Written by: ludmiloff@gmail.com		//
+//  Copyright : GPL2					//
+//////////////////////////////////////////
+
 #ifndef __AMESETTINGS_H
 #define __AMESETTINGS_H
 
