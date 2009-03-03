@@ -15,8 +15,8 @@
 #include "currentapp.h"
 
 #define MAJOR_VERSION 0
-#define MINOR_VERSION 2
-#define MODIFICATION "beta3"
+#define MINOR_VERSION 1
+#define MODIFICATION "96"
 
 static QApplication::EventFilter prev_x11_event_filter = 0;
 
