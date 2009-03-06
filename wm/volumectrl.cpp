@@ -39,24 +39,29 @@ SliderWidget::SliderWidget(QWidget *parent)
 	
 	slider->setMinimum(0);
 	slider->setMaximum(100);
-	if (snd->isMuted())
+	if (snd->isMuted()) {
+		v = 0;
 		slider->setValue(0);
-	else
-		slider->setValue(snd->volume());
+	} else {
+		v = snd->volume();
+		slider->setValue(v);
+	}
 	
 	connect(slider, SIGNAL(sliderReleased()), this, SLOT(onSlider()));
 	connect(snd, SIGNAL(systemVolumeChanged(int)), this, SLOT(onSystemVolume(int)));
-	
+
 	changing = false;
 }
 
 void SliderWidget::onSlider()
 {
 	changing = true;
-	snd->setVolume(slider->value());
+	int v = slider->value();
+	snd->setVolume(v);
 	changing = false;
 	snd->play();
 	qDebug() << "VOLUME = " << snd->volume();
+	emit volumeChanged(v);
 }
 
 void SliderWidget::onSystemVolume(int volume)
@@ -75,11 +80,12 @@ VolumeCtrl::VolumeCtrl(Panel *p, QWidget *parent)
 {
 	can_Activated = false;
 	setFixedWidth(28);
-	setIconSize(QSize(17, 16));
-	
-	setImages(QPixmap(":/default/volume0.png"), QPixmap(":/default/volume0-active.png"));
-	
+	setIconSize(QSize(19, 18));	
 	volumeSlider = new SliderWidget();
+	
+	connect(volumeSlider, SIGNAL(volumeChanged(int)), this, SLOT(updateIcon(int)));
+	updateIcon(volumeSlider->v);
+	//setImages(QPixmap(":/default/volume0.png"), QPixmap(":/default/volume0-active.png"));
 }
 
 VolumeCtrl::~VolumeCtrl()
@@ -107,6 +113,24 @@ void VolumeCtrl::deactivate()
 		m_Focus = false;
 		update();
 	}
+}
+
+void VolumeCtrl::updateIcon(int v)
+{
+	if (v >= 0 && v <= 10) {
+		// volume0
+		setImages(QPixmap(":/default/volume0.png"), QPixmap(":/default/volume0-active.png"));
+	} else if (v > 10 && v <= 33) {
+		// volume1
+		setImages(QPixmap(":/default/volume1.png"), QPixmap(":/default/volume1-active.png"));
+	} else if (v > 33 && v <= 75) {
+		setImages(QPixmap(":/default/volume2.png"), QPixmap(":/default/volume2-active.png"));
+		// volume2
+	} else if (v > 76) {
+		// volume3
+		setImages(QPixmap(":/default/volume3.png"), QPixmap(":/default/volume3-active.png"));
+	}
+	update();
 }
 
 /*

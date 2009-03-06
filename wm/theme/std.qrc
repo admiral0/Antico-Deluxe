@@ -1,5 +1,11 @@
 <RCC>
   <qresource>
+    <file>default/volume2.png</file>
+    <file>default/volume3.png</file>
+    <file>default/volume1-active.png</file>
+    <file>default/volume1.png</file>
+    <file>default/volume2-active.png</file>
+    <file>default/volume3-active.png</file>
     <file>default/volume0.png</file>
     <file>default/volume0-active.png</file>
     <file>default/appicon.png</file>

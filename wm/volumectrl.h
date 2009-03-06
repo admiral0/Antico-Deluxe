@@ -17,15 +17,21 @@ public slots:
 	void onSlider();
 	void onSystemVolume(int);
 
+signals:
+	void volumeChanged(int);
+
 public:
 	QSlider *slider;
 	AmeSystemSound *snd;
+	int v;
+
 private:
 	bool changing;
 };
 
 class VolumeCtrl : public GenericButton
 {
+	Q_OBJECT
 public:
 	VolumeCtrl(Panel *p, QWidget *parent = 0);
 	~VolumeCtrl();
@@ -36,6 +42,9 @@ public:
 	//virtual void mousePressEvent(QMouseEvent *e);
 
 	SliderWidget *volumeSlider;
+
+public slots:
+	void updateIcon(int);
 };
 
 #endif
