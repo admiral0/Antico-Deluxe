@@ -98,6 +98,7 @@ void VolumeCtrl::activate()
 		panel->deactivateLast(this);
 		volumeSlider->move(this->mapToGlobal(QPoint(0, height())));
 		volumeSlider->show();
+		XRaiseWindow(display(), volumeSlider->winId());
 		activated = true;
 		panel->setCurrentWidget(this, volumeSlider->winId());
 	}
