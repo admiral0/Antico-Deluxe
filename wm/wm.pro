@@ -79,11 +79,14 @@ theme_files.files += theme/default/ame-logo.png \
 
 theme_files.path = /usr/share/themes/antico/default
 
-session_files.files += antico-deluxe.desktop
-session_files.path=/usr/share/xsessions
+session_gdm_files.files += anticodeluxe-gdm.desktop
+session_gdm_files.path=/usr/share/xsessions
+
+session_kdm_files.files += anticodeluxe-kdm.desktop
+session_kdm_files.path=/usr/share/apps/kdm/sessions/
 
 exec_files.files += antico-deluxe-session
 exec_files.path=/usr/bin
 
-INSTALLS += target exec_files theme_files session_files
+INSTALLS += target exec_files theme_files session_gdm_files session_kdm_files
 
