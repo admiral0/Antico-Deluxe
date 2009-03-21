@@ -5,6 +5,7 @@
 //////////////////////////////////////////
 
 #include <PasswordDlg>
+#include <SoundTheme>
 #include <Sound>
 #include "ui_password.h"
 
@@ -47,7 +48,7 @@ AmePasswordDlg::~AmePasswordDlg()
 
 void AmePasswordDlg::playSoundWarning()
 {
-	d->snd->setEmbedSound(AmeSystemSound::Error2);
+	d->snd->setEmbedSound(AmeSoundTheme::Error2);
 	d->snd->play();
 }
 

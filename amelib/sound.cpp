@@ -12,6 +12,7 @@
 //////////////////////////////////////////////////////////
 
 #include <Sound>
+#include <SoundTheme>
 #include <QString>
 
 #include <stdio.h>
@@ -39,6 +40,9 @@ bool AmeSystemSound::play(const QString &src)
 {
 	if (!src.isEmpty())
 		source = src;
+
+	if (source.isEmpty())
+		return false;
 	
 	if (input)
 		delete input;
@@ -76,62 +80,13 @@ void AmeSystemSound::resume()
 {
 }
 
-void AmeSystemSound::setEmbedSound(int soundType) 
+void AmeSystemSound::setEmbedSound(int soundId)
 {
-	switch (soundType) {
-		case Click: {
-			source = ":/common/sounds/Click1.ogg";
-			break;
-		}
-		case Error1: {
-			source = ":/common/sounds/Error1.ogg";
-			break;
-		}
-		case Error2: {
-			source = ":/common/sounds/Error2.ogg";
-			break;
-		}
-		case Clap: {
-			source = ":/common/sounds/Kopete_status.ogg";
-			break;
-		}
-		case Maximize: {
-			source = ":/common/sounds/Maximize.ogg";
-			break;
-		}
-		case Minimize: {
-			source = ":/common/sounds/Minimize4.ogg";
-			break;
-		}
-		case Popup: {
-			source = ":/common/sounds/Popup.ogg";
-			break;
-		}
-		case Question: {
-			source = ":/common/sounds/Question.ogg";
-			break;
-		}
-		case Background: {
-			source = ":/common/sounds/Question_background.ogg";
-			break;
-		}
-		case RestoreDown: {
-			source = ":/common/sounds/Restore_down.ogg";
-			break;
-		}
-		case RestoreUp: {
-			source = ":/common/sounds/Restore_up.ogg";
-			break;
-		}
-		case ShadeDown: {
-			source = ":/common/sounds/Shade_down.ogg";
-			break;
-		}
-		case ShadeUp: {
-			source = ":/common/sounds/Shade_up.ogg";
-			break;
-		}
-	}
+	AmeSoundThemeItem *sound = AmeSoundTheme::global()->getSound(soundId);
+	if (sound != NULL) {
+		source = sound->fileName;
+	} else
+		source = "";
 }
 
 int AmeSystemSound::volume()

@@ -27,10 +27,13 @@ QString AmeIconThemeDir::dir() const
 
 QStringList AmeIconThemeDir::icons() const
 {
+	return QStringList();
 }
 
 QString AmeIconThemeDir::iconPath(const QString &name) const 
 {
+	// FINISH THIS
+	return QString();
 }
 
 
@@ -91,17 +94,22 @@ bool AmeIconTheme::setTheme(const QString &theme)
 		}
 		config.endGroup();
 	}
+
+	// FINISH THIS
+	return false;
 }
 
 QPixmap *AmeIconTheme::find(const QString &name, int ctx, int size) const
 {
 	//if (!QDir::isRelativePath(name))
-	//	return name;
-	
+	// FINISH THIS
+	return NULL;
 }
 
 QPixmap *AmeIconTheme::loadIcon(const QString &name, int ctx, int size, int state) const
 {
+	// FINISH THIS
+	return NULL;
 }
 
 

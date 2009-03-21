@@ -157,7 +157,7 @@ AmeUserProcess::~AmeUserProcess()
 
 void AmeUserProcess::setUser(const QString &name, const QString &pass)
 {
-	user->setLoginName(pass);
+	user->setLoginName(name);
 	user->setPassword(pass);
 }
 

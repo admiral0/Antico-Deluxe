@@ -34,6 +34,7 @@ static QString readEnvPath(const char *env)
 AmeDirs::AmeDirs()
 {
 	addStdDirs();
+	createStdDirs();
 }
 
 AmeDirs::~AmeDirs()
@@ -116,8 +117,10 @@ void AmeDirs::addStdDirs()
 
 bool AmeDirs::createStdDirs()
 {
-	// TODO:
-	return false;
+	bool f = true;
+	f = f && AmeUtils::makeDir(*s_localResources, 0700);
+	f = f && AmeUtils::makeDir(*s_configsPath, 0700);	
+	return f;
 }
 
 AME_GLOBAL_STATIC(AmeDirs, gAmeDirs)

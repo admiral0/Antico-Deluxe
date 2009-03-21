@@ -40,6 +40,7 @@ public:
 		Videos,
 		Configs,
 		IconTheme,
+		SoundTheme,
 		ThisApplication,
 	};
 

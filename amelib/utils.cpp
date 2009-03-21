@@ -6,6 +6,9 @@
 
 #include <Utils>
 #include <pwd.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <sys/types.h>
 
 namespace AmeUtils
 {
@@ -44,7 +47,9 @@ QString AmeUtils::tildeExpand(const QString &path)
 	}
 	return path;
 }
-
+// "stolen" from kdelibs/kdecore/kernel/kstandarddirs.cpp
+// Copyright (C) 1999 Sirtaj Singh Kang <taj@kde.org>
+// Copyright (C) 1999,2007 Stephan Kulow <coolo@kde.org>
 bool AmeUtils::makeDir(const QString &dir, int mode)
 {
 	if (QDir::isRelativePath(dir))
@@ -59,11 +64,21 @@ bool AmeUtils::makeDir(const QString &dir, int mode)
 	uint i = 1;
 	
 	while (i < len) {
+		struct stat64 st;
 		int pos = target.indexOf('/', i);
 		base += target.mid(i-1, pos - i + 1);
 		QByteArray baseEncoded = QFile::encodeName(base);
-
+		if (stat64(baseEncoded, &st) != 0) {
+			// Directory does not exists or is a symlynk
+			if (lstat64(baseEncoded, &st) == 0)
+				(void) unlink(baseEncoded); // try removing
+			if (mkdir(baseEncoded, static_cast<mode_t>(mode)) != 0) {
+				qDebug() << "error while trying to create" << baseEncoded.constData() << "directory";
+				return false;
+			}
+		}
+		i = pos + 1;
 	}
-	return false;
+	return true;
 }
 

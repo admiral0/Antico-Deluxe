@@ -32,14 +32,6 @@ class AME_EXPORT AmeSystemSound : public QThread
 {
 	Q_OBJECT
 public:
-	enum SystemSounds {
-		Click, Error1, Error2, Clap, 
-		Maximize, Minimize, Popup,
-		Question, Background, 
-		RestoreDown, RestoreUp,
-		ShadeDown, ShadeUp
-	};
-	
 	AmeSystemSound(bool withMixer = true, QObject *parent = 0);
 	~AmeSystemSound();
 
