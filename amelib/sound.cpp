@@ -1,14 +1,14 @@
 //////////////////////////////////////////////////////////
-//  File      : sound.cpp								//
-//  Written by: ludmiloff@gmail.com						//
-//  Copyright : GPL2									//
-//	Some parts of the implementation					//
-//  are taken/inspired from Ogg123 code					//
+//  File      : sound.cpp				//
+//  Written by: ludmiloff@gmail.com			//
+//  Copyright : GPL2					//
+//	Some parts of the implementation		//
+//  are taken/inspired from Ogg123 code			//
 //  THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001	//
-//  by Stan Seibert <volsung@xiph.org> AND OTHER 		//
-//  CONTRIBUTORS, http://www.xiph.org/					//
-//  Some modifications & stripping made by me: 			//
-//  <ludmiloff@gmail.com>								//
+//  by Stan Seibert <volsung@xiph.org> AND OTHER 	//
+//  CONTRIBUTORS, http://www.xiph.org/			//
+//  Some modifications & stripping made by me: 		//
+//  <ludmiloff@gmail.com>				//
 //////////////////////////////////////////////////////////
 
 #include <Sound>
@@ -80,11 +80,14 @@ void AmeSystemSound::resume()
 {
 }
 
-void AmeSystemSound::setEmbedSound(int soundId)
+void AmeSystemSound::setEmbedSound(int soundId, bool force)
 {
 	AmeSoundThemeItem *sound = AmeSoundTheme::global()->getSound(soundId);
 	if (sound != NULL) {
-		source = sound->fileName;
+		if (sound->enabled || force)
+			source = sound->fileName;
+		else
+			source = "";
 	} else
 		source = "";
 }

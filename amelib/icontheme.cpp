@@ -86,7 +86,7 @@ bool AmeIconTheme::setTheme(const QString &theme)
 	AmeSettings config(fileName);
 
 	QStringList::ConstIterator it;
-	const QStringList dirs = config.pathListValue("Directories");
+	const QStringList dirs = config.listValue("Directories");
 	for (it = dirs.begin(); it != dirs.end(); ++it) {
 		config.beginGroup(*it);
 		// check subdir existence

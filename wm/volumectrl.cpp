@@ -1,3 +1,4 @@
+#include <SoundTheme>
 #include "volumectrl.h"
 #include "panel.h"
 
@@ -35,7 +36,7 @@ SliderWidget::SliderWidget(QWidget *parent)
 	setFixedWidth(28);
 	
 	snd = new AmeSystemSound();
-	snd->setEmbedSound(AmeSystemSound::Popup);
+	snd->setEmbedSound(AmeSoundTheme::Popup);
 	
 	slider->setMinimum(0);
 	slider->setMaximum(100);

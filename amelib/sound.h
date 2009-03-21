@@ -1,14 +1,14 @@
 //////////////////////////////////////////////////////////
-//  File      : sound.h									//
-//  Written by: ludmiloff@gmail.com						//
-//  Copyright : GPL2									//
-//	Some parts of the implementation					//
-//  are taken/inspired from Ogg123 code					//
+//  File      : sound.h					//
+//  Written by: ludmiloff@gmail.com			//
+//  Copyright : GPL2					//
+//	Some parts of the implementation		//
+//  are taken/inspired from Ogg123 code			//
 //  THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001	//
-//  by Stan Seibert <volsung@xiph.org> AND OTHER 		//
-//  CONTRIBUTORS, http://www.xiph.org/					//
-//  Some modifications & stripping made by me: 			//
-//  <ludmiloff@gmail.com>								//
+//  by Stan Seibert <volsung@xiph.org> AND OTHER	//
+//  CONTRIBUTORS, http://www.xiph.org/			//
+//  Some modifications & stripping made by me:		//
+//  <ludmiloff@gmail.com>				//
 //////////////////////////////////////////////////////////
 
  
@@ -41,7 +41,7 @@ public:
 	void stop();
 	void pause();
 	void resume();
-	void setEmbedSound(int);
+	void setEmbedSound(int soundId, bool force=false);
 
 	// Mixer API
 	int volume();

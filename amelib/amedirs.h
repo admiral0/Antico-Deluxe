@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File      : amedirs.h				//
-//  Written by: ludmiloff@gmail.com		//
-//  Copyright : GPL2					//
+//  File      : amedirs.h		//
+//  Written by: ludmiloff@gmail.com	//
+//  Copyright : GPL2			//
 //////////////////////////////////////////
 
 #ifndef __AMEDIRS_H

@@ -2,6 +2,7 @@
 #define SOUNDTHEME_H
 
 #include <Global>
+#include <Settings>
 #include <QObject>
 #include <QString>
 #include <QList>
@@ -40,6 +41,7 @@ public:
 	~AmeSoundTheme();
 
 	AmeSoundThemeItem *getSound(int soundId);
+	void setEnabled(int soundId, bool);
 	bool setSound(int soundId, AmeSoundThemeItem *sound);
 	Sounds getAll() const;
 
@@ -47,6 +49,7 @@ public:
 
 private:
 	SoundList *list;
+	AmeSettings *settings;
 
 	void initEmbedSounds();
 	void readThemeSettings();

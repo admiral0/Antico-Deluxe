@@ -23,9 +23,18 @@ SoundPref::SoundPref(QWidget *parent)
 	for (int i=0; i<lst.size(); i++) {
 		QTreeWidgetItem *it = new QTreeWidgetItem(ui.soundsLst);
 		it->setText(0, lst.at(i)->name);
-		qDebug() << lst.at(i)->name;
+		it->setText(1, "");
+		if (lst.at(i)->enabled)
+			it->setCheckState(1, Qt::Checked);
+		else
+			it->setCheckState(1, Qt::Unchecked);
+		it->setData(1, Qt::UserRole, QVariant(lst.at(i)->soundId));
 	}
 
+	connect(ui.soundsLst, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(onSoundItemChange(QTreeWidgetItem *, int)));
+	connect(ui.soundsLst, SIGNAL(itemActivated(QTreeWidgetItem*, int)), this, SLOT(onSoundItem(QTreeWidgetItem *, int)));
+
+	snd = new AmeSystemSound();
 	readSettings();
 
 	moduleName = "Sound";
@@ -34,6 +43,19 @@ SoundPref::SoundPref(QWidget *parent)
 SoundPref::~SoundPref()
 {
 	saveSettings();
+}
+
+void SoundPref::onSoundItemChange(QTreeWidgetItem *it, int col)
+{
+	if (col == 1) {
+		// sound item enabled/disabled by user
+		AmeSoundTheme::global()->setEnabled(it->data(1, Qt::UserRole).toInt(), (it->checkState(col) == Qt::Checked));
+	}
+}
+
+void SoundPref::onSoundItem(QTreeWidgetItem *it, int col) {
+	snd->setEmbedSound(it->data(1, Qt::UserRole).toInt(), true);
+	snd->play();
 }
 
 void SoundPref::readSettings()
@@ -56,4 +78,5 @@ void SoundPref::readSettings()
 bool SoundPref::saveSettings()
 {
 	stg->sync();
+	return true;
 }

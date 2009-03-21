@@ -21,8 +21,13 @@ public:
 	virtual void readSettings();
 	virtual bool saveSettings();
 
+public slots:
+	void onSoundItemChange(QTreeWidgetItem *, int);
+	void onSoundItem(QTreeWidgetItem *, int);
+
 private:
 	Ui::soundFrm ui;
+	AmeSystemSound *snd;
 
 	QString mixerCard, mixerDevice;
 };
