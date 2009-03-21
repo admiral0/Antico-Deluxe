@@ -85,7 +85,7 @@ session_gdm_files.path=/usr/share/xsessions
 session_kdm_files.files += anticodeluxe-kdm.desktop
 session_kdm_files.path=/usr/share/apps/kdm/sessions/
 
-exec_files.files += antico-deluxe-session
+exec_files.files += scripts/antico-deluxe-session
 exec_files.path=/usr/bin
 
 INSTALLS += target exec_files theme_files session_gdm_files session_kdm_files
