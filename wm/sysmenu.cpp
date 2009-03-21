@@ -99,12 +99,12 @@ void SystemMenu::onAbout()
 
 void SystemMenu::onPreferences()
 {
-	QProcess::startDetached("antico-pref");
+	QProcess::startDetached("syspref.app");
 }
 
 void SystemMenu::onDockPref()
 {
-	QProcess::startDetached("antico-pref -w 3");	
+	QProcess::startDetached("syspref.app -w 3");	
 }
 
 void SystemMenu::onShowHideDock()
