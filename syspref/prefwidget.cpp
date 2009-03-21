@@ -1,3 +1,4 @@
+#include <SoundTheme>
 #include "prefwidget.h"
 
 PrefWidget::PrefWidget(QWidget *parent)
@@ -6,7 +7,7 @@ PrefWidget::PrefWidget(QWidget *parent)
 	state = Normal;
 	moduleName = "";
 	snd = new AmeSystemSound(this);
-	snd->setEmbedSound(AmeSystemSound::ShadeUp);
+	snd->setEmbedSound(AmeSoundTheme::Lock);
 	connect(this, SIGNAL(moduleIsUnlocked(bool)), this, SLOT(onUnlock(bool)));
 }
 

@@ -29,6 +29,7 @@ public slots:
 	void onAppearance();
 	void onDock();
 	void onDateTime();
+	void onSound();
 
 protected:
 	void closeEvent(QCloseEvent *event);

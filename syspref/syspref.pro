@@ -10,6 +10,7 @@ FORMS += forms/wallpaper.ui \
 		forms/appearance.ui \
 		forms/dock.ui \
 		forms/datetime.ui \
+		forms/sound.ui
 
 HEADERS += dbusadapt.h \
 		sysprefwindow.h \
@@ -19,7 +20,8 @@ HEADERS += dbusadapt.h \
 		wallpaper.h	\
 		dock.h \
 		clockwidget.h \
-		datetime.h
+		datetime.h \
+		soundpref.h
 		   
 
 SOURCES += dbusadapt.cpp \
@@ -31,6 +33,7 @@ SOURCES += dbusadapt.cpp \
 		dock.cpp \
 		clockwidget.cpp \
 		datetime.cpp \
+		soundpref.cpp \
 		sysprefmain.cpp 
 
 INCLUDEPATH += ../amelib /usr/include/ame/ 
@@ -40,7 +43,7 @@ MOC_DIR += ../build
 QMAKE_INCDIR += /usr/include forms/
 QMAKE_CLEAN += antico-pref
 
-TARGET = antico-pref
+TARGET = syspref.app
 target.path=/usr/bin
 
 INSTALLS += target

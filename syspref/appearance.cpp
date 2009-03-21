@@ -1,7 +1,7 @@
 //////////////////////////////////////////
 //  File       	: appearance.cpp		//
 //  Written by	: ludmiloff@gmail.com	//
-//  Copyright  	: GPL					//
+//  Copyright  	: GPL2					//
 //////////////////////////////////////////
 
 #include <QtDBus>

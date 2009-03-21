@@ -17,5 +17,6 @@
     <file>icons/object/screensaver.png</file>
     <file>icons/object/desktop.png</file>
     <file>icons/object/system-preferences.png</file>
+	<file>icons/object/sound.png</file>
   </qresource>
 </RCC>

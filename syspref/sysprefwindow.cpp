@@ -4,6 +4,7 @@
 #include "wallpaper.h"
 #include "dock.h"
 #include "datetime.h"
+#include "soundpref.h"
 #include "dbusadapt.h"
 
 SysPref::SysPref(int module)
@@ -12,7 +13,8 @@ SysPref::SysPref(int module)
 	setWindowIcon(QIcon(":/icons/object/system-preferences.png"));
 	stack = new QStackedWidget;
 	personal = new AmeStaticIconList("Personal", AmeStaticIconList::Odd);
-	system = new AmeStaticIconList("System", AmeStaticIconList::Even);
+	hardware = new AmeStaticIconList("Hardware", AmeStaticIconList::Even);
+	system = new AmeStaticIconList("System", AmeStaticIconList::Odd);
 
 	browser = new Browser;
 	stack->addWidget(browser);
@@ -157,6 +159,17 @@ void SysPref::onDateTime()
 	setWindowTitle(frm->moduleName);	
 }
 
+void SysPref::onSound()
+{
+	SoundPref *frm = new SoundPref();
+	stack->addWidget(frm);
+	frm->show();
+	stack->setCurrentIndex(1);
+	prevWidget = NULL;
+	nextWidget = NULL;
+	setWindowTitle(frm->moduleName);		
+}
+
 
 void SysPref::addModule()
 {
@@ -182,16 +195,23 @@ void SysPref::setupLaunchers()
 	personal->addIcon(desktop);
 	//personal->addIcon(screensaver);
 	personal->addIcon(dock);
-
+	
 	browser->addSection(personal);
 
+	qDebug() << "HARDWARE SECTION";
+	AmeIconLink *asound = new AmeIconLink("Sound", ":/icons/object/sound.png", "sound", "");
+	hardware->addIcon(asound);
+	connect(asound, SIGNAL(clicked()), this, SLOT(onSound()));
+	
+	browser->addSection(hardware);
+
 	qDebug() << "SYSTEM SECTION";
-	AmeIconLink *aclock = new AmeIconLink("Date &\nTime", ":/icons/object/date-time.png", "dock", "");
+	AmeIconLink *aclock = new AmeIconLink("Date &\nTime", ":/icons/object/date-time.png", "datetime", "");
 	system->addIcon(aclock);
 	connect(aclock, SIGNAL(clicked()), this, SLOT(onDateTime()));
 
 	browser->addSection(system);
-
+	
 	browser->addStretch();
 }
 
