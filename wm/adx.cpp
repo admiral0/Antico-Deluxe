@@ -22,9 +22,9 @@ Adx::Adx(int &argc, char **argv) : QApplication(argc, argv)
 {	
 	m_Process = process_Initializing;
 	Atoms::createNetWMAtoms(display());
-	
-    setOrganizationName("AnticoDeluxe");
-    setApplicationName("AnticoDeluxe");
+
+	setOrganizationName("AnticoDeluxe");
+	setApplicationName("AnticoDeluxe");
 	readAdxSettings();
 
 	XGrabKeyboard(display(), rootWindow(), TRUE, GrabModeAsync, GrabModeAsync, CurrentTime);
@@ -35,7 +35,7 @@ Adx::Adx(int &argc, char **argv) : QApplication(argc, argv)
 	dock = new Dockbar(this);
 	toppanel = new Panel(this);
 	
-	desktop = new Desktop();
+	desktop = new Desktop(this);
 	desktop->init(TOP_PANEL_HEIGHT);
 	
 	desktop->show();
@@ -98,13 +98,12 @@ void Adx::minimizeOthers(Client *thisClient)
 void Adx::minimizeAll()
 {
 	m_Process = process_MinimizingWindows;
-    foreach(client, *clients)
-    {	
-		// TODO: check frame/window type. Do not iconify 
+	foreach(client, *clients) {
+		// TODO: check frame/window type. Do not iconify
 		// some types like splash screen etc.
 		if (client->clientState == NormalState)
 			client->iconifyFast();
-    }
+	}
 	toppanel->currentApp->setCurrent("Desktop", NULL);
 	XUngrabKeyboard(display(), CurrentTime);
 	XGrabKeyboard(display(), rootWindow(), TRUE, GrabModeAsync, GrabModeAsync, CurrentTime);
@@ -253,23 +252,22 @@ void Adx::setHighlightColor(const QColor &col)
 void Adx::setMinimizeOnDblClick(bool active)
 {
 	minimizeDblClick = active;
-    foreach(client, *clients)
-    {
-        client->setDblMinimizeClick(active);
-    }
+	foreach(client, *clients) {
+		client->setDblMinimizeClick(active);
+	}
 
 }
 
 void Adx::wmCleanup()
 {
-    foreach(client, *clients)
-    {
-        qDebug() << "Quit process:" << client->clientId;
-        XRemoveFromSaveSet(display(), client->clientId);
-        XReparentWindow(display(), client->clientId, rootWindow(), client->n_px, client->n_py);
-        client->destroyClient();
-    }
-    clients->clear();
+	foreach(client, *clients) {
+		qDebug() << "Quit process:" << client->clientId;
+		XRemoveFromSaveSet(display(), client->clientId);
+		XReparentWindow(display(), client->clientId, rootWindow(), client->n_px, client->n_py);
+		client->destroyClient();
+	}
+
+	clients->clear();
 	decors->clear();
 
 	dock->close();

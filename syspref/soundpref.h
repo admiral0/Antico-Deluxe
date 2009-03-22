@@ -28,6 +28,7 @@ public slots:
 private:
 	Ui::soundFrm ui;
 	AmeSystemSound *snd;
+	AmeSettings *stg1;
 
 	QString mixerCard, mixerDevice;
 };

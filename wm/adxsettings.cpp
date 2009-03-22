@@ -1,16 +1,17 @@
 //////////////////////////////////////////////////////////
-//  File       : settings.cpp          					//
-//  Written by : ludmiloff@gmail.com 					//
+//  File       : adxsettings.cpp          		//
+//  Written by : ludmiloff@gmail.com 			//
 //  Some copy/paste code from original Antico project	//
-//  Copyright  : GPL                   					//
+//  Copyright  : GPL2					//
 //////////////////////////////////////////////////////////
 
+#include <AmeDirs>
 #include "adx.h"
 
 void Adx::readAdxSettings(void)
 {
 	// default path = $HOME/.config/AnticoDeluxe/AnticoDeluxe.conf"
-	stg = new QSettings();
+	stg = new AmeSettings(AmeDirs::global()->stdDir(AmeDirs::Configs) + "/AnticoDeluxe", QSettings::IniFormat);
 
 	/////////////////////////////////////////////////////////////////////////
 	stg->beginGroup("Dockbar");

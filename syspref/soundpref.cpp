@@ -61,17 +61,17 @@ void SoundPref::onSoundItem(QTreeWidgetItem *it, int col) {
 void SoundPref::readSettings()
 {
 	AmeDirs *ame = AmeDirs::global();
-	stg = new QSettings(ame->stdDir(AmeDirs::Configs) + "/Sound", QSettings::IniFormat);
+	stg1 = new AmeSettings(ame->stdDir(AmeDirs::Configs) + "/Sound", QSettings::IniFormat);
 	
-	mixerCard = stg->value("Mixer/mixer_card", "").toString();
+	mixerCard = stg1->value("Mixer/mixer_card", "").toString();
 	if (mixerCard.isEmpty()) {
 		mixerCard = "hw:0";
-		stg->setValue("Mixer/mixer_card", mixerCard);
+		stg1->setValue("Mixer/mixer_card", mixerCard);
 	}
-	mixerDevice = stg->value("Mixer/mixer_device", "").toString();
+	mixerDevice = stg1->value("Mixer/mixer_device", "").toString();
 	if (mixerDevice.isEmpty()) {
 		mixerDevice = "PCM";
-		stg->setValue("Mixer/mixer_device", mixerDevice);
+		stg1->setValue("Mixer/mixer_device", mixerDevice);
 	}
 }
 

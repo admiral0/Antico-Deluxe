@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File      : amedirs.cpp				//
-//  Written by: ludmiloff@gmail.com		//
-//  Copyright : GPL2					//
+//  File      : amedirs.cpp		//
+//  Written by: ludmiloff@gmail.com	//
+//  Copyright : GPL2			//
 //////////////////////////////////////////
 
 #include <stdlib.h>

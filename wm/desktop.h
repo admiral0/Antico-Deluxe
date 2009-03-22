@@ -13,12 +13,15 @@
 #include "defs.h"
 #include <PixmapWidget>
 
+
+class Adx;
+
 class Desktop : public AmePixmapWidget
 {
     Q_OBJECT
 
 public:
-    Desktop(QWidget *parent=0);
+    Desktop(Adx *a, QWidget *parent=0);
     ~Desktop();
     void init(int top_margin);
 
@@ -30,7 +33,7 @@ public slots:
 private:
     QBoxLayout *layout;
     QMenu *menu;
-    QSettings *stg;
+    Adx *app;
 };
 
 #endif

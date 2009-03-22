@@ -165,7 +165,6 @@ void Wallpaper::setCurrentWallpaper(const QString &path, bool notify)
 void Wallpaper::readSettings()
 {
 	state = Initializing;
-	stg = new QSettings("AnticoDeluxe", "SystemPreferences");
 	QStringList dirs = stg->value("wallpapers_dirs", "").toStringList(); 
 	int count = dirs.count();
 	for (int i = 0; i < count; i++) {
@@ -179,7 +178,6 @@ void Wallpaper::readSettings()
 		state = Initializing;
 	}	
 	// read AnticoDeluxe settings
-	antico = new QSettings("AnticoDeluxe", "AnticoDeluxe");
 	antico->beginGroup("Desktop");
 	setCurrentWallpaper(antico->value("wallpaper", "").toString());
 	antico->endGroup();

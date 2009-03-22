@@ -131,11 +131,6 @@ void Appearance::onChangeStyle(int indx)
 
 void Appearance::readSettings()
 {
-	// System preferences settings
-	stg = new QSettings("AnticoDeluxe", "SystemPreferences");
-
-	// read AnticoDeluxe settings
-	antico = new QSettings("AnticoDeluxe", "AnticoDeluxe");
 	antico->beginGroup("Appearance");
 	lastColorIndx = antico->value("last_highlight_indx", 0).toInt();
 	// defaults to our AquaBlue

@@ -80,7 +80,7 @@ void AmeSoundTheme::initEmbedSounds()
 
 void AmeSoundTheme::readThemeSettings()
 {
-	QStringList e = settings->listValue("SoundsEnabled");
+	QStringList e = settings->listValue("sounds_enabled");
 	if (e.isEmpty()) {
 		// save defaults
 		saveThemeSettings();
@@ -101,7 +101,7 @@ void AmeSoundTheme::saveThemeSettings()
 	for (int i=0; i < lst.size(); i++) {
 		e << (lst.at(i)->enabled ? "1" : "0");
 	}
-	settings->setListValue("SoundsEnabled", e);
+	settings->setListValue("sounds_enabled", e);
 }
 
 AME_GLOBAL_STATIC(AmeSoundTheme, gAmeSoundTheme)

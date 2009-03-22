@@ -1,12 +1,13 @@
 //////////////////////////////////////////
-//  File       	: adx.cpp				//
+//  File       	: adx.cpp		//
 //  Written by	: ludmiloff@gmail.com	//
-//  Copyright  	: GPL					//
+//  Copyright  	: GPL			//
 //////////////////////////////////////////
 
 #ifndef __ADX_H
 #define __ADX_H
 
+#include <Settings>
 #include "defs.h"
 #include "client.h"
 #include "desktop.h"
@@ -105,7 +106,7 @@ public:
 	bool minimizeDblClick;
 	QColor lastColor;
 	QDBusInterface *hal;
-	QSettings *stg;
+	AmeSettings *stg;
 	AltTabDlg *alttab;
 	bool keygrab;
 	Client *client;

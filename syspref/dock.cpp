@@ -52,7 +52,6 @@ void DockPref::onChangeDockSize(int value)
 void DockPref::readSettings()
 {
 	// read AnticoDeluxe settings
-	antico = new QSettings("AnticoDeluxe", "AnticoDeluxe");
 	antico->beginGroup("Dockbar");
 	int h = antico->value("dock_factor", 100).toInt();
 	ui.dockSizeSld->setValue(h);

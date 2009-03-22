@@ -6,6 +6,13 @@ PrefWidget::PrefWidget(QWidget *parent)
 {
 	state = Normal;
 	moduleName = "";
+
+	// System preferences settings
+	stg = new AmeSettings(AmeDirs::global()->stdDir(AmeDirs::Configs) + "/SystemPreferences", QSettings::IniFormat);
+
+	// read AnticoDeluxe settings
+	antico = new AmeSettings(AmeDirs::global()->stdDir(AmeDirs::Configs) + "/AnticoDeluxe", QSettings::IniFormat);
+
 	snd = new AmeSystemSound(this);
 	snd->setEmbedSound(AmeSoundTheme::Lock);
 	connect(this, SIGNAL(moduleIsUnlocked(bool)), this, SLOT(onUnlock(bool)));

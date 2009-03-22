@@ -12,13 +12,13 @@
 Dockbar::Dockbar(Adx *a, QWidget *parent) : QLabel(parent)
 {
 	app = a;
-    dockLayout = new QHBoxLayout();
-    setLayout(dockLayout);
-    dockLayout->setContentsMargins(0, 0, 0, 0);
-    dockLayout->setSpacing(1);
-    readSettings();
-    setPixmap(QPixmap::fromImage(QImage(dockPix)));
-    setScaledContents(true);
+	dockLayout = new QHBoxLayout();
+	setLayout(dockLayout);
+	dockLayout->setContentsMargins(0, 0, 0, 0);
+	dockLayout->setSpacing(1);
+	readSettings();
+	setPixmap(QPixmap::fromImage(QImage(dockPix)));
+	setScaledContents(true);
 	
 	timer = new QTimer();
 	hideTimer = new QTimer();
@@ -26,19 +26,19 @@ Dockbar::Dockbar(Adx *a, QWidget *parent) : QLabel(parent)
 	dockState = Dockbar::Normal;
 	setAutoHide(autoHide);
 
-    // to store dockicons
-    iconsList = new DockIconsList;
+	// to store dockicons
+	iconsList = new DockIconsList;
 
-    // for dockicon on dockbar
-    dockFrame = new QFrame();
-    dockFrame->resize(QApplication::desktop()->width(), height()-1);
-    iconLayout = new QHBoxLayout();
-    dockFrame->setLayout(iconLayout);
-    iconLayout->setAlignment(Qt::AlignLeft);
-    iconLayout->setContentsMargins(0, 0, 0, 0);
-    iconLayout->setSpacing(1);
+	// for dockicon on dockbar
+	dockFrame = new QFrame();
+	dockFrame->resize(QApplication::desktop()->width(), height()-1);
+	iconLayout = new QHBoxLayout();
+	dockFrame->setLayout(iconLayout);
+	iconLayout->setAlignment(Qt::AlignLeft);
+	iconLayout->setContentsMargins(0, 0, 0, 0);
+	iconLayout->setSpacing(1);
 
-    dockLayout->addWidget(dockFrame);
+	dockLayout->addWidget(dockFrame);
 	setSizeFactor(dockFactor, false);
 }
 
@@ -48,38 +48,36 @@ Dockbar::~Dockbar()
 
 void Dockbar::readSettings()
 {
-    QSettings *stg = new QSettings();
-    stg->beginGroup("Dockbar");
-    dockPix = stg->value("dock_pix").toString();
-    dockFactor = stg->value("dock_factor").toInt();
-	autoHide = stg->value("dock_autohide", false).toBool();
-    stg->endGroup(); //Dockbar
+	app->stg->beginGroup("Dockbar");
+	dockPix = app->stg->value("dock_pix").toString();
+	dockFactor = app->stg->value("dock_factor", 100).toInt();
+	autoHide = app->stg->value("dock_autohide", false).toBool();
+	app->stg->endGroup(); //Dockbar
 }
 
 void Dockbar::saveSettings()
 {
-	QSettings *stg = new QSettings();
-    stg->beginGroup("Dockbar");
-	stg->setValue("dock_autohide", autoHide);
-    stg->endGroup();
-	stg->sync();
+	app->stg->beginGroup("Dockbar");
+	app->stg->setValue("dock_autohide", autoHide);
+	app->stg->endGroup();
+	app->stg->sync();
 }
 
 void Dockbar::addClient(Client *client)
 {
-    DockIcon *dockIcon = new DockIcon(client);
-    iconsList->append(dockIcon);
-    updateSize();
-    iconLayout->addWidget(dockIcon);
-    connect(dockIcon, SIGNAL(showIcon(DockIcon *)), SLOT(removeIcon(DockIcon *))); // show iconize dockicon and update dockbar size
-    connect(dockIcon, SIGNAL(destroyIcon(DockIcon *)), SLOT(removeIcon(DockIcon *))); // show iconize dockicon and update dockbar size
+	DockIcon *dockIcon = new DockIcon(client);
+	iconsList->append(dockIcon);
+	updateSize();
+	iconLayout->addWidget(dockIcon);
+	connect(dockIcon, SIGNAL(showIcon(DockIcon *)), SLOT(removeIcon(DockIcon *))); // show iconize dockicon and update dockbar size
+	connect(dockIcon, SIGNAL(destroyIcon(DockIcon *)), SLOT(removeIcon(DockIcon *))); // show iconize dockicon and update dockbar size
 }
 
 void Dockbar::removeIcon(DockIcon *d)
 {
-    iconsList->removeOne(d);
+	iconsList->removeOne(d);
 	app->onDockIconRemoved(d->getClient());
-    updateSize();
+	updateSize();
 }
 
 bool Dockbar::removeClient(Client *client)
@@ -232,7 +230,7 @@ void Dockbar::setSizeFactor(int factor, bool doSave)
 	int w = (maxW * factor) / 100;
 	int h = MAX_DOCK_HEIGHT * factor/100;
 	if (h < 24) h = 24;
-	//qDebug() << "DESIRED SIZE " << w << h;
+	//qDebug() << "DESIRED DOCK SIZE " << w << h;
 	dockFrame->resize(w, h);
 	resize(w, h);
 	move((maxW - w)/2, QApplication::desktop()->height()-h); 
@@ -250,24 +248,22 @@ void Dockbar::updateSize(void)
 {
 	int dockLength;
 	DockIcon *d;
-	
-    if (! iconsList->isEmpty())
-    {
-        int num = iconsList->size();
-        qDebug() << "dockicon num:" << num;
-        dockLength = dockFrame->width()/num;
 
-        if (dockLength >= dockFrame->width()/4) // max dockicon size = d_frame size/4
-            dockLength = dockFrame->width()/4;
+	if (! iconsList->isEmpty()) {
+		int num = iconsList->size();
+		qDebug() << "dockicon num:" << num;
+		dockLength = dockFrame->width()/num;
 
-        qDebug() << "dockicon length:" << dockLength;
+		if (dockLength >= dockFrame->width()/4) // max dockicon size = d_frame size/4
+			dockLength = dockFrame->width()/4;
 
-        for (int i = 0; i <num; i++)
-        {
-            d = iconsList->at(i);
-            d->setFixedSize(dockLength, height()-5);
-            iconLayout->addWidget(d);
-        }
-    }
+		qDebug() << "dockicon length:" << dockLength;
+
+		for (int i = 0; i <num; i++) {
+			d = iconsList->at(i);
+			d->setFixedSize(dockLength, height()-5);
+			iconLayout->addWidget(d);
+		}
+	}
 }
 

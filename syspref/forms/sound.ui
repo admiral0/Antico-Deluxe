@@ -5,14 +5,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>487</height>
+    <width>604</width>
+    <height>374</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
+  <layout class="QGridLayout" name="gridLayout_3" >
    <item row="0" column="0" >
     <widget class="QTabWidget" name="atab" >
      <property name="sizePolicy" >
@@ -28,7 +28,7 @@
       <attribute name="title" >
        <string>Sound Effects</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_3" >
+      <layout class="QGridLayout" name="gridLayout_4" >
        <item row="0" column="0" colspan="5" >
         <widget class="QLabel" name="label" >
          <property name="sizePolicy" >
@@ -91,6 +91,12 @@
        </item>
        <item row="2" column="2" >
         <widget class="QCheckBox" name="sndVolFeedbackChk" >
+         <property name="minimumSize" >
+          <size>
+           <width>286</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="text" >
           <string>Play feedback when sound volume is changed</string>
          </property>
@@ -153,8 +159,8 @@
       <attribute name="title" >
        <string>Output</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_4" >
-       <item row="0" column="0" colspan="5" >
+      <layout class="QGridLayout" name="gridLayout" >
+       <item row="0" column="0" colspan="3" >
         <widget class="QLabel" name="label_3" >
          <property name="sizePolicy" >
           <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
@@ -167,7 +173,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="5" >
+       <item row="1" column="0" colspan="3" >
         <widget class="QListWidget" name="devicesList" >
          <property name="maximumSize" >
           <size>
@@ -177,7 +183,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="2" >
+       <item row="2" column="1" >
         <spacer name="verticalSpacer" >
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
@@ -193,20 +199,7 @@
          </property>
         </spacer>
        </item>
-       <item row="3" column="1" >
-        <widget class="QLabel" name="label_4" >
-         <property name="text" >
-          <string>SoundMixer hardware is:</string>
-         </property>
-         <property name="alignment" >
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2" colspan="2" >
-        <widget class="QComboBox" name="SndMixerHwdCmb" />
-       </item>
-       <item row="4" column="0" >
+       <item row="3" column="0" >
         <spacer name="horizontalSpacer_6" >
          <property name="orientation" >
           <enum>Qt::Horizontal</enum>
@@ -222,33 +215,24 @@
          </property>
         </spacer>
        </item>
-       <item row="4" column="1" >
-        <widget class="QLabel" name="label_5" >
-         <property name="text" >
-          <string>SoundMixer channel:</string>
-         </property>
-         <property name="alignment" >
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
+       <item row="3" column="1" >
+        <layout class="QHBoxLayout" name="horizontalLayout_3" >
+         <item>
+          <widget class="QLabel" name="label_5" >
+           <property name="text" >
+            <string>SoundMixer channel:</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="MixerChannelCmb" />
+         </item>
+        </layout>
        </item>
-       <item row="4" column="2" >
-        <widget class="QComboBox" name="MixerChannelCmb" />
-       </item>
-       <item row="4" column="3" >
-        <spacer name="horizontalSpacer_5" >
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>118</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="4" column="4" >
+       <item row="3" column="2" >
         <spacer name="horizontalSpacer_7" >
          <property name="orientation" >
           <enum>Qt::Horizontal</enum>
@@ -264,7 +248,7 @@
          </property>
         </spacer>
        </item>
-       <item row="5" column="2" >
+       <item row="4" column="1" >
         <spacer name="verticalSpacer_2" >
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
@@ -277,7 +261,7 @@
          </property>
         </spacer>
        </item>
-       <item row="6" column="0" colspan="5" >
+       <item row="5" column="0" colspan="3" >
         <layout class="QHBoxLayout" name="horizontalLayout" >
          <item>
           <spacer name="horizontalSpacer_8" >
@@ -335,27 +319,45 @@
    </item>
    <item row="1" column="0" >
     <layout class="QGridLayout" name="gridLayout_2" >
+     <property name="leftMargin" >
+      <number>9</number>
+     </property>
+     <property name="rightMargin" >
+      <number>9</number>
+     </property>
      <property name="verticalSpacing" >
-      <number>0</number>
+      <number>2</number>
      </property>
      <item row="0" column="0" >
-      <spacer name="horizontalSpacer_3" >
+      <spacer name="horizontalSpacer_11" >
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeType" >
-        <enum>QSizePolicy::MinimumExpanding</enum>
+        <enum>QSizePolicy::Fixed</enum>
        </property>
        <property name="sizeHint" stdset="0" >
         <size>
-         <width>55</width>
-         <height>20</height>
+         <width>24</width>
+         <height>17</height>
         </size>
        </property>
       </spacer>
      </item>
      <item row="0" column="1" >
       <widget class="QLabel" name="label_2" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Preferred" hsizetype="MinimumExpanding" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize" >
+        <size>
+         <width>95</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="text" >
         <string>Output volume:</string>
        </property>
@@ -366,6 +368,12 @@
      </item>
      <item row="0" column="2" >
       <widget class="QSlider" name="MasterVolume" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize" >
         <size>
          <width>286</width>
@@ -379,11 +387,20 @@
      </item>
      <item row="0" column="3" >
       <widget class="QCheckBox" name="muteChk" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize" >
         <size>
-         <width>87</width>
+         <width>95</width>
          <height>0</height>
         </size>
+       </property>
+       <property name="autoFillBackground" >
+        <bool>false</bool>
        </property>
        <property name="text" >
         <string>Mute</string>
@@ -391,14 +408,17 @@
       </widget>
      </item>
      <item row="0" column="4" >
-      <spacer name="horizontalSpacer_4" >
+      <spacer name="horizontalSpacer_5" >
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
        <property name="sizeHint" stdset="0" >
         <size>
-         <width>70</width>
-         <height>20</height>
+         <width>24</width>
+         <height>17</height>
         </size>
        </property>
       </spacer>

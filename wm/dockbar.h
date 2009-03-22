@@ -34,8 +34,8 @@ public:
 		AboutToShow
 	};
 
-    Dockbar(Adx *a, QWidget *parent=0);
-    ~Dockbar();
+	Dockbar(Adx *a, QWidget *parent=0);
+	~Dockbar();
 
 	// Show / Hide flags
 	void setAutoHide(bool active=true);
@@ -43,19 +43,19 @@ public:
 	bool autoHide;
 	
 	// Client management functions
-    void addClient(Client *);
+	void addClient(Client *);
 	bool removeClient(Client *);
 	bool removeAll();
 	
 	void setSizeFactor(int factor, bool doSave=true);
-    void updateSize();
-    void readSettings();
+	void updateSize();
+	void readSettings();
 	void saveSettings();
 	
 	int actualHeight();
 
 public slots:
-    void removeIcon(DockIcon *);
+	void removeIcon(DockIcon *);
 
 	// Show / Hide functions
 	void hideShowDock();
@@ -68,14 +68,14 @@ signals:
 	void clientRemoved(Client *);
 
 private:
-    QHBoxLayout *dockLayout;
-    QHBoxLayout *iconLayout;
-    QFrame *dockFrame;
+	QHBoxLayout *dockLayout;
+	QHBoxLayout *iconLayout;
+	QFrame *dockFrame;
 	Adx *app;
 
-    DockIconsList *iconsList;
-    int dockFactor; 	// Dockbar scale factor (0,100) percents
-    QString dockPix;	// 
+	DockIconsList *iconsList;
+	int dockFactor; 	// Dockbar scale factor (0,100) percents
+	QString dockPix;	//
 
 	QTimer *timer, *hideTimer;
 	bool checkCursor();

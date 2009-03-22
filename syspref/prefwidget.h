@@ -2,7 +2,7 @@
 #define __PREFWIDGET_H
 
 #include <QWidget>
-#include <QSettings>
+#include <Settings>
 #include <Sound>
 
 class PrefWidget : public QWidget
@@ -34,7 +34,7 @@ signals:
 	void moduleIsUnlocked(bool);
 
 protected:
-	QSettings *stg, *antico;
+	AmeSettings *stg, *antico;
 	int state;
 	AmeSystemSound *snd;
 };

@@ -5,13 +5,15 @@
 //  Copyright : GPL                   			 //
 ///////////////////////////////////////////////////
 
+#include <adx.h>
 #include "desktop.h"
 
-Desktop::Desktop(QWidget *parent) : AmePixmapWidget(parent)
+Desktop::Desktop(Adx *a, QWidget *parent) : AmePixmapWidget(parent)
 {
-    layout = new QHBoxLayout();
-    layout->setContentsMargins(0, 0, 0, 0);
-    setLayout(layout);
+	app = a;
+	layout = new QHBoxLayout();
+	layout->setContentsMargins(0, 0, 0, 0);
+	setLayout(layout);
 }
 
 Desktop::~Desktop()
@@ -20,12 +22,11 @@ Desktop::~Desktop()
 
 void Desktop::init(int top_margin)
 {
-    stg = new QSettings();
-    stg->beginGroup("Desktop");
-	QString wall_pix = stg->value("wallpaper", "").toString();
+	app->stg->beginGroup("Desktop");
+	QString wall_pix = app->stg->value("wallpaper", "").toString();
 
-    setGeometry(0, top_margin, QApplication::desktop()->width(), QApplication::desktop()->height() - top_margin);
-    // TODO: check is wallpaper file exists, if not - fill background with default blue
+	setGeometry(0, top_margin, QApplication::desktop()->width(), QApplication::desktop()->height() - top_margin);
+	// TODO: check is wallpaper file exists, if not - fill background with default blue
 	if (!wall_pix.isEmpty()) {
 		setBackground(QPixmap::fromImage(QImage(wall_pix)));
 	} else
