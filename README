@@ -37,8 +37,12 @@ Project consist of:
 8. NOT STARTED: Login Manager
 
 ***********
-DEVELOPMENT
+INSTALL & TESTING
 ***********
+Warning: all parts of the project are subject of heavy development and frequent
+amelib APIs or other changes may occur. It is recomended to remove all previously installed
+binary files, libraries, include headers and configurations.
+
 Extract, compile and install the usual way (Qt4):
 qmake
 make
@@ -50,12 +54,9 @@ To test the window manager, type on shell:
 DISPLAY=:0
 Xephyr :1 -ac -screen 1000x800 & DISPLAY=:1; /usr/bin/antico-deluxe
 
-also you may use uncluded ./test or ./myxephyr scripts
+also you may use uncluded ./adx-xephyr script
 
 or use provided XSession script for starting from login manager.
-
-To hide debug messages, uncomment in antico.pro
-//DEFINES = QT_NO_DEBUG_OUTPUT
 
 
 ***********

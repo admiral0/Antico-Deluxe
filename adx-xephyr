@@ -1,0 +1,28 @@
+#!/bin/sh
+# We check first for a file in the source's path as it should be more recent.
+# If there is no such file, then we are using an installed version or have not built the project.
+# So we try /usr/bin/...
+if [ -x wm/antico-deluxe ]; then
+  adx=wm/antico-deluxe
+else
+  if [ -x /usr/bin/antico-deluxe ]; then
+    adx=/usr/bin/antico-deluxe
+  else
+    echo "AnticoDeluxe not found anywhere... Try reinstalling the package."
+    echo "If you are testing in the source's dir, try [ qmake antico-deluxe.pro ] first."  
+  fi
+fi
+
+if [ -n $adx ]; then
+  MCOOKIE=$(mcookie)
+  DISPLAY=:0
+
+  Xephyr -ac -screen 1024x640 -br -reset -terminate :1 &
+  xauth add $(hostname)/unix:1 . $MCOOKIE
+  xauth add localhost.localdomain/unix:1 . $MCOOKIE
+
+  DISPLAY=:1 $adx
+
+  xauth remove $(hostname)/unix:1 
+  xauth remove localhost.localdomain/unix:1
+fi
