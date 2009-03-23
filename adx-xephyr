@@ -3,6 +3,7 @@
 # If there is no such file, then we are using an installed version or have not built the project.
 # So we try /usr/bin/...
 if [ -x wm/antico-deluxe ]; then
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./amelib
   adx=wm/antico-deluxe
 else
   if [ -x /usr/bin/antico-deluxe ]; then
