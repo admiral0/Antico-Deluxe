@@ -163,6 +163,7 @@ void SysPref::onSound()
 {
 	SoundPref *frm = new SoundPref();
 	stack->addWidget(frm);
+	frm->refresh();
 	frm->show();
 	stack->setCurrentIndex(1);
 	prevWidget = NULL;

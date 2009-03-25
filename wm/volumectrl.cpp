@@ -48,20 +48,24 @@ SliderWidget::SliderWidget(QWidget *parent)
 		slider->setValue(v);
 	}
 	
-	connect(slider, SIGNAL(sliderReleased()), this, SLOT(onSlider()));
+	connect(slider, SIGNAL(sliderReleased()), this, SLOT(onSliderRelease()));
+	connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(onSliderMove(int)));
 	connect(snd, SIGNAL(systemVolumeChanged(int)), this, SLOT(onSystemVolume(int)));
 
 	changing = false;
 }
 
-void SliderWidget::onSlider()
+void SliderWidget::onSliderRelease()
 {
-	changing = true;
-	int v = slider->value();
-	snd->setVolume(v);
-	changing = false;
 	snd->play();
 	qDebug() << "VOLUME = " << snd->volume();
+}
+
+void SliderWidget::onSliderMove(int v)
+{
+	changing = true;
+	snd->setVolume(v);
+	changing = false;
 	emit volumeChanged(v);
 }
 

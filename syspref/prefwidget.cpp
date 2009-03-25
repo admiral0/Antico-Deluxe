@@ -29,6 +29,10 @@ void PrefWidget::execFunction(int fEnumerator, int param)
 	// do nothing here
 }
 
+void PrefWidget::refresh()
+{
+}
+
 bool PrefWidget::aboutToClose()
 {
 	saveSettings();

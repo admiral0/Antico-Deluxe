@@ -18,10 +18,13 @@ public:
 	SoundPref(QWidget *parent = 0);
 	~SoundPref();
 
+	virtual void refresh();
 	virtual void readSettings();
 	virtual bool saveSettings();
 
 public slots:
+	void onSlider(int);
+	void checkVolume();
 	void onSoundItemChange(QTreeWidgetItem *, int);
 	void onSoundItem(QTreeWidgetItem *, int);
 
@@ -31,6 +34,7 @@ private:
 	AmeSettings *stg1;
 
 	QString mixerCard, mixerDevice;
+	QTimer *timer;
 };
 
 #endif

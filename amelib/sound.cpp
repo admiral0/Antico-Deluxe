@@ -7,6 +7,10 @@
 //  THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001	//
 //  by Stan Seibert <volsung@xiph.org> AND OTHER 	//
 //  CONTRIBUTORS, http://www.xiph.org/			//
+//							//
+//  Sound volume mixer taken fro QMMP project - 	//
+//  http://qmmp.ylsoftware.com/				//
+//							//
 //  Some modifications & stripping made by me: 		//
 //  <ludmiloff@gmail.com>				//
 //////////////////////////////////////////////////////////

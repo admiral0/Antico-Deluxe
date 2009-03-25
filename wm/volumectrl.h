@@ -14,7 +14,8 @@ public:
 	~SliderWidget();
 
 public slots:
-	void onSlider();
+	void onSliderRelease();
+	void onSliderMove(int);
 	void onSystemVolume(int);
 
 signals:

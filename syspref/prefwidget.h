@@ -19,6 +19,7 @@ public:
 	PrefWidget(QWidget *parent = 0);
 	virtual ~PrefWidget();
 
+	virtual void refresh();
 	virtual bool aboutToClose();
 	virtual void readSettings() = 0;
 	virtual bool saveSettings() = 0;

@@ -35,6 +35,16 @@ SoundPref::SoundPref(QWidget *parent)
 	connect(ui.soundsLst, SIGNAL(itemActivated(QTreeWidgetItem*, int)), this, SLOT(onSoundItem(QTreeWidgetItem *, int)));
 
 	snd = new AmeSystemSound();
+
+	ui.volumeSldr->setMinimum(0);
+	ui.volumeSldr->setMaximum(100);
+	connect(ui.volumeSldr, SIGNAL(sliderMoved(int)), this, SLOT(onSlider(int)));
+
+	timer = new QTimer();
+	connect(timer, SIGNAL(timeout()), this, SLOT(checkVolume()));
+	timer->start(100);
+
+	refresh();
 	readSettings();
 
 	moduleName = "Sound";
@@ -42,7 +52,32 @@ SoundPref::SoundPref(QWidget *parent)
 
 SoundPref::~SoundPref()
 {
+	timer->stop();
 	saveSettings();
+}
+
+void SoundPref::refresh()
+{
+	if (snd->isMuted()) {
+		ui.volumeSldr->setValue(0);
+		ui.muteChk->setChecked(true);
+	} else {
+		ui.volumeSldr->setValue(snd->volume());
+		ui.muteChk->setChecked(false);
+	}
+}
+
+void SoundPref::checkVolume()
+{
+	ui.volumeSldr->setValue(snd->volume());
+}
+
+void SoundPref::onSlider(int value)
+{
+	snd->setVolume(value);
+	if (value > 0) {
+		ui.muteChk->setChecked(false);
+	}
 }
 
 void SoundPref::onSoundItemChange(QTreeWidgetItem *it, int col)
