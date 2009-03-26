@@ -46,7 +46,7 @@ MenuButton::MenuButton(Panel *p, QWidget *parent)
 
 	m_Catalog["Utility"] = new QIcon("util.png");
 	m_Catalog["Office"] = new QIcon("office.png");
-	m_Catalog["Network"] = new QIcon("networg.png");
+	m_Catalog["Network"] = new QIcon("network.png");
 	m_Catalog["Graphics"] = new QIcon("graphics.png");
 	m_Catalog["AudioVideo"] = new QIcon("multimedia.png");
 	m_Catalog["Game"] = new QIcon("games.png");
@@ -66,51 +66,40 @@ MenuButton::~MenuButton()
 void MenuButton::readSystemMenu(const QString &path)
 {
 	bool found;
-	QDir dir;
-	QString current = dir.currentPath();
-
-	if (!dir.setCurrent(path))
+	QDir dir;	
+	if (!dir.setCurrent(path)) 
 		return;
 	QFileInfoList list = dir.entryInfoList();
 	for (int i = 0; i < list.size(); i++) {
 		QFileInfo fi = list.at(i);
-		if (fi.isDir()) {
-			// TODO: parse sub dirs
-			continue;
+		if ((fi.isDir()) && !(fi.fileName().left(1) == "."))  {			
+			readSystemMenu(path+fi.fileName()+"/");
 		}
-		if (!AmeDesktopFile::isDesktopFile(fi.fileName()))
-			continue;
-		else {
+		else if (AmeDesktopFile::isDesktopFile(path+fi.fileName())) {
 			AmeDesktopFile *desktop = new AmeDesktopFile(path+fi.fileName());
-			//
-			QString title = tr(desktop->readName().toLatin1());
+			QString title = desktop->readName();
 			if (title.isEmpty()) 
 				continue;
 			QStringList cat = desktop->readCategories();
 			QString execCmd = desktop->readCommand();
 			//QString data = desktop->value("Categories", QVariant("")).toString();
-			//qDebug() << "  READ CATEGORIES " << data;
-			//qDebug() << "read menu :" <<  title;
 			MenuAction *act = new MenuAction(title, "", this);
 			act->setCommand(execCmd);
 			connect(act, SIGNAL(triggered(bool)), act, SLOT(runCommand()));
 
-			found = false;			
+			found = false;
 			for (int c = 0; c < cat.size(); c++) {
 				if (m_Catalog.contains(cat[c])) {
-					//qDebug() << "build menu " << cat[c] << "  - " << title;
 					m_Menu.insert(cat[c], act);
 					found = true;
 					break;
 				}
 			}
 			if (!found) {
-				//qDebug() << "not found " << cat << title;
 				m_Menu.insert("Other", act);
 			}
 		}
-	}
-	
+	}		
 }
 
 void MenuButton::buildMenu()
