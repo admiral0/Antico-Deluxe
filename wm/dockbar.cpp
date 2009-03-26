@@ -51,6 +51,8 @@ void Dockbar::readSettings()
 	app->stg->beginGroup("Dockbar");
 	dockPix = app->stg->value("dock_pix").toString();
 	dockFactor = app->stg->value("dock_factor", 100).toInt();
+	dockAnimSpeed = app->stg->value("dock_animspeed", 10).toInt();
+	dockSHDelay = app->stg->value("dock_shdelay", 2000).toInt();
 	autoHide = app->stg->value("dock_autohide", false).toBool();
 	app->stg->endGroup(); //Dockbar
 }
@@ -153,7 +155,7 @@ bool Dockbar::checkCursor()
 void Dockbar::hideShowDock()
 {
 	hideTimer->stop();
-	hideTimer->start(2000);
+	hideTimer->start(dockSHDelay);
 	if (dockState == Dockbar::Normal && !checkCursor()) {
 		animateHide();
 	} else if (dockState == Dockbar::Hidden && checkCursor())
@@ -169,7 +171,7 @@ void Dockbar::animateHide()
 	if (dockState == Dockbar::Normal) {
 		connect(timer, SIGNAL(timeout()), this, SLOT(hide1Step()));
 		dockState = Dockbar::Hiding;
-		timer->start(10);
+		timer->start(dockAnimSpeed);
 	}
 }
 
@@ -197,7 +199,7 @@ void Dockbar::animateShow()
 	if (dockState == Dockbar::Hidden) {
 		connect(timer, SIGNAL(timeout()), this, SLOT(show1Step()));
 		dockState = Dockbar::Showing;
-		timer->start(10);
+		timer->start(dockAnimSpeed);
 	}
 }
 

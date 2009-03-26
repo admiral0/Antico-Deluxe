@@ -18,7 +18,10 @@ case "$1" in
     ;;
   *)
     if [ -x wm/antico-deluxe ]; then
-      export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./amelib
+      oldldpath=$LD_LIBRARY_PATH
+      export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/amelib
+      oldpath=$PATH
+      export PATH=$PATH:$PWD/syspref
       adx=wm/antico-deluxe
     else
       echo "AnticoDeluxe has not been build yet!"
@@ -41,4 +44,10 @@ if [ -n $adx ]; then
 
   xauth remove $(hostname)/unix:1 
   xauth remove localhost.localdomain/unix:1
+  if [ -n $oldpath ]; then
+    export PATH=$oldpath
+  fi
+  if [ -n $oldldpath ]; then
+    export LD_LIBRARY_PATH=$oldldpath
+  fi
 fi

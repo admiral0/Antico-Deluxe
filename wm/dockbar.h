@@ -76,7 +76,9 @@ private:
 	DockIconsList *iconsList;
 	int dockFactor; 	// Dockbar scale factor (0,100) percents
 	QString dockPix;	//
-
+    int dockAnimSpeed;  //Speed of hiding/showing.
+    int dockSHDelay;    //Wait this amount of time before hiding/showing.
+    
 	QTimer *timer, *hideTimer;
 	bool checkCursor();
 };

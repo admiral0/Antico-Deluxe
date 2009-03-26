@@ -1,40 +1,25 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>dockFrm</class>
- <widget class="QWidget" name="dockFrm" >
-  <property name="geometry" >
+ <widget class="QWidget" name="dockFrm">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>582</width>
-    <height>234</height>
+    <width>479</width>
+    <height>242</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="2" >
-    <spacer name="verticalSpacer_2" >
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType" >
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0" >
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="0" >
-    <spacer name="horizontalSpacer_2" >
-     <property name="orientation" >
+  <layout class="QGridLayout" name="gridLayout_5">
+   <item row="0" column="0">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>128</width>
        <height>20</height>
@@ -42,199 +27,127 @@
      </property>
     </spacer>
    </item>
-   <item row="1" column="1" >
-    <widget class="QLabel" name="label" >
-     <property name="text" >
-      <string>Size:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2" >
-    <widget class="QSlider" name="dockSizeSld" >
-     <property name="minimum" >
-      <number>30</number>
-     </property>
-     <property name="maximum" >
-      <number>100</number>
-     </property>
-     <property name="value" >
-      <number>100</number>
-     </property>
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3" >
-    <spacer name="horizontalSpacer_3" >
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0" >
-      <size>
-       <width>128</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="2" column="2" >
-    <layout class="QHBoxLayout" name="horizontalLayout_2" >
-     <item>
-      <widget class="QLabel" name="label_2" >
-       <property name="font" >
+   <item row="0" column="1">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Size:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="5">
+      <widget class="QSlider" name="dockSizeSld">
+       <property name="minimum">
+        <number>30</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>100</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_2">
+       <property name="font">
         <font>
          <pointsize>7</pointsize>
         </font>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Very small</string>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QLabel" name="label_3" >
-       <property name="font" >
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_3">
+       <property name="font">
         <font>
          <pointsize>7</pointsize>
         </font>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Small</string>
        </property>
-       <property name="alignment" >
+       <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QLabel" name="label_4" >
-       <property name="font" >
+     <item row="1" column="3">
+      <widget class="QLabel" name="label_4">
+       <property name="font">
         <font>
          <pointsize>7</pointsize>
         </font>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Medium</string>
        </property>
-       <property name="alignment" >
+       <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QLabel" name="label_5" >
-       <property name="font" >
+     <item row="1" column="4">
+      <widget class="QLabel" name="label_5">
+       <property name="font">
         <font>
          <pointsize>7</pointsize>
         </font>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Normal</string>
        </property>
-       <property name="alignment" >
+       <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QLabel" name="label_6" >
-       <property name="font" >
+     <item row="1" column="5">
+      <widget class="QLabel" name="label_6">
+       <property name="font">
         <font>
          <pointsize>7</pointsize>
         </font>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Huge</string>
        </property>
-       <property name="alignment" >
+       <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="4" column="2" >
-    <widget class="QCheckBox" name="showHideChk" >
-     <property name="text" >
-      <string>Automatically hide and show the Dock</string>
+   <item row="0" column="2" colspan="2">
+    <spacer name="horizontalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-    </widget>
-   </item>
-   <item row="5" column="2" >
-    <spacer name="verticalSpacer" >
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
-       <width>20</width>
-       <height>73</height>
+       <width>128</width>
+       <height>20</height>
       </size>
      </property>
     </spacer>
    </item>
-   <item row="6" column="0" colspan="4" >
-    <layout class="QHBoxLayout" name="horizontalLayout" >
-     <item>
-      <spacer name="horizontalSpacer" >
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0" >
-        <size>
-         <width>518</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QToolButton" name="helpBtn" >
-       <property name="minimumSize" >
-        <size>
-         <width>27</width>
-         <height>27</height>
-        </size>
-       </property>
-       <property name="maximumSize" >
-        <size>
-         <width>27</width>
-         <height>27</height>
-        </size>
-       </property>
-       <property name="font" >
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text" >
-        <string>?</string>
-       </property>
-       <property name="icon" >
-        <iconset resource="../syspref.qrc" >
-         <normaloff>:/icons/tool/question.png</normaloff>:/icons/tool/question.png</iconset>
-       </property>
-       <property name="iconSize" >
-        <size>
-         <width>12</width>
-         <height>12</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="3" column="2" >
-    <spacer name="verticalSpacer_3" >
-     <property name="orientation" >
+   <item row="1" column="1">
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
+     <property name="sizeType">
       <enum>QSizePolicy::Fixed</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>10</height>
@@ -242,10 +155,216 @@
      </property>
     </spacer>
    </item>
+   <item row="2" column="0">
+    <spacer name="horizontalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="1" rowspan="2">
+    <widget class="QGroupBox" name="gbchkAutoHide">
+     <property name="minimumSize">
+      <size>
+       <width>331</width>
+       <height>121</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Automatically hide/show the Dock</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayout" rowminimumheight="20,10" columnminimumwidth="50,120,120">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string>Speed:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QSlider" name="sldrSpeed">
+          <property name="minimum">
+           <number>-10</number>
+          </property>
+          <property name="maximum">
+           <number>0</number>
+          </property>
+          <property name="singleStep">
+           <number>2</number>
+          </property>
+          <property name="pageStep">
+           <number>5</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_12">
+          <property name="font">
+           <font>
+            <pointsize>7</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Slow</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_8">
+          <property name="font">
+           <font>
+            <pointsize>7</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Fast</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QGridLayout" name="gridLayout_3" rowminimumheight="20,10" columnminimumwidth="50,120,120">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_13">
+          <property name="text">
+           <string>Delay:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QSlider" name="sldrDelay">
+          <property name="minimum">
+           <number>100</number>
+          </property>
+          <property name="maximum">
+           <number>2000</number>
+          </property>
+          <property name="singleStep">
+           <number>100</number>
+          </property>
+          <property name="pageStep">
+           <number>500</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_14">
+          <property name="font">
+           <font>
+            <pointsize>7</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Small</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_9">
+          <property name="font">
+           <font>
+            <pointsize>7</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Big</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="2" colspan="2">
+    <spacer name="horizontalSpacer_5">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="4" column="0" colspan="3">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>422</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="4" column="3">
+    <widget class="QToolButton" name="helpBtn">
+     <property name="minimumSize">
+      <size>
+       <width>27</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>27</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>?</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../syspref.qrc">
+       <normaloff>:/icons/tool/question.png</normaloff>:/icons/tool/question.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>12</width>
+       <height>12</height>
+      </size>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources>
-  <include location="../syspref.qrc" />
+  <include location="../syspref.qrc"/>
  </resources>
  <connections/>
 </ui>

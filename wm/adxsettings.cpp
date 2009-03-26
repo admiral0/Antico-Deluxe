@@ -18,6 +18,8 @@ void Adx::readAdxSettings(void)
 	stg->setValue("dock_pix", QCoreApplication::applicationDirPath() + "/../share/themes/antico/default/dockbar.png");
 	stg->value("dock_factor", 100).toInt();
 	stg->value("dock_autohide", false).toBool();
+	stg->value("dock_animspeed", 10).toInt();
+	stg->value("dock_shdelay",2000).toInt();
 	stg->endGroup(); //Dockbar
 	/////////////////////////////////////////////////////////////////////////
 	stg->beginGroup("Dockicon");
