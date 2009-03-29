@@ -24,6 +24,7 @@ void Desktop::init(int top_margin)
 {
 	app->stg->beginGroup("Desktop");
 	QString wall_pix = app->stg->value("wallpaper", "").toString();
+	app->stg->endGroup();
 
 	setGeometry(0, top_margin, QApplication::desktop()->width(), QApplication::desktop()->height() - top_margin);
 	// TODO: check is wallpaper file exists, if not - fill background with default blue

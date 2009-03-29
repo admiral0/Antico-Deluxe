@@ -39,7 +39,7 @@ Dockbar::Dockbar(Adx *a, QWidget *parent) : QLabel(parent)
 	iconLayout->setSpacing(1);
 
 	dockLayout->addWidget(dockFrame);
-	setSizeFactor(dockFactor, false);
+	setSizeFactor(dockSizeFactor, false);
 }
 
 Dockbar::~Dockbar()
@@ -50,9 +50,8 @@ void Dockbar::readSettings()
 {
 	app->stg->beginGroup("Dockbar");
 	dockPix = app->stg->value("dock_pix").toString();
-	dockFactor = app->stg->value("dock_factor", 100).toInt();
-	dockAnimSpeed = app->stg->value("dock_animspeed", 10).toInt();
-	dockSHDelay = app->stg->value("dock_shdelay", 2000).toInt();
+	dockSizeFactor = app->stg->value("dock_factor", 100).toInt();
+	setAnimSpeed(app->stg->value("dock_anim_factor", 0).toInt());
 	autoHide = app->stg->value("dock_autohide", false).toBool();
 	app->stg->endGroup(); //Dockbar
 }
@@ -60,9 +59,16 @@ void Dockbar::readSettings()
 void Dockbar::saveSettings()
 {
 	app->stg->beginGroup("Dockbar");
-	app->stg->setValue("dock_autohide", autoHide);
+	app->stg->setValue("dock_autohide", autoHide);	
 	app->stg->endGroup();
 	app->stg->sync();
+}
+
+void Dockbar::setAnimSpeed(int factor)
+{
+	dockAnimFactor = factor;
+	delay = 800 + dockAnimFactor * 1000;
+	speed = 1 + 10 * dockAnimFactor;
 }
 
 void Dockbar::addClient(Client *client)
@@ -155,7 +161,7 @@ bool Dockbar::checkCursor()
 void Dockbar::hideShowDock()
 {
 	hideTimer->stop();
-	hideTimer->start(dockSHDelay);
+	hideTimer->start(delay);
 	if (dockState == Dockbar::Normal && !checkCursor()) {
 		animateHide();
 	} else if (dockState == Dockbar::Hidden && checkCursor())
@@ -171,7 +177,7 @@ void Dockbar::animateHide()
 	if (dockState == Dockbar::Normal) {
 		connect(timer, SIGNAL(timeout()), this, SLOT(hide1Step()));
 		dockState = Dockbar::Hiding;
-		timer->start(dockAnimSpeed);
+		timer->start(speed);
 	}
 }
 
@@ -194,12 +200,27 @@ void Dockbar::hide1Step()
 	}
 }
 
+void Dockbar::showFast()
+{
+	if (dockState == Dockbar::Normal)
+		return;
+
+	timer->stop();
+	hideTimer->stop();
+	move(x(), app->desktop->height() + app->toppanel->height() - height());
+
+	autoHide = false;
+	dockState = Dockbar::Normal;
+	saveSettings();
+
+}
+
 void Dockbar::animateShow()
 {
 	if (dockState == Dockbar::Hidden) {
 		connect(timer, SIGNAL(timeout()), this, SLOT(show1Step()));
 		dockState = Dockbar::Showing;
-		timer->start(dockAnimSpeed);
+		timer->start(speed);
 	}
 }
 
@@ -227,6 +248,10 @@ int Dockbar::actualHeight()
 // 
 void Dockbar::setSizeFactor(int factor, bool doSave)
 {
+	dockSizeFactor = factor;
+	if (doSave)
+		saveSettings();
+	
 	//qDebug() << "RESIZING DOCK " << factor;
 	int maxW = QApplication::desktop()->width();
 	int w = (maxW * factor) / 100;
@@ -238,12 +263,6 @@ void Dockbar::setSizeFactor(int factor, bool doSave)
 	move((maxW - w)/2, QApplication::desktop()->height()-h); 
 	//qDebug() << "ACTUAL SIZE " << width() << height();
 	updateSize();
-	dockFactor = factor;
-	if (doSave) {
-		autoHide = false;
-		dockState = Dockbar::Normal;
-		saveSettings();
-	}
 }
 
 void Dockbar::updateSize(void)

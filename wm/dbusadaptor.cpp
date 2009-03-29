@@ -52,3 +52,13 @@ void DBusAdaptor::setDockAutoHide(bool active)
 	dock->setAutoHide(active);
 	app->toppanel->sysBtn->rebuildMenu(active);
 }
+
+void DBusAdaptor::changeDockSpeed(int animFactor)
+{
+	dock->setAnimSpeed(animFactor);
+}
+
+void DBusAdaptor::showDockFast()
+{
+	dock->showFast();
+}

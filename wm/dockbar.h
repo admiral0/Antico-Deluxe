@@ -12,7 +12,7 @@
 
 #include "defs.h"
 
-#define MAX_DOCK_HEIGHT 48
+#define MAX_DOCK_HEIGHT 64
 
 class Client;
 class DockIcon;
@@ -37,6 +37,9 @@ public:
 	Dockbar(Adx *a, QWidget *parent=0);
 	~Dockbar();
 
+	// Show/ hide speed
+	void setAnimSpeed(int);
+
 	// Show / Hide flags
 	void setAutoHide(bool active=true);
 	int dockState;
@@ -58,6 +61,7 @@ public slots:
 	void removeIcon(DockIcon *);
 
 	// Show / Hide functions
+	void showFast();
 	void hideShowDock();
 	void animateHide();
 	void animateShow();
@@ -74,10 +78,10 @@ private:
 	Adx *app;
 
 	DockIconsList *iconsList;
-	int dockFactor; 	// Dockbar scale factor (0,100) percents
 	QString dockPix;	//
-    int dockAnimSpeed;  //Speed of hiding/showing.
-    int dockSHDelay;    //Wait this amount of time before hiding/showing.
+	int dockSizeFactor; 	// Dockbar scale factor (0,100) percents
+	int dockAnimFactor;	//Speed of hiding/showing.
+	int delay, speed;
     
 	QTimer *timer, *hideTimer;
 	bool checkCursor();

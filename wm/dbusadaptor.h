@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File       	: dbusadaptor.h			//
+//  File       	: dbusadaptor.h		//
 //  Written by	: ludmiloff@gmail.com	//
-//  Copyright  	: GPL					//
+//  Copyright  	: GPL2			//
 //////////////////////////////////////////
 
 #ifndef __DBUSADAPTOR_H
@@ -30,6 +30,8 @@ public slots:
 	Q_NOREPLY void changeDockSize(int factor);
 	Q_NOREPLY void minimizeDblClick(bool active);
 	Q_NOREPLY void setDockAutoHide(bool active);
+	Q_NOREPLY void showDockFast();
+	Q_NOREPLY void changeDockSpeed(int animFactor);
 
 protected:
 	Desktop *desktop;

@@ -117,7 +117,7 @@ void SystemMenu::onShowHideDock()
 		app->dock->setAutoHide(true);
 		f = 1;
 	} else if (app->dock->dockState == Dockbar::Hidden) {
-		app->dock->animateShow();
+		//app->dock->animateShow();
 		app->dock->setAutoHide(false);
 		action->setText("Turn Hiding On");
 		f = 0;

@@ -10,7 +10,7 @@
 
 void Adx::readAdxSettings(void)
 {
-	// default path = $HOME/.config/AnticoDeluxe/AnticoDeluxe.conf"
+	// default path = $HOME/.ame/config/AnticoDeluxe"
 	stg = new AmeSettings(AmeDirs::global()->stdDir(AmeDirs::Configs) + "/AnticoDeluxe", QSettings::IniFormat);
 
 	/////////////////////////////////////////////////////////////////////////
@@ -18,8 +18,7 @@ void Adx::readAdxSettings(void)
 	stg->setValue("dock_pix", QCoreApplication::applicationDirPath() + "/../share/themes/antico/default/dockbar.png");
 	stg->value("dock_factor", 100).toInt();
 	stg->value("dock_autohide", false).toBool();
-	stg->value("dock_animspeed", 10).toInt();
-	stg->value("dock_shdelay",2000).toInt();
+	stg->value("dock_anim_factor", 0).toInt();
 	stg->endGroup(); //Dockbar
 	/////////////////////////////////////////////////////////////////////////
 	stg->beginGroup("Dockicon");

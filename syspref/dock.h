@@ -13,15 +13,14 @@ public:
 	~DockPref();
 
 	virtual void readSettings();
-  virtual bool saveSettings();
+	virtual bool saveSettings();
 
 	virtual void execFunction(int, int);
 
 public slots:
 	void onChangeDockSize(int value);
 	void onShowHideDock(bool active);
-  void onChangeAnimSpeed(int value);
-  void onChangeSHDelay(int value);
+	void onDockAnimation(int);
 
 protected:
 
