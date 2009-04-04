@@ -25,3 +25,9 @@ QStringList AmeDesktopFile::readCategories() const
 	QString data = map.value("Categories", "Other");
 	return data.split(';', QString::SkipEmptyParts);
 }
+
+bool AmeDesktopFile::isVisible()
+{
+	QString data = map.value("NoDisplay",QString());
+	return data.toLower()!="true";
+}

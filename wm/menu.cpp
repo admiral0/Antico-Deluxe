@@ -5,7 +5,7 @@
 MenuAction::MenuAction(const QString &text, const QString &comment, QObject *parent)
 	: QAction(text, parent)
 {
-Q_UNUSED(comment);	
+	Q_UNUSED(comment);	
 }
 
 MenuAction::MenuAction(const QIcon &icon, const QString &text, const QString &comment, QObject *parent)
@@ -78,25 +78,46 @@ void MenuButton::readSystemMenu(const QString &path)
 		else if (AmeDesktopFile::isDesktopFile(path+fi.fileName())) {
 			AmeDesktopFile *desktop = new AmeDesktopFile(path+fi.fileName());
 			QString title = desktop->readName();
-			if (title.isEmpty()) 
-				continue;
-			QStringList cat = desktop->readCategories();
-			QString execCmd = desktop->readCommand();
-			//QString data = desktop->value("Categories", QVariant("")).toString();
-			MenuAction *act = new MenuAction(title, "", this);
-			act->setCommand(execCmd);
-			connect(act, SIGNAL(triggered(bool)), act, SLOT(runCommand()));
+			if (!title.isEmpty() && desktop->isVisible()) {
+				QStringList cat = desktop->readCategories();
+				QString execCmd = desktop->readCommand();
+				//QString data = desktop->value("Categories", QVariant("")).toString();
 
-			found = false;
-			for (int c = 0; c < cat.size(); c++) {
-				if (m_Catalog.contains(cat[c])) {
-					m_Menu.insert(cat[c], act);
-					found = true;
-					break;
+				found = false;
+				for (int c = 0; c < cat.size(); c++) {
+					if (m_Catalog.contains(cat[c])) {
+						QList <MenuAction *> items = m_Menu.values(cat[c]);
+						for (int i=0;i<items.size();i++) {
+							if (items[i]->text() == title) {
+								found = true;
+								break;
+							}
+						}
+						if (!found){
+							MenuAction *act = new MenuAction(title, "", this);
+							act->setCommand(execCmd);
+							connect(act, SIGNAL(triggered(bool)), act, SLOT(runCommand()));
+							m_Menu.insert(cat[c], act);
+							found = true;						
+						}						
+						break;
+					}
 				}
-			}
-			if (!found) {
-				m_Menu.insert("Other", act);
+				if (!found) {
+					QList <MenuAction *> items = m_Menu.values("Other");
+					for (int i=0;i<items.size();i++) {
+						if (items[i]->text() == title) {
+							found = true;
+							break;
+						}
+					}
+					if (!found) {
+						MenuAction *act = new MenuAction(title, "", this);
+						act->setCommand(execCmd);
+						connect(act, SIGNAL(triggered(bool)), act, SLOT(runCommand()));
+						m_Menu.insert("Other", act);
+					}
+				}	
 			}
 		}
 	}		
@@ -115,7 +136,7 @@ void MenuButton::buildMenu()
 
 		QList <MenuAction *> items = m_Menu.values(cat[k]);
 		qSort(items.begin(), items.end(), compareMnuAct);
-
+		
 		for (int i = 0; i < items.size(); i++) {
 			submenu->addAction(items[i]);
 		}

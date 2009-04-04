@@ -16,6 +16,7 @@ public:
 	QString readName() const;
 	QStringList readCategories() const;
 	QString readCommand() const;
+	bool isVisible();
 };
 
 #endif
