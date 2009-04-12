@@ -68,9 +68,7 @@ void SysPref::onShowMain()
 	widget->aboutToClose();
 	stack->removeWidget(stack->widget(1));
 	nextWidget = widget;
-	if (prevWidget != NULL)
-		delete prevWidget;
-	prevWidget = NULL;
+	discardPrevious();
 	stack->setCurrentIndex(0);
 	resize(QSize(600, 350));
 	setWindowTitle("System Preferences");
@@ -89,11 +87,8 @@ void SysPref::onShowNext()
 		stack->addWidget(nextWidget);
 		nextWidget->show();
 		stack->setCurrentIndex(1);
-		if (prevWidget != NULL) {
-			delete prevWidget;
-		}
+		discardPrevious();
 		setWindowTitle(nextWidget->moduleName);
-		prevWidget = NULL;
 		nextWidget = NULL;
 	}
 }
@@ -117,56 +112,81 @@ void SysPref::createToolbar()
 
 void SysPref::onWallpaper()
 {
-	Wallpaper *frm = new Wallpaper();
+	Wallpaper *frm;
+	if (nextWidget != NULL && nextWidget->moduleName == "Desktop Wallpaper") {
+		frm = (Wallpaper *) nextWidget;
+	} else {
+		frm = new Wallpaper();
+	}
 	stack->addWidget(frm);
 	frm->show();
 	stack->setCurrentIndex(1);
-	prevWidget = NULL;
+	discardPrevious();
 	nextWidget = NULL;
 	setWindowTitle(frm->moduleName);
 }
 
 void SysPref::onAppearance()
 {
-	Appearance *frm = new Appearance();
+	Appearance *frm;
+	if (nextWidget != NULL && nextWidget->moduleName == "Appearance") {
+		frm = (Appearance *) nextWidget;
+	} else {
+		frm = new Appearance();
+	}
 	stack->addWidget(frm);
 	frm->show();
 	stack->setCurrentIndex(1);
-	prevWidget = NULL;
+	discardPrevious();
 	nextWidget = NULL;
 	setWindowTitle(frm->moduleName);	
 }
 
 void SysPref::onDock()
 {
-	DockPref *frm = new DockPref();
+	DockPref *frm;
+	if (nextWidget != NULL && nextWidget->moduleName == "Dock") {
+		frm = (DockPref *) nextWidget;
+	} else {
+		frm = new DockPref();
+	}
 	stack->addWidget(frm);
 	frm->show();
 	stack->setCurrentIndex(1);
-	prevWidget = NULL;
+	discardPrevious();
 	nextWidget = NULL;
 	setWindowTitle(frm->moduleName);	
 }
 
 void SysPref::onDateTime()
 {
-	DateTimePref *frm = new DateTimePref();
+	DateTimePref *frm;
+	if (nextWidget != NULL && nextWidget->moduleName == "Date & Time") {
+		frm = (DateTimePref *) nextWidget;
+	} else {
+		frm = new DateTimePref();
+	}
 	stack->addWidget(frm);
 	frm->show();
 	stack->setCurrentIndex(1);
-	prevWidget = NULL;
+	discardPrevious();
 	nextWidget = NULL;
 	setWindowTitle(frm->moduleName);	
 }
 
 void SysPref::onSound()
 {
-	SoundPref *frm = new SoundPref();
+	SoundPref *frm;
+	if (nextWidget != NULL && nextWidget->moduleName == "Sound") {
+		frm = (SoundPref*) nextWidget;
+	} else {
+		frm = new SoundPref();
+	}
 	stack->addWidget(frm);
 	frm->refresh();
 	frm->show();
 	stack->setCurrentIndex(1);
-	prevWidget = NULL;
+	discardPrevious();
 	nextWidget = NULL;
 	setWindowTitle(frm->moduleName);		
 }
@@ -176,11 +196,25 @@ void SysPref::addModule()
 {
 }
 
+void SysPref::discardPrevious()
+{
+	if (prevWidget != NULL) {
+		delete prevWidget;
+		prevWidget = NULL;
+	}
+}
+
+void SysPref::discardNext()
+{
+	if (nextWidget != NULL) {
+		delete nextWidget;
+		nextWidget = NULL;
+	}
+}
+
 void SysPref::setupLaunchers()
 {
 	// Personal section
-	qDebug() << "PERSONAL SECTION";
-
 	AmeIconLink *appearance = new AmeIconLink("Appearance", ":/icons/object/appearance.png", "appearance", "");
 	connect(appearance, SIGNAL(clicked()), this, SLOT(onAppearance()));
 
@@ -199,14 +233,14 @@ void SysPref::setupLaunchers()
 	
 	browser->addSection(personal);
 
-	qDebug() << "HARDWARE SECTION";
+	// Hardware section
 	AmeIconLink *asound = new AmeIconLink("Sound", ":/icons/object/sound.png", "sound", "");
 	hardware->addIcon(asound);
 	connect(asound, SIGNAL(clicked()), this, SLOT(onSound()));
 	
 	browser->addSection(hardware);
 
-	qDebug() << "SYSTEM SECTION";
+	// System section
 	AmeIconLink *aclock = new AmeIconLink("Date &\nTime", ":/icons/object/date-time.png", "datetime", "");
 	system->addIcon(aclock);
 	connect(aclock, SIGNAL(clicked()), this, SLOT(onDateTime()));

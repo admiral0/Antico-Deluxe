@@ -14,7 +14,6 @@ PrefWidget::PrefWidget(QWidget *parent)
 	antico = new AmeSettings(AmeDirs::global()->stdDir(AmeDirs::Configs) + "/AnticoDeluxe", QSettings::IniFormat);
 
 	snd = new AmeSystemSound(this);
-	snd->setEmbedSound(AmeSoundTheme::Lock);
 	connect(this, SIGNAL(moduleIsUnlocked(bool)), this, SLOT(onUnlock(bool)));
 }
 
@@ -41,5 +40,6 @@ bool PrefWidget::aboutToClose()
 
 void PrefWidget::onUnlock(bool)
 {
+	snd->setEmbedSound(AmeSoundTheme::Lock);
 	snd->play();
 }

@@ -8,7 +8,7 @@
 //  by Stan Seibert <volsung@xiph.org> AND OTHER 	//
 //  CONTRIBUTORS, http://www.xiph.org/			//
 //							//
-//  Sound volume mixer taken fro QMMP project - 	//
+//  Sound volume mixer taken from QMMP project - 	//
 //  http://qmmp.ylsoftware.com/				//
 //							//
 //  Some modifications & stripping made by me: 		//							//
@@ -51,7 +51,16 @@ public:
 	int volume();
 	void setVolume(int);
 	bool isMuted();
-	
+	bool mixerHasSwitch();
+	void mute();
+
+	// Mixer setup routines
+	// public here for easy access outside AmeSystemSound
+	int setupMixer(QString card, QString device);
+	int reinitMixer(QString card, QString device);
+	void parseMixerName(char *str, char **name, int *index);
+	int getMixer(snd_mixer_t **mixer, QString card);
+
 	//
 	void initialize();
 	void uninitialize();
@@ -94,13 +103,9 @@ private:
 
 	// Alsa mixer
 	bool useMixer;
-	int setupMixer(QString card, QString device);
-	void parseMixerName(char *str, char **name, int *index);
-	
-	int getMixer(snd_mixer_t **mixer, QString card);
 	snd_mixer_elem_t* getMixerElem(snd_mixer_t *mixer, char *name, int index);
 	snd_mixer_t *mixer;
-	snd_mixer_elem_t *pcm_element;
+	snd_mixer_elem_t *mixer_element;
 };
 
 #endif

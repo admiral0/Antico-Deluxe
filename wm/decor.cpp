@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File       	: decor.cpp				//
+//  File       	: decor.cpp		//
 //  Written by	: ludmiloff@gmail.com	//
-//  Copyright  	: GPL					//
+//  Copyright  	: GPL2			//
 //////////////////////////////////////////
 
 #include "decor.h"

@@ -36,7 +36,6 @@ void Adx::readAdxSettings(void)
 	QColor lastColor = QColor(stg->value("last_highlight", QColor(0, 0, 255).name()).toString());
 	setHighlightColor(lastColor);
 	minimizeDblClick = stg->value("minimize_dbl_click", false).toBool();
-
 	stg->endGroup();
 	/////////////////////////////////////////////////////////////////////////
 	stg->sync();

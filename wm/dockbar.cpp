@@ -1,9 +1,9 @@
-/////////////////////////////////////////
-//  File       : dockbar.cpp           //
-//  Written by : g_cigala@virgilio.it  //
-//  Modified by: ludmiloff@gmail.com   //
-//  Copyright  : GPL                   //
-/////////////////////////////////////////
+//////////////////////////////////////////
+//  File       : dockbar.cpp		//
+//  Written by : g_cigala@virgilio.it	//
+//  Modified by: ludmiloff@gmail.com	//
+//  Copyright  : GPL2			//
+//////////////////////////////////////////
 
 #include "dockbar.h"
 #include "dockicon.h"

@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File       	: dbusadaptor.cpp		//
+//  File       	: dbusadaptor.cpp	//
 //  Written by	: ludmiloff@gmail.com	//
-//  Copyright  	: GPL					//
+//  Copyright  	: GPL2			//
 //////////////////////////////////////////
 
 #include "dbusadaptor.h"
@@ -61,4 +61,14 @@ void DBusAdaptor::changeDockSpeed(int animFactor)
 void DBusAdaptor::showDockFast()
 {
 	dock->showFast();
+}
+
+void DBusAdaptor::soundVolumeFeedback(bool enable)
+{
+	app->toppanel->enableSoundVolumeFeedback(enable);
+}
+
+void DBusAdaptor::showSoundVolumeCtrl(bool enable)
+{
+	app->toppanel->showSoundVolumeCtrl(enable);
 }

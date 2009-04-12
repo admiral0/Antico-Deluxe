@@ -35,30 +35,49 @@ SliderWidget::SliderWidget(QWidget *parent)
 	setLayout(layout);
 	setFixedWidth(28);
 	
-	snd = new AmeSystemSound();
-	snd->setEmbedSound(AmeSoundTheme::Popup);
+	snd = new AmeSystemSound(this);
+	snd->setEmbedSound(AmeSoundTheme::Popup, true);
 	
 	slider->setMinimum(0);
 	slider->setMaximum(100);
 	if (snd->isMuted()) {
-		v = 0;
-		slider->setValue(0);
+		// TODO: update icon to muted
 	} else {
-		v = snd->volume();
-		slider->setValue(v);
+		// TODO:
 	}
-	
+	slider->setValue(snd->volume());
+
 	connect(slider, SIGNAL(sliderReleased()), this, SLOT(onSliderRelease()));
 	connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(onSliderMove(int)));
 	connect(snd, SIGNAL(systemVolumeChanged(int)), this, SLOT(onSystemVolume(int)));
 
+	timer = new QTimer();
+	connect(timer, SIGNAL(timeout()), this, SLOT(updateVolume()));
 	changing = false;
+}
+
+void SliderWidget::setAutoRefresh(bool enable)
+{
+	if (enable) {		
+		timer->start(100);
+	} else {
+		timer->stop();
+	}
+}
+
+void SliderWidget::updateVolume()
+{
+	if (changing) // do not auto update when moving slider, it is done already
+		return;
+	int v = snd->volume();
+	slider->setValue(v);
+	emit volumeChanged(v);
 }
 
 void SliderWidget::onSliderRelease()
 {
-	snd->play();
-	qDebug() << "VOLUME = " << snd->volume();
+	if (playFeedback)
+		snd->play();
 }
 
 void SliderWidget::onSliderMove(int v)
@@ -89,8 +108,7 @@ VolumeCtrl::VolumeCtrl(Panel *p, QWidget *parent)
 	volumeSlider = new SliderWidget();
 	
 	connect(volumeSlider, SIGNAL(volumeChanged(int)), this, SLOT(updateIcon(int)));
-	updateIcon(volumeSlider->v);
-	//setImages(QPixmap(":/default/volume0.png"), QPixmap(":/default/volume0-active.png"));
+	updateIcon(volumeSlider->snd->volume());
 }
 
 VolumeCtrl::~VolumeCtrl()
@@ -102,6 +120,8 @@ void VolumeCtrl::activate()
 	if (!(activated) ) {
 		panel->deactivateLast(this);
 		volumeSlider->move(this->mapToGlobal(QPoint(0, height())));
+		volumeSlider->updateVolume();
+		volumeSlider->setAutoRefresh(true);
 		volumeSlider->show();
 		XRaiseWindow(display(), volumeSlider->winId());
 		activated = true;
@@ -112,6 +132,7 @@ void VolumeCtrl::activate()
 void VolumeCtrl::deactivate()
 {
 	if (activated) {
+		volumeSlider->setAutoRefresh(false);
 		volumeSlider->hide();
 		activated = false;
 		panel->unfocusChilds();
@@ -137,6 +158,11 @@ void VolumeCtrl::updateIcon(int v)
 		setImages(QPixmap(":/default/volume3.png"), QPixmap(":/default/volume3-active.png"));
 	}
 	update();
+}
+
+void VolumeCtrl::enableFeedback(bool enable)
+{
+	volumeSlider->playFeedback = enable;
 }
 
 /*

@@ -13,10 +13,13 @@ public:
 	SliderWidget(QWidget *parent = 0);
 	~SliderWidget();
 
+	void setAutoRefresh(bool);
+
 public slots:
 	void onSliderRelease();
 	void onSliderMove(int);
 	void onSystemVolume(int);
+	void updateVolume();
 
 signals:
 	void volumeChanged(int);
@@ -24,10 +27,11 @@ signals:
 public:
 	QSlider *slider;
 	AmeSystemSound *snd;
-	int v;
+	bool playFeedback;
 
 private:
 	bool changing;
+	QTimer *timer;
 };
 
 class VolumeCtrl : public GenericButton
@@ -46,6 +50,7 @@ public:
 
 public slots:
 	void updateIcon(int);
+	void enableFeedback(bool);
 };
 
 #endif

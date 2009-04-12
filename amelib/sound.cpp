@@ -98,29 +98,51 @@ void AmeSystemSound::setEmbedSound(int soundId, bool force)
 
 int AmeSystemSound::volume()
 {
-	if (!pcm_element)
+	if (!mixer_element)
 		return 0;
 	
 	long l, r;
 	snd_mixer_handle_events(mixer);
-	snd_mixer_selem_get_playback_volume(pcm_element, SND_MIXER_SCHN_FRONT_LEFT, &l);
-	snd_mixer_selem_get_playback_volume(pcm_element, SND_MIXER_SCHN_FRONT_RIGHT, &r);
+	snd_mixer_selem_get_playback_volume(mixer_element, SND_MIXER_SCHN_FRONT_LEFT, &l);
+	snd_mixer_selem_get_playback_volume(mixer_element, SND_MIXER_SCHN_FRONT_RIGHT, &r);
 
 	return (l+r)/2;
 }
 
 void AmeSystemSound::setVolume(int v)
 {
-	if (!pcm_element)
+	if (!mixer_element)
 		return;
-	snd_mixer_selem_set_playback_volume(pcm_element, SND_MIXER_SCHN_FRONT_LEFT, v);
-	snd_mixer_selem_set_playback_volume(pcm_element, SND_MIXER_SCHN_FRONT_RIGHT, v);
+	snd_mixer_selem_set_playback_volume(mixer_element, SND_MIXER_SCHN_FRONT_LEFT, v);
+	snd_mixer_selem_set_playback_volume(mixer_element, SND_MIXER_SCHN_FRONT_RIGHT, v);
 }
 
 
 bool AmeSystemSound::isMuted()
 {
-	return false;
+	int sw;
+	if (snd_mixer_selem_has_playback_switch(mixer_element)) {
+		snd_mixer_selem_get_playback_switch(mixer_element, SND_MIXER_SCHN_FRONT_LEFT, &sw);
+		return !sw;
+	} else
+		return false;
+}
+
+bool AmeSystemSound::mixerHasSwitch()
+{
+	if (snd_mixer_selem_has_playback_switch(mixer_element))
+		return true;
+	else
+		return false;
+}
+
+void AmeSystemSound::mute()
+{
+	int sw;
+	if (snd_mixer_selem_has_playback_switch(mixer_element)) {
+		snd_mixer_selem_get_playback_switch(mixer_element, SND_MIXER_SCHN_FRONT_LEFT, &sw);
+		snd_mixer_selem_set_playback_switch_all(mixer_element, !sw);
+	}
 }
 
 void AmeSystemSound::onVolumeChanged(int volume)
@@ -180,7 +202,7 @@ void AmeSystemSound::initialize()
 	
 	if (useMixer) {
 		QString mixerCard = settings.value("Mixer/mixer_card", "hw:0").toString();
-		QString mixerDevice = settings.value("Mixer/mixer_device", "PCM").toString();
+		QString mixerDevice = settings.value("Mixer/mixer_device", "Master").toString();
 		setupMixer(mixerCard, mixerDevice);
 	}
 	
@@ -284,7 +306,7 @@ int AmeSystemSound::setupMixer(QString card, QString device)
     long int a, b;
     long alsa_min_vol = 0, alsa_max_vol = 100;
     int err, index;
-    pcm_element = 0;
+    mixer_element = 0;
 
     qDebug("AmeSystemSound::SoundOutput: setupMixer()");
 
@@ -293,11 +315,11 @@ int AmeSystemSound::setupMixer(QString card, QString device)
 
     parseMixerName(device.toAscii().data(), &name, &index);
 
-    pcm_element = getMixerElem(mixer, name, index);
+    mixer_element = getMixerElem(mixer, name, index);
 
     free(name);
 
-    if (!pcm_element)
+    if (!mixer_element)
     {
         qWarning("SoundOutput: Failed to find mixer element");
         return -1;
@@ -308,16 +330,16 @@ int AmeSystemSound::setupMixer(QString card, QString device)
      * new range don't take effect until the volume is changed.
      * This hack should be removed once we depend on Alsa 1.0.0.
      */
-    snd_mixer_selem_get_playback_volume(pcm_element, SND_MIXER_SCHN_FRONT_LEFT, &a);
-    snd_mixer_selem_get_playback_volume(pcm_element, SND_MIXER_SCHN_FRONT_RIGHT, &b);
+    snd_mixer_selem_get_playback_volume(mixer_element, SND_MIXER_SCHN_FRONT_LEFT, &a);
+    snd_mixer_selem_get_playback_volume(mixer_element, SND_MIXER_SCHN_FRONT_RIGHT, &b);
 
-    snd_mixer_selem_get_playback_volume_range(pcm_element,
+    snd_mixer_selem_get_playback_volume_range(mixer_element,
             &alsa_min_vol, &alsa_max_vol);
-    snd_mixer_selem_set_playback_volume_range(pcm_element, 0, 100);
+    snd_mixer_selem_set_playback_volume_range(mixer_element, 0, 100);
 
     if (alsa_max_vol == 0)
     {
-        pcm_element = NULL;
+	mixer_element = NULL;
         return -1;
     }
 
@@ -326,6 +348,19 @@ int AmeSystemSound::setupMixer(QString card, QString device)
     qDebug("SoundOutput: setupMixer() success");
 
     return 0;
+}
+
+int AmeSystemSound::reinitMixer(QString card, QString device)
+{
+	if (!useMixer)
+		return 0;
+
+	if (mixer) {
+		snd_mixer_close(mixer);
+		mixer = 0;
+	}
+
+	setupMixer(card, device);
 }
 
 void AmeSystemSound::parseMixerName(char *str, char **name, int *index)
@@ -362,8 +397,8 @@ snd_mixer_elem_t* AmeSystemSound::getMixerElem(snd_mixer_t *mixer, char *name, i
 
 int AmeSystemSound::getMixer(snd_mixer_t **mixer, QString card)
 {
-    char *dev;
-    int err;
+	char *dev;
+	int err;
 	
 	dev = strdup(card.toAscii().data());
 	if ((err = snd_mixer_open(mixer, 0)) < 0) {

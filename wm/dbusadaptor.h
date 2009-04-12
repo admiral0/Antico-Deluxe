@@ -32,6 +32,8 @@ public slots:
 	Q_NOREPLY void setDockAutoHide(bool active);
 	Q_NOREPLY void showDockFast();
 	Q_NOREPLY void changeDockSpeed(int animFactor);
+	Q_NOREPLY void soundVolumeFeedback(bool enable);
+	Q_NOREPLY void showSoundVolumeCtrl(bool enable);
 
 protected:
 	Desktop *desktop;

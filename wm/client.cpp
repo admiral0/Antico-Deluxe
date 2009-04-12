@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////
-//  File       	: client.cpp					//
-//  Written by	: ludmiloff@gmail.com			//
+//  File       	: client.cpp			//
+//  Written by	: ludmiloff@gmail.com		//
 //  Some copy/paste code from Antico project	//
-//  Copyright  	: GPL							//
+//  Copyright  	: GPL2				//
 //////////////////////////////////////////////////
 
 #include "client.h"
@@ -89,9 +89,9 @@ void Client::init()
 		by = TITLEBAR_HEIGHT;
 	}
 
-    XMoveResizeWindow(display(), clientId, bx, by, base_w, base_h);
-	
-    // move (in desktop center) and resize parent (qt)
+	XMoveResizeWindow(display(), clientId, bx, by, base_w, base_h);
+
+	// move (in desktop center) and resize parent (qt)
 	n_px = (desktop->width()-base_w)/2;
 	n_py = ((desktop->height()-dock->height() - n_ph)*2)/3 + tbHeight;
 
@@ -125,14 +125,14 @@ void Client::createDecor()
 	layout = new QGridLayout(this);
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
-	
-    // center frame where client apps is shown
-    Border *center = new Border(this);
-    layout->addWidget(center, 1, 1);
 
-    titlebar = new Titlebar(appIcon, clientName, windowRole);
-    layout->addWidget(titlebar, 0, 0, 1, -1);
-    // Window buttons actions
+	// center frame where client apps is shown
+	Border *center = new Border(this);
+	layout->addWidget(center, 1, 1);
+
+	titlebar = new Titlebar(appIcon, clientName, windowRole);
+	layout->addWidget(titlebar, 0, 0, 1, -1);
+	// Window buttons actions
 	if (windowRole != Atoms::Dialog) {
     	connect(qobject_cast <WinButton *>(titlebar->minBtn), SIGNAL(wMouseLeftPress()), SLOT(iconify()));
     	connect(qobject_cast <WinButton *>(titlebar->maxBtn), SIGNAL(wMouseLeftPress()), SLOT(maximize()));
@@ -141,17 +141,17 @@ void Client::createDecor()
 	
 	bottombar = new GenericBar();
 	layout->addWidget(bottombar, 2, 0, 1, -1);
-	
-    // Titlebar actions
-    connect(titlebar, SIGNAL(tMouseLeftPress(QMouseEvent *)), SLOT(titlebarMousePress(QMouseEvent *)));
-    connect(titlebar, SIGNAL(tMouseMove(QMouseEvent *)), SLOT(titlebarMove(QMouseEvent *)));
+
+	// Titlebar actions
+	connect(titlebar, SIGNAL(tMouseLeftPress(QMouseEvent *)), SLOT(titlebarMousePress(QMouseEvent *)));
+	connect(titlebar, SIGNAL(tMouseMove(QMouseEvent *)), SLOT(titlebarMove(QMouseEvent *)));
 	if (dblClickMinimize) {
 		connect(titlebar, SIGNAL(tMouseDblClick()), SLOT(iconify()));
 	}
 	
 	// Bottombar actions
-    connect(bottombar, SIGNAL(tMouseLeftPress(QMouseEvent *)), SLOT(bottombarMousePress(QMouseEvent *)));
-    connect(bottombar, SIGNAL(tMouseMove(QMouseEvent *)), SLOT(bottombarMove(QMouseEvent *)));
+	connect(bottombar, SIGNAL(tMouseLeftPress(QMouseEvent *)), SLOT(bottombarMousePress(QMouseEvent *)));
+	connect(bottombar, SIGNAL(tMouseMove(QMouseEvent *)), SLOT(bottombarMove(QMouseEvent *)));
 	connect(bottombar, SIGNAL(tMouseRelease()), SLOT(bottombarMouseRelease()));
 	
 	setLayout(layout);

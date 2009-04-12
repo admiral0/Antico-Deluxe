@@ -63,9 +63,13 @@ AltTabDlg::AltTabDlg(Adx *a, Client *active, ClientList *clients, QWidget *paren
 		layout->addWidget(icon);
 	}
 	
-	ClientIcon *icon = icons.at(0);
+	if (icons.size() > 1)
+		current = 1;
+	else
+		current = 0;
+
+	ClientIcon *icon = icons.at(current);
 	icon->drawBorder(true);
-	current = 0;
 	
 	layout->addStretch();
 	

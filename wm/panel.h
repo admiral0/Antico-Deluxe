@@ -1,3 +1,8 @@
+//////////////////////////////////////////
+//  File       : panel.h		//
+//  Written by : ludmiloff@gmail.com	//
+//  Copyright  : GPL2			//
+//////////////////////////////////////////
 #ifndef __PANEL_H
 #define __PANEL_H
 
@@ -11,6 +16,7 @@ class Client;
 class GenericButton;
 class CurrentApp;
 class ShowDesktop;
+class VolumeCtrl;
 class SystemMenu;
 
 class Panel : public AmePixmapWidget
@@ -36,8 +42,12 @@ public:
 	// Panel widgets - public for speedup access
 	SystemMenu *sysBtn;
 	ShowDesktop *desktopBtn;
+	VolumeCtrl *volume;
 	CurrentApp *currentApp;
 
+	// DBus callable function
+	void enableSoundVolumeFeedback(bool);
+	void showSoundVolumeCtrl(bool);
 private:
 
 	QRect screen(int indx=-1);
@@ -54,7 +64,7 @@ protected:
 	WId activeWidgetId;
 
 	virtual void paintEvent(QPaintEvent *e);
-    void mousePressEvent(QMouseEvent *event);
+	void mousePressEvent(QMouseEvent *event);
 
 	Adx *app;
 };

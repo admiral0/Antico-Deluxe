@@ -1,3 +1,9 @@
+//////////////////////////////////////////
+//  File       : panel.cpp		//
+//  Written by : ludmiloff@gmail.com	//
+//  Copyright  : GPL2			//
+//////////////////////////////////////////
+
 #include "panel.h"
 #include "menu.h"
 #include "sysmenu.h"
@@ -41,6 +47,8 @@ int Panel::calcWidth(void)
 
 void Panel::setupGui(void)
 {
+	app->stg->beginGroup("Topbar");
+
 	layout = new QHBoxLayout;
 	layout->setSpacing(0);
 	layout->setContentsMargins(0, 0, 0, 0);
@@ -66,8 +74,14 @@ void Panel::setupGui(void)
 	layout->addWidget(desktopBtn);
 	layout->addSpacing(8);
 
-	VolumeCtrl *volume = new VolumeCtrl(this);
+	volume = new VolumeCtrl(this);
+	volume->enableFeedback(app->stg->value("volume_feedback", true).toBool());
 	layout->addWidget(volume);
+	if (app->stg->value("show_volume_ctrl", true).toBool()) {
+		volume->show();
+	} else {
+		volume->hide();
+	}
 	layout->addSpacing(8);
 
 	ClockWidget *clock = new ClockWidget();
@@ -79,8 +93,9 @@ void Panel::setupGui(void)
 	setFixedHeight(TOP_PANEL_HEIGHT);
 	resize(calcWidth(), TOP_PANEL_HEIGHT);
 	move(QPoint(0,0));
-}
 
+	app->stg->endGroup();
+}
 
 bool Panel::isFocused()
 {
@@ -160,4 +175,19 @@ void Panel::iconIsRemoved(Client *client)
 void Panel::windowIsIconified(Client *client)
 {
 	currentApp->setIconified(client->appName, client);
+}
+
+// DBus callable functions
+
+void Panel::enableSoundVolumeFeedback(bool enable)
+{
+	volume->enableFeedback(enable);
+}
+
+void Panel::showSoundVolumeCtrl(bool visible)
+{
+	if (visible)
+		volume->show();
+	else
+		volume->hide();
 }

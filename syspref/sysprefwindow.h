@@ -18,6 +18,8 @@ public:
 	void createToolbar();
 	void setupLaunchers();
 	void addModule();
+	void discardPrevious();
+	void discardNext();
 
 	void remoteFunction(int fEnumerator, int param);
 

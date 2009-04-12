@@ -1,9 +1,9 @@
-///////////////////////////////////////////////////
-//  File      : desktop      			         //
-//  Originally Written by: g_cigala@virgilio.it  //
-//  Modified by: ludmiloff@gmail.com			 //
-//  Copyright : GPL                   			 //
-///////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//  File      : desktop.cpp			//
+//  Originally Written by: g_cigala@virgilio.it //
+//  Modified by: ludmiloff@gmail.com		//
+//  Copyright : GPL2				//
+//////////////////////////////////////////////////
 
 #include <adx.h>
 #include "desktop.h"
