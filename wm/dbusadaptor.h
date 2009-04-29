@@ -34,6 +34,7 @@ public slots:
 	Q_NOREPLY void changeDockSpeed(int animFactor);
 	Q_NOREPLY void soundVolumeFeedback(bool enable);
 	Q_NOREPLY void showSoundVolumeCtrl(bool enable);
+	Q_NOREPLY void changeSoundDevices(const QString &card, const QString &mixer);
 
 protected:
 	Desktop *desktop;

@@ -72,3 +72,8 @@ void DBusAdaptor::showSoundVolumeCtrl(bool enable)
 {
 	app->toppanel->showSoundVolumeCtrl(enable);
 }
+
+void DBusAdaptor::changeSoundDevices(const QString &card, const QString &mixer)
+{
+	app->toppanel->changeSoundDevices(card, mixer);
+}

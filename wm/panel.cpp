@@ -136,10 +136,9 @@ void Panel::paintEvent(QPaintEvent *)
 void Panel::mousePressEvent(QMouseEvent *event)
 {		
 	//qDebug() << "Panel button event";
-    if(event->button() == Qt::LeftButton)
-    {
-        //m_Focus = true;
-    }
+	if(event->button() == Qt::LeftButton) {
+		//m_Focus = true;
+	}
 }
 
 void Panel::deactivateLast(GenericButton *c)
@@ -190,4 +189,9 @@ void Panel::showSoundVolumeCtrl(bool visible)
 		volume->show();
 	else
 		volume->hide();
+}
+
+void Panel::changeSoundDevices(const QString &card, const QString &mixer)
+{
+	volume->snd->reinitMixer(card, mixer);
 }

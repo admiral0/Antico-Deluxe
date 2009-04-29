@@ -48,6 +48,7 @@ public:
 	// DBus callable function
 	void enableSoundVolumeFeedback(bool);
 	void showSoundVolumeCtrl(bool);
+	void changeSoundDevices(const QString &card, const QString &mixer);
 private:
 
 	QRect screen(int indx=-1);
@@ -62,6 +63,9 @@ protected:
 	bool m_Focus;
 	GenericButton *currentWidget;
 	WId activeWidgetId;
+
+	// General update/refresh timer
+	QTimer *m_Timer;
 
 	virtual void paintEvent(QPaintEvent *e);
 	void mousePressEvent(QMouseEvent *event);
