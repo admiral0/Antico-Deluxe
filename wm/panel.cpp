@@ -193,5 +193,5 @@ void Panel::showSoundVolumeCtrl(bool visible)
 
 void Panel::changeSoundDevices(const QString &card, const QString &mixer)
 {
-	volume->snd->reinitMixer(card, mixer);
+	volume->volumeSlider->snd->reinitMixer(card, mixer);
 }
