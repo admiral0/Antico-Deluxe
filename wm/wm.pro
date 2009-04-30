@@ -37,6 +37,7 @@ HEADERS += defs.h \
 			showdesktop.h \
 			clock.h \
 			volumectrl.h \
+                        kbswitch.h \
 			panel.h
 
 SOURCES += main.cpp \
