@@ -15,9 +15,9 @@ MOC_DIR += ../build
 QMAKE_INCDIR += /usr/include forms/
 QMAKE_CLEAN += antico-deluxe
 
-INCLUDEPATH += ../amelib /usr/include/ame/ 
+INCLUDEPATH += ../amelib /usr/include/ame/
 LIBS += -L/usr/lib -L../amelib -lame
-			
+
 HEADERS += defs.h \
 			aboutdlg.h \
 			quitdlg.h \
@@ -37,7 +37,7 @@ HEADERS += defs.h \
 			showdesktop.h \
 			clock.h \
 			volumectrl.h \
-                        kbswitch.h \
+			kbswitch.h \
 			panel.h
 
 SOURCES += main.cpp \
@@ -56,15 +56,16 @@ SOURCES += main.cpp \
 			panel.cpp \
 			desktop.cpp \
 			dockicon.cpp \
-			dockbar.cpp \ 
+			dockbar.cpp \
 			button.cpp \
 			menu.cpp \
 			currentapp.cpp \
 			sysmenu.cpp \
 			showdesktop.cpp \
 			clock.cpp \
-			volumectrl.cpp
-			
+			volumectrl.cpp \
+			kbswitch.cpp
+
 TARGET = antico-deluxe
 target.path=/usr/bin
 
@@ -90,4 +91,3 @@ exec_files.files += scripts/antico-deluxe-session
 exec_files.path=/usr/bin
 
 INSTALLS += target exec_files theme_files session_gdm_files session_kdm_files
-
