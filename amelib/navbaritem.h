@@ -1,8 +1,8 @@
-/* 
+/*
  *  This file is taken from Quartica project (MacNavBar).
  *
  *  Copyright (c) 2008 Matteo Bertozzi <theo.bertozzi@gmail.com>
- * 
+ *
  *	Some modifications made by me. <ludmiloff@gmail.com>
  *	- changed class name to fit Amelib namespace;
  *
@@ -18,36 +18,37 @@
 #include <SelectableWidget>
 
 class AME_EXPORT AmeNavBarItem : public AmeSelectableWidget {
-	Q_OBJECT
+        Q_OBJECT
 
-	Q_PROPERTY(QString text READ text WRITE setText)
-	Q_PROPERTY(QPixmap icon READ icon WRITE setIcon)
+        Q_PROPERTY(QString text READ text WRITE setText)
+        Q_PROPERTY(QPixmap icon READ icon WRITE setIcon)
 
-	public:
-		AmeNavBarItem (QWidget *parent = 0);
-		AmeNavBarItem (const QString& text, QWidget *parent = 0);
-		AmeNavBarItem (const QPixmap& icon, const QString& text, QWidget *parent = 0);
-		~AmeNavBarItem();
+public:
+        AmeNavBarItem (QWidget *parent = 0);
+        AmeNavBarItem (const QString& text, QWidget *parent = 0);
+        AmeNavBarItem (const QPixmap& icon, const QString& text, QWidget *parent = 0);
+        ~AmeNavBarItem();
 
-		// Methods
-		void addSpacing (int size);
-		void addWidget (QWidget *widget, int stretch = 0);
+        // Methods
+        void addSpacing (int size);
+        void addWidget (QWidget *widget, int stretch = 0);
 
-		void insertSpacing (int index, int size);
-		void insertWidget (int index, QWidget *widget, int stretch = 0);
+        void insertSpacing (int index, int size);
+        void insertWidget (int index, QWidget *widget, int stretch = 0);
 
-		// GET Properties
-		QString text (void) const;
-		const QPixmap *icon (void) const;
+        // GET Properties
+        QString text (void) const;
+        const QPixmap *icon (void) const;
 
-		// SET Properties
-		void setIcon (const QPixmap& icon);
-		void setText (const QString& text);
-		void setTextColor (const QColor& color);
+        // SET Properties
+        void setIcon (const QPixmap& icon);
 
-	private:
-		class Private;
-		Private *d;
+        void setText (const QString& text);
+        void setTextColor (const QColor& color);
+
+private:
+        class Private;
+        Private *d;
 };
 
 #endif

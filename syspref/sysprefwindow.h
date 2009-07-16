@@ -32,6 +32,7 @@ public slots:
 	void onDock();
 	void onDateTime();
 	void onSound();
+        void onIntnl();
 
 protected:
 	void closeEvent(QCloseEvent *event);

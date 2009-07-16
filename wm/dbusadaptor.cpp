@@ -77,3 +77,14 @@ void DBusAdaptor::changeSoundDevices(const QString &card, const QString &mixer)
 {
 	app->toppanel->changeSoundDevices(card, mixer);
 }
+
+void DBusAdaptor::changeKbdModel(const QString &model)
+{
+	app->toppanel->kbswitch->onChangeKbdModel(model);
+}
+
+void DBusAdaptor::changeKbdLayouts()
+{
+	app->toppanel->kbswitch->readSettings();
+	app->toppanel->kbswitch->displayLayout();
+}

@@ -35,6 +35,8 @@ public slots:
 	Q_NOREPLY void soundVolumeFeedback(bool enable);
 	Q_NOREPLY void showSoundVolumeCtrl(bool enable);
 	Q_NOREPLY void changeSoundDevices(const QString &card, const QString &mixer);
+	Q_NOREPLY void changeKbdModel(const QString &model);
+	Q_NOREPLY void changeKbdLayouts();
 
 protected:
 	Desktop *desktop;

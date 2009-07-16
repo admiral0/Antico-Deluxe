@@ -18,6 +18,7 @@ class CurrentApp;
 class ShowDesktop;
 class VolumeCtrl;
 class SystemMenu;
+class KbSwitch;
 
 class Panel : public AmePixmapWidget
 {
@@ -44,6 +45,7 @@ public:
 	ShowDesktop *desktopBtn;
 	VolumeCtrl *volume;
 	CurrentApp *currentApp;
+        KbSwitch *kbswitch;
 
 	// DBus callable function
 	void enableSoundVolumeFeedback(bool);

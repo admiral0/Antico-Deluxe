@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File      : icon.h					//
-//  Written by: ludmiloff@gmail.com		//
-//  Copyright : GPL2					//
+//  File      : icon.h			//
+//  Written by: ludmiloff@gmail.com	//
+//  Copyright : GPL2			//
 //////////////////////////////////////////
 
 #ifndef __AMEICON_H
@@ -16,60 +16,60 @@
 
 class AME_EXPORT AmeIcon : public QWidget
 {
-	Q_OBJECT
+        Q_OBJECT
 
 public:
-	enum ScaleFactor {
-		undefined = 0,
-		verysmall = 24,
-		small = 32,
-		average = 40,
-		medium = 48,
-		normal = 64,
-		large = 128,
-		extralarge = 254,
-		dynamic = 255 // or > 255
-	};
+        enum ScaleFactor {
+                undefined = 0,
+                verysmall = 24,
+                small = 32,
+                average = 40,
+                medium = 48,
+                normal = 64,
+                large = 128,
+                extralarge = 254,
+                dynamic = 255 // or > 255
+        };
 
-	enum IconState {
-		Normal,
-		Disabled,
-		Selected,
-		Prelight
-	};
+        enum IconState {
+                Normal,
+                Disabled,
+                Selected,
+                Prelight
+        };
 
-	AmeIcon(QWidget *parent = 0);
-	explicit AmeIcon(const QString &name, const QString &label, 
-			int scale = normal, AmeIconTheme *theme=0, QWidget *parent = 0);
-	explicit AmeIcon(const QString &label, const QPixmap &copy, int scale = normal, QWidget *parent = 0);
-	
-	void drawBorder(bool);
-	void scale(int factor);
-	virtual QSize sizeHint () const;
-	int width();
-	int height();
+        AmeIcon(QWidget *parent = 0);
+        explicit AmeIcon(const QString &name, const QString &label,
+                        int scale = normal, AmeIconTheme *theme=0, QWidget *parent = 0);
+        explicit AmeIcon(const QString &label, const QPixmap &copy, int scale = normal, QWidget *parent = 0);
 
-	virtual ~AmeIcon();
+        void drawBorder(bool);
+        void scale(int factor);
+        virtual QSize sizeHint () const;
+        int width();
+        int height();
+
+        virtual ~AmeIcon();
 
 public slots:
-	void setLabel(const QString &label);
+        void setLabel(const QString &label);
 
 signals:
-	void clicked();
+        void clicked();
 
 protected:
-	void paintIcon();
-	void paintLabel();
-	void paintEvent (QPaintEvent *event);
-	void mousePressEvent(QMouseEvent *);
-	void mouseReleaseEvent(QMouseEvent *);
+        void paintIcon();
+        void paintLabel();
+        void paintEvent (QPaintEvent *event);
+        void mousePressEvent(QMouseEvent *);
+        void mouseReleaseEvent(QMouseEvent *);
 
 private:
-	class IconPrivate;
-	IconPrivate * d;
+        class IconPrivate;
+        IconPrivate * d;
 
-	void squeezeText();
-	void adjustFont();
+        void squeezeText();
+        void adjustFont();
 };
 
 #endif

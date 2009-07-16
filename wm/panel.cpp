@@ -11,6 +11,7 @@
 #include "showdesktop.h"
 #include "clock.h"
 #include "volumectrl.h"
+#include "kbswitch.h"
 #include "adx.h"
 #include "client.h"
 
@@ -47,8 +48,6 @@ int Panel::calcWidth(void)
 
 void Panel::setupGui(void)
 {
-	app->stg->beginGroup("Topbar");
-
 	layout = new QHBoxLayout;
 	layout->setSpacing(0);
 	layout->setContentsMargins(0, 0, 0, 0);
@@ -74,7 +73,13 @@ void Panel::setupGui(void)
 	layout->addWidget(desktopBtn);
 	layout->addSpacing(8);
 
-	volume = new VolumeCtrl(this);
+        kbswitch = new KbSwitch(app, this);
+        layout->addWidget(kbswitch);
+        layout->addSpacing(8);
+
+        app->stg->beginGroup("Topbar");
+
+        volume = new VolumeCtrl(this);
 	volume->enableFeedback(app->stg->value("volume_feedback", true).toBool());
 	layout->addWidget(volume);
 	if (app->stg->value("show_volume_ctrl", true).toBool()) {
@@ -82,7 +87,9 @@ void Panel::setupGui(void)
 	} else {
 		volume->hide();
 	}
-	layout->addSpacing(8);
+        layout->addSpacing(8);
+
+        app->stg->endGroup();
 
 	ClockWidget *clock = new ClockWidget();
 	layout->addWidget(clock);
@@ -94,7 +101,6 @@ void Panel::setupGui(void)
 	resize(calcWidth(), TOP_PANEL_HEIGHT);
 	move(QPoint(0,0));
 
-	app->stg->endGroup();
 }
 
 bool Panel::isFocused()

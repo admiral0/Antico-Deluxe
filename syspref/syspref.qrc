@@ -13,10 +13,11 @@
   </qresource>
   <qresource>
     <file>icons/object/dock.png</file>
+    <file>icons/object/language.png</file>
     <file>icons/object/appearance.png</file>
     <file>icons/object/screensaver.png</file>
     <file>icons/object/desktop.png</file>
     <file>icons/object/system-preferences.png</file>
-	<file>icons/object/sound.png</file>
+    <file>icons/object/sound.png</file>
   </qresource>
 </RCC>

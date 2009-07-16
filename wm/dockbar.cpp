@@ -49,7 +49,7 @@ Dockbar::~Dockbar()
 void Dockbar::readSettings()
 {
 	app->stg->beginGroup("Dockbar");
-	dockPix = app->stg->value("dock_pix").toString();
+        dockPix = app->stg->value("dock_pix", QCoreApplication::applicationDirPath() + "/../share/themes/antico/default/dockbar.png").toString();
 	dockSizeFactor = app->stg->value("dock_factor", 100).toInt();
 	setAnimSpeed(app->stg->value("dock_anim_factor", 0).toInt());
 	autoHide = app->stg->value("dock_autohide", false).toBool();

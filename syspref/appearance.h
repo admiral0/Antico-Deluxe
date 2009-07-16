@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File       	: appearance.h			//
+//  File       	: appearance.h		//
 //  Written by	: ludmiloff@gmail.com	//
-//  Copyright  	: GPL					//
+//  Copyright  	: GPL			//
 //////////////////////////////////////////
 
 #ifndef __APPEARANCE_H
@@ -13,33 +13,33 @@
 
 class Appearance : public PrefWidget
 {
-	Q_OBJECT
+        Q_OBJECT
 public:
-	Appearance(QWidget *parent = 0);
-	~Appearance();
+        Appearance(QWidget *parent = 0);
+        ~Appearance();
 
-	virtual void readSettings();
-	virtual bool saveSettings();
+        virtual void readSettings();
+        virtual bool saveSettings();
 
 public slots:
-	void onChangeColor(int indx);
-	void onChangeStyle(int indx);
-	void applyChanges();
-	void onDblClickOption(bool);
+        void onChangeColor(int indx);
+        void onChangeStyle(int indx);
+        void applyChanges();
+        void onDblClickOption(bool);
 
 protected:
 
 private:
-	Ui::appearanceFrm ui;
-	int lastColorIndx, lastStyleIndx;
-	QColor lastColor;
-	bool dblClickMinimize;
+        Ui::appearanceFrm ui;
+        int lastColorIndx, lastStyleIndx;
+        QColor lastColor;
+        bool dblClickMinimize;
 
-	QSettings *qts;
+        QSettings *qts;
 
-	void setupStyles();
-	void setupColors();
-	QStringList rebuildPalette(const QColor &highlight);
+        void setupStyles();
+        void setupColors();
+        QStringList rebuildPalette(const QColor &highlight);
 };
 
 #endif
