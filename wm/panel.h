@@ -50,6 +50,7 @@ public:
 	// DBus callable function
 	void enableSoundVolumeFeedback(bool);
 	void showSoundVolumeCtrl(bool);
+	void showKbdCtrl(bool);
 	void changeSoundDevices(const QString &card, const QString &mixer);
 private:
 

@@ -37,6 +37,7 @@ public slots:
 	Q_NOREPLY void changeSoundDevices(const QString &card, const QString &mixer);
 	Q_NOREPLY void changeKbdModel(const QString &model);
 	Q_NOREPLY void changeKbdLayouts();
+	Q_NOREPLY void showInputMenu(bool enable);
 
 protected:
 	Desktop *desktop;

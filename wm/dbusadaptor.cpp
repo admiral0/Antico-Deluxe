@@ -8,6 +8,7 @@
 #include "desktop.h"
 #include "dockbar.h"
 #include "sysmenu.h"
+#include "kbswitch.h"
 #include "adx.h"
 
 DBusAdaptor::DBusAdaptor(Adx *a, Desktop *d, Dockbar *dck, QObject *obj)
@@ -87,4 +88,10 @@ void DBusAdaptor::changeKbdLayouts()
 {
 	app->toppanel->kbswitch->readSettings();
 	app->toppanel->kbswitch->displayLayout();
+}
+
+void DBusAdaptor::showInputMenu(bool enable)
+{
+	app->toppanel->showKbdCtrl(enable);
+
 }

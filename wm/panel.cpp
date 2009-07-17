@@ -73,22 +73,20 @@ void Panel::setupGui(void)
 	layout->addWidget(desktopBtn);
 	layout->addSpacing(8);
 
+	app->stg->beginGroup("Keyboard");
+	bool show = app->stg->value("show_input_mnu", false).toBool();
+	app->stg->endGroup();
         kbswitch = new KbSwitch(app, this);
-        layout->addWidget(kbswitch);
-        layout->addSpacing(8);
-
-        app->stg->beginGroup("Topbar");
+	layout->addWidget(kbswitch);
+	showKbdCtrl(show);
+	layout->addSpacing(8);
 
         volume = new VolumeCtrl(this);
+	app->stg->beginGroup("Topbar");
 	volume->enableFeedback(app->stg->value("volume_feedback", true).toBool());
 	layout->addWidget(volume);
-	if (app->stg->value("show_volume_ctrl", true).toBool()) {
-		volume->show();
-	} else {
-		volume->hide();
-	}
+	showSoundVolumeCtrl(app->stg->value("show_volume_ctrl", true).toBool());
         layout->addSpacing(8);
-
         app->stg->endGroup();
 
 	ClockWidget *clock = new ClockWidget();
@@ -140,7 +138,7 @@ void Panel::paintEvent(QPaintEvent *)
 }
 
 void Panel::mousePressEvent(QMouseEvent *event)
-{		
+{
 	//qDebug() << "Panel button event";
 	if(event->button() == Qt::LeftButton) {
 		//m_Focus = true;
@@ -195,6 +193,15 @@ void Panel::showSoundVolumeCtrl(bool visible)
 		volume->show();
 	else
 		volume->hide();
+}
+
+void Panel::showKbdCtrl(bool visible)
+{
+	qDebug() << "show input menu " << visible;
+	if (visible)
+		kbswitch->show();
+	else
+		kbswitch->hide();
 }
 
 void Panel::changeSoundDevices(const QString &card, const QString &mixer)

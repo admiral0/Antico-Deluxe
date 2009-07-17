@@ -5,7 +5,7 @@ KbSwitch::KbSwitch(Adx *a, Panel *p, QWidget *parent)
 	: GenericButton(p, parent)
 {
 	app = a;
-	setFixedWidth(48);
+	setFixedWidth(42);
         if (readSettings()) {
                 displayLayout();
         }
@@ -25,6 +25,7 @@ void KbSwitch::nextLayout()
 
 void KbSwitch::displayLayout()
 {
+	if (current >= layouts.size()) current = 0;
 	KbLayout l = layouts.at(current);
         QString t = l.layout.left(3).toUpper();
 	if (l.order > 1) t = t + QString("%1").arg(l.order);
@@ -32,8 +33,8 @@ void KbSwitch::displayLayout()
         setText(t);
 	//
 	QString cmd = QString("setxkbmap -model %1 -layout %2").arg(keyboardModel).arg(l.layout);
-	if (l.variant != "")
-		t = t + QString(" -variant %1").arg(l.variant);
+	if (!l.variant.isEmpty())
+		cmd = cmd + QString(" -variant %1").arg(l.variant);
 	qDebug() << cmd;
 	QProcess::startDetached(cmd);
 
@@ -41,6 +42,8 @@ void KbSwitch::displayLayout()
 
 bool KbSwitch::readSettings()
 {
+	layouts.clear();
+	app->stg->sync();
 	app->stg->beginGroup("Keyboard");
 	keyboardModel = app->stg->value("model", "pc104").toString();
 	int size = app->stg->beginReadArray("layouts");
@@ -52,19 +55,22 @@ bool KbSwitch::readSettings()
                 l.variant = app->stg->value("variant", "").toString();
 		l.order = app->stg->value("order", 0).toInt();
 		layouts.append(l);
+		qDebug() << "read " << l.name << l.layout << l.variant;
 	}
 	app->stg->endArray();
 	//
 	current = app->stg->value("current", 0).toInt();
 	app->stg->endGroup(); //Keyboard
 
-	int s = layout.size();
+	int s = layouts.size();
 	if (s > 0) {
-		if (current > s - 1) current = 0;
+		if (current >= s) current = 0;
 		rebuildMenu();
 		return true;
-	} else
+	} else {
+		menu()->clear();
 		return false;
+	}
 }
 
 bool KbSwitch::saveSettings()
@@ -86,6 +92,7 @@ void KbSwitch::onChangeLayout()
 	QAction *action = qobject_cast<QAction *>(sender());
 	current = action->data().toInt();
 	displayLayout();
+	saveSettings();
 }
 
 void KbSwitch::onChangeKbdModel(const QString &model)
@@ -96,8 +103,11 @@ void KbSwitch::onChangeKbdModel(const QString &model)
 
 void KbSwitch::rebuildMenu()
 {
-	if (menu())
+	qDebug() << "rebuilding menu";
+	if (menu()) {
+		qDebug() << "clearing menu";
 		menu()->clear();
+	}
 	else
 		setMenu(new QMenu());
 

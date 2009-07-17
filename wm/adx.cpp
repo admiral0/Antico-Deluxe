@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File       	: adx.cpp				//
+//  File       	: adx.cpp		//
 //  Written by	: ludmiloff@gmail.com	//
-//  Copyright  	: GPL					//
+//  Copyright  	: GPL			//
 //////////////////////////////////////////
 
 #include <QtDBus>
