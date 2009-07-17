@@ -1,13 +1,14 @@
 //////////////////////////////////////////////////////////
-//  File       	: events.cpp							//
-//  Written by	: ludmiloff@gmail.com					//
+//  File       	: events.cpp				//
+//  Written by	: ludmiloff@gmail.com			//
 //  Some copy/paste code from original Antico project	//
-//  Copyright  	: GPL									//
+//  Copyright  	: GPL					//
 //////////////////////////////////////////////////////////
 
 #include "adx.h"
 #include "atoms.h"
 #include "alttab.h"
+#include "kbswitch.h"
 
 Adx *deluxe;
 bool replay;
@@ -118,9 +119,20 @@ bool Adx::onKeyPress(XEvent *event)
 	bool ishotkey = false;
 	sym = (int)XLookupKeysym(&event->xkey, 0);
 	mod = event->xkey.state & keymask1 ;
+
+	qDebug() << sym << mod;
 	if (keygrab) { // a hot key activation
 		ishotkey = onHotKey(sym, mod);
 		if (ishotkey) return true;
+	}
+	if (ctrlgrab && sym == XK_Shift_L) {
+		qDebug() << "CTRL+SHIFT";
+		toppanel->kbswitch->nextLayout();
+	}
+
+	if (sym == XK_Control_L && !ctrlgrab) {
+		ctrlgrab = true;
+		return true;
 	}
 	if (sym == XK_Alt_L && !keygrab) {
 		keygrab = true;

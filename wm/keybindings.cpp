@@ -1,4 +1,5 @@
 #include "adx.h"
+#include "kbswitch.h"
 
 bool Adx::onHotKey(KeySym sym, uint mod)
 {
@@ -41,7 +42,13 @@ bool Adx::onHotKey(KeySym sym, uint mod)
 			}
 			hot = true;
 			break;
+
 		
+	}
+
+	if (sym == XK_Shift_L) {
+		qDebug() << "ALT+SHIFT";
+		toppanel->kbswitch->nextLayout();
 	}
 	XAllowEvents(display(), SyncBoth, CurrentTime);
 	return hot;

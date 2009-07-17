@@ -103,9 +103,7 @@ void KbSwitch::onChangeKbdModel(const QString &model)
 
 void KbSwitch::rebuildMenu()
 {
-	qDebug() << "rebuilding menu";
 	if (menu()) {
-		qDebug() << "clearing menu";
 		menu()->clear();
 	}
 	else

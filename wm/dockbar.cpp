@@ -116,6 +116,10 @@ bool Dockbar::removeAll()
 	return true; 		
 }
 
+void Dockbar::addLauncher(const QString &file)
+{
+}
+
 void Dockbar::setAutoHide(bool active)
 {
 	autoHide = active;

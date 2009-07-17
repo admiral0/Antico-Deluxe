@@ -108,7 +108,7 @@ public:
 	QDBusInterface *hal;
 	AmeSettings *stg;
 	AltTabDlg *alttab;
-	bool keygrab;
+	bool keygrab, ctrlgrab;
 	Client *client;
 };
 

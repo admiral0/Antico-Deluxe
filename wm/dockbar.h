@@ -49,6 +49,9 @@ public:
 	void addClient(Client *);
 	bool removeClient(Client *);
 	bool removeAll();
+
+	// Launchers management functions
+	void addLauncher(const QString &file);
 	
 	void setSizeFactor(int factor, bool doSave=true);
 	void updateSize();

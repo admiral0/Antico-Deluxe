@@ -56,6 +56,7 @@ Adx::Adx(int &argc, char **argv) : QApplication(argc, argv)
 	
 	alttab = NULL;
 	keygrab = false;
+	ctrlgrab = false;
 	
 	toppanel->sysBtn->rebuildMenu(dock->autoHide);
 	QTimer::singleShot(250, this, SLOT(manageRunningClients()));
