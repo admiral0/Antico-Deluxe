@@ -84,7 +84,7 @@ void Dockbar::addClient(Client *client)
 void Dockbar::removeIcon(DockIcon *d)
 {
 	iconsList->removeOne(d);
-	app->onDockIconRemoved(d->getClient());
+	app->onDockIconRemoved(d->client);
 	updateSize();
 }
 
@@ -93,7 +93,7 @@ bool Dockbar::removeClient(Client *client)
 	DockIcon *d;
 	foreach(d, *iconsList)
 	{
-		if (d->getClient() == client) {
+		if (d->client == client) {
 			iconsList->removeOne(d);
 			d->close();
 			updateSize();
@@ -108,7 +108,7 @@ bool Dockbar::removeAll()
 	DockIcon *d;
 	foreach(d, *iconsList)
 	{
-		d->getClient()->mapFast();
+		d->client->mapFast();
 		iconsList->removeOne(d);
 		d->close();
 		updateSize();
@@ -284,9 +284,9 @@ void Dockbar::updateSize(void)
 
 		qDebug() << "dockicon length:" << dockLength;
 
-		for (int i = 0; i <num; i++) {
+		for (int i = 0; i < num; i++) {
 			d = iconsList->at(i);
-			d->setFixedSize(dockLength, height()-5);
+			d->updateSize(dockLength, height()-5);
 			iconLayout->addWidget(d);
 		}
 	}

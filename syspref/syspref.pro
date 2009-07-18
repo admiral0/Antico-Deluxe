@@ -44,7 +44,7 @@ LIBS += -L/usr/lib -L../amelib -lxkbfile -lame
 OBJECTS_DIR += ../build
 MOC_DIR += ../build
 QMAKE_INCDIR += /usr/include forms/
-QMAKE_CLEAN += antico-pref
+QMAKE_CLEAN += syspref.app
 
 TARGET = syspref.app
 target.path=/usr/bin

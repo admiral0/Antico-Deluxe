@@ -23,10 +23,6 @@ DockIcon::~DockIcon()
 {
 }
 
-Client *DockIcon::getClient()
-{
-	return client;
-}
 
 void DockIcon::readSettings()
 {
@@ -35,6 +31,23 @@ void DockIcon::readSettings()
 	titleColor = stg->value("title_color").toString();
 	pix = QPixmap::fromImage(QImage(stg->value("d_icon_pix").toString()));
 	stg->endGroup(); //Dockicon
+}
+
+void DockIcon::showClient()
+{
+	if (type == DockIcon::Task) {
+		client->map();
+		close();
+	}
+}
+
+void DockIcon::updateSize(int w, int h)
+{
+	if (type == DockIcon::Task) {
+		setFixedSize(w, h);
+	} else if (type == DockIcon::Launcher) {
+		setFixedSize(h, h);
+	}
 }
 
 void DockIcon::paintEvent(QPaintEvent *)
@@ -65,14 +78,6 @@ void DockIcon::mousePressEvent(QMouseEvent *event)
 		menu->addAction( QApplication::style()->standardIcon(QStyle::SP_DialogCloseButton), "Close");
 		menu->popup(event->globalPos());
 		connect(menu, SIGNAL(triggered(QAction *)), this, SLOT(runMenu(QAction *)));
-	}
-}
-
-void DockIcon::showClient()
-{
-	if (type == DockIcon::Task) {
-		client->map();
-		close();
 	}
 }
 

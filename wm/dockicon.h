@@ -18,14 +18,17 @@ class DockIcon : public QLabel
 
 public:
 	enum IconType {Task, Launcher, Applet};
-	enum IconState {Running, Stopped, Inactive};
+	enum IconState {Running, Stopped, Inactive, Prelight};
 
 	DockIcon(Client *c, int t=Task, QWidget *parent=0);
 	DockIcon(const AmeDesktopFile &file, QWidget *parent=0);
 	~DockIcon();
+
 	void readSettings();
 	void showClient();
-	Client *getClient();
+	void updateSize(int w, int h);
+
+	Client *client;
 	int type;
 
 protected:
@@ -40,7 +43,6 @@ signals:
 	void destroyIcon(DockIcon *);
 
 private:
-	Client *client;
 	int dockHeight;
 	QString titleColor;
 	QPixmap pix;
