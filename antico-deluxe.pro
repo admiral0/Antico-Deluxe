@@ -4,4 +4,4 @@ SUBDIRS = amelib \
 	wm \
 	runner \
         syspref \
-        term
+        term \
