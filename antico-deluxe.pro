@@ -3,4 +3,5 @@ CONFIG += ordered
 SUBDIRS = amelib \
 	wm \
 	runner \
-	syspref
+        syspref \
+        term
