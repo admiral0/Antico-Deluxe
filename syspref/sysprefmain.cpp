@@ -4,7 +4,7 @@
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
-	app.setApplicationName("antico-pref");
+	app.setApplicationName("syspref.app");
 	int module = 0;
 	if (app.arguments().size() >= 3) {
 		if (app.arguments().at(1) == "-w") {

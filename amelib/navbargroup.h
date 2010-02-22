@@ -23,45 +23,45 @@ class AME_EXPORT AmeNavBarGroup : public QWidget {
 	Q_PROPERTY(QString title READ title WRITE setTitle)
 	Q_PROPERTY(bool isExpanded READ isExpanded WRITE expand)
 
-	public:
-		AmeNavBarGroup (QWidget *parent = 0);
-		AmeNavBarGroup (const QString& title, QWidget *parent = 0);
-		~AmeNavBarGroup();
+public:
+	AmeNavBarGroup (QWidget *parent = 0);
+	AmeNavBarGroup (const QString& title, QWidget *parent = 0);
+	~AmeNavBarGroup();
 
-		// Methods - Add Item
-		void addItem (AmeNavBarItem *item);
-		void addItem (AmeNavBarItem *item, int index);
+	// Methods - Add Item
+	void addItem (AmeNavBarItem *item);
+	void addItem (AmeNavBarItem *item, int index);
 
-		// Methods - Create and Add Item
-		AmeNavBarItem *addItem (const QString& text);
-		AmeNavBarItem *addItem (const QPixmap& icon, const QString& text);
-		AmeNavBarItem *addItem (const QPixmap& icon, const QString& text, int index);
+	// Methods - Create and Add Item
+	AmeNavBarItem *addItem (const QString &text, const QString &link);
+	AmeNavBarItem *addItem (const QPixmap &icon, const QString &text, const QString &link);
+	AmeNavBarItem *addItem (const QPixmap &icon, const QString &text, const QString &link, int index);
 
-		// Methods
-		bool containsItem (AmeNavBarItem *item);
+	// Methods
+	bool containsItem (AmeNavBarItem *item);
 
-		// GET Properties
-		QString title (void) const;
-		bool isExpanded (void) const;
+	// GET Properties
+	QString title (void) const;
+	bool isExpanded (void) const;
 
-		// SET Properties
-		void setTitle (const QString& title);
-		void setTitleColor (const QColor& color);
+	// SET Properties
+	void setTitle (const QString& title);
+	void setTitleColor (const QColor& color);
 
-	signals:
-		void selected (AmeNavBarGroup *group, AmeNavBarItem *item);
-		void expanded (AmeNavBarGroup *group);
+signals:
+	void selected (AmeNavBarGroup *group, AmeNavBarItem *item);
+	void expanded (AmeNavBarGroup *group);
 
-	public slots:
-		void expand (bool expand);
+public slots:
+	void expand (bool expand);
 
-	private slots:
-		void onItemSelected (AmeSelectableWidget *item);
-		void onTitleClicked (void);
+private slots:
+	void onItemSelected (AmeSelectableWidget *item);
+	void onTitleClicked (void);
 
-	private:
-		class Private;
-		Private *d;
+private:
+	class Private;
+	Private *d;
 };
 
 #endif

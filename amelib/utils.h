@@ -12,6 +12,6 @@ QString AME_EXPORT tildeExpand(const QString &path);
 
 bool AME_EXPORT makeDir(const QString &dir, int mode);
 
-};
+}
 
 #endif /* __AMEUTILS_H */

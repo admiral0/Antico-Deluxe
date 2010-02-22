@@ -117,20 +117,20 @@ void AmeNavBarGroup::addItem (AmeNavBarItem *item, int index) {
 // =============================================================================
 //  NavBarGroup: PUBLIC Methods - Create and Add Item
 // =============================================================================
-AmeNavBarItem *AmeNavBarGroup::addItem (const QString& text) {
-	AmeNavBarItem *item = new AmeNavBarItem(text);
+AmeNavBarItem *AmeNavBarGroup::addItem (const QString &text, const QString &link) {
+	AmeNavBarItem *item = new AmeNavBarItem(text, link);
 	addItem(item);
 	return(item);
 }
 
-AmeNavBarItem *AmeNavBarGroup::addItem (const QPixmap& icon, const QString& text) {
-	AmeNavBarItem *item = new AmeNavBarItem(icon, text);
+AmeNavBarItem *AmeNavBarGroup::addItem (const QPixmap &icon, const QString &text, const QString &link) {
+	AmeNavBarItem *item = new AmeNavBarItem(icon, text, link);
 	addItem(item);
 	return(item);
 }
 
-AmeNavBarItem *AmeNavBarGroup::addItem (const QPixmap& icon, const QString& text, int index) {
-	AmeNavBarItem *item = new AmeNavBarItem(icon, text);
+AmeNavBarItem *AmeNavBarGroup::addItem (const QPixmap &icon, const QString &text, const QString &link, int index) {
+	AmeNavBarItem *item = new AmeNavBarItem(icon, text, link);
 	addItem(item, index);	
 	return(item);
 }

@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File      : icon.cpp				//
-//  Written by: ludmiloff@gmail.com		//
-//  Copyright : GPL2					//
+//  File      : icon.cpp		//
+//  Written by: ludmiloff@gmail.com	//
+//  Copyright : GPL2			//
 //////////////////////////////////////////
 
 #include <Icon>

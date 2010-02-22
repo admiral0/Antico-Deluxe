@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File      : utils.cpp				//
-//  Written by: ludmiloff@gmail.com		//
-//  Copyright : GPL						//
+//  File      : utils.cpp		//
+//  Written by: ludmiloff@gmail.com	//
+//  Copyright : GPL			//
 //////////////////////////////////////////
 
 #include <Utils>

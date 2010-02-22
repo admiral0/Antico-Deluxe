@@ -10,7 +10,7 @@ class AME_EXPORT AmeIconLink : public AmeIcon
 public:
 	AmeIconLink(QWidget *parent = 0);
 	AmeIconLink(const QString &linkName, const QString &linkIconPath, 
-				const QString &linkCmd, const QString &linkComment, QWidget *parent = 0);
+		const QString &linkCmd, const QString &linkComment, QWidget *parent = 0);
 	~AmeIconLink();
 
 	//QString name() const;

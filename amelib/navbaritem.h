@@ -5,6 +5,7 @@
  *
  *	Some modifications made by me. <ludmiloff@gmail.com>
  *	- changed class name to fit Amelib namespace;
+ *	- addes link member for storing shortcuts, links, paths etc.
  *
  */
 
@@ -25,8 +26,8 @@ class AME_EXPORT AmeNavBarItem : public AmeSelectableWidget {
 
 public:
         AmeNavBarItem (QWidget *parent = 0);
-        AmeNavBarItem (const QString& text, QWidget *parent = 0);
-        AmeNavBarItem (const QPixmap& icon, const QString& text, QWidget *parent = 0);
+	AmeNavBarItem (const QString &text, const QString &link, QWidget *parent = 0);
+	AmeNavBarItem (const QPixmap &icon, const QString &text, const QString &link, QWidget *parent = 0);
         ~AmeNavBarItem();
 
         // Methods
@@ -37,14 +38,15 @@ public:
         void insertWidget (int index, QWidget *widget, int stretch = 0);
 
         // GET Properties
-        QString text (void) const;
+	QString text(void) const;
+	QString link(void) const;
         const QPixmap *icon (void) const;
 
         // SET Properties
-        void setIcon (const QPixmap& icon);
-
-        void setText (const QString& text);
-        void setTextColor (const QColor& color);
+	void setLink(const QString &link);
+	void setIcon (const QPixmap &icon);
+	void setText (const QString &text);
+	void setTextColor (const QColor &color);
 
 private:
         class Private;

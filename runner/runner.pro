@@ -2,11 +2,29 @@ TEMPLATE = app
 QT += xml dbus
 CONFIG += qt release
 
-RESOURCES = 
+RESOURCES = runner.qrc
+
 UI_HEADERS_DIR = forms
 FORMS += 
-HEADERS += runnermain.h
-SOURCES += runnermain.cpp
+
+HEADERS += singleapp.h \
+	runner.h \
+	runnerwindow.h \
+	sidebar.h \
+	preview.h \
+	listview.h \
+	colview.h \
+	folderview.h
+
+SOURCES += singleapp.cpp \
+	runner.cpp \
+	runnerwindow.cpp \
+	sidebar.cpp \
+	preview.cpp \
+	listview.cpp \
+	colview.cpp \
+	folderview.cpp \
+	runnermain.cpp
 
 INCLUDEPATH += ../amelib /usr/include/ame/
 LIBS += -L/usr/lib -L../amelib -lame

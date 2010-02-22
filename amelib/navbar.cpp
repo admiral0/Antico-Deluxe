@@ -19,16 +19,16 @@
 //  NavBar: PRIVATE Class
 // =============================================================================
 class AmeNavBar::Private {
-	public:
-		QVBoxLayout *layout;
+public:
+	QVBoxLayout *layout;
 
-		// Colors
-		QColor colorBackground;
-		QColor colorSelection;
+	// Colors
+	QColor colorBackground;
+	QColor colorSelection;
 
-		// Current Selection
-		AmeNavBarGroup *groupSelected;
-		AmeNavBarItem *itemSelected;
+	// Current Selection
+	AmeNavBarGroup *groupSelected;
+	AmeNavBarItem *itemSelected;
 };
 
 // =============================================================================
@@ -95,12 +95,13 @@ void AmeNavBar::addItem (AmeNavBarGroup *group, AmeNavBarItem *item) {
 	group->addItem(item);
 }
 
-AmeNavBarItem *AmeNavBar::addItem (AmeNavBarGroup *group, const QString& text) {
-	return(group->addItem(text));
+AmeNavBarItem *AmeNavBar::addItem (AmeNavBarGroup *group, const QString &text, const QString &link) {
+	return(group->addItem(text, link));
 }
 
-AmeNavBarItem *AmeNavBar::addItem (AmeNavBarGroup *group, const QPixmap& icon, const QString& text) {
-	return(group->addItem(icon, text));
+AmeNavBarItem *AmeNavBar::addItem (AmeNavBarGroup *group,
+		const QPixmap &icon, const QString &text, const QString &link) {
+	return(group->addItem(icon, text, link));
 }
 
 

@@ -1,6 +1,6 @@
 TEMPLATE = lib
 VERSION = 0.0.1
-QT += xml
+QT += xml dbus
 CONFIG += warn_on \
     qt \
     thread \
@@ -36,6 +36,7 @@ MAIN_HEADERS += global.h \
     navbaritem.h \
     navbargroup.h \
     navbar.h \
+    toolbar.h \
     pixmapwidget.h \
     icontheme.h \
     icon.h \
@@ -60,11 +61,14 @@ FLAT_HEADERS += Global \
     NavBarItem \
     NavBarGroup \
     NavBar \
+    ToolBar \
     PixmapWidget \
     Icon \
     StaticIconList \
     PasswordDlg \
-    IconTheme
+    IconTheme \
+    AmeApp
+
 SOURCES += utils.cpp \
     mime.cpp \
     vorbisdecoder.cpp \
@@ -80,12 +84,14 @@ SOURCES += utils.cpp \
     navbaritem.cpp \
     navbargroup.cpp \
     navbar.cpp \
+    toolbar.cpp \
     pixmapwidget.cpp \
     icontheme.cpp \
     icon.cpp \
     staticiconlist.cpp \
     passworddlg.cpp \
     app.cpp
+
 TARGET = ame
 target.path = /usr/lib
 flat_headers.files += $$MAIN_HEADERS

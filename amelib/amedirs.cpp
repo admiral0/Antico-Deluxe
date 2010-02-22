@@ -15,6 +15,7 @@
 #include <Utils>
 #include <Global>
 
+static QString *s_localHome;
 static QString *s_localResources;
 static QString *s_systemResources;
 static QString *s_configsPath;
@@ -39,6 +40,7 @@ AmeDirs::AmeDirs()
 
 AmeDirs::~AmeDirs()
 {
+	delete s_localHome;
 	delete s_localResources;
 	//delete s_systemResources;
 	delete s_configsPath;
@@ -54,6 +56,9 @@ QString AmeDirs::stdDir(int type)
 		case AmeDirs::Local : 
 			return *s_localResources;
 			break;
+
+		case AmeDirs::Home :
+			return *s_localHome;
 
 		case AmeDirs::System :
 			return *s_systemResources;
@@ -101,6 +106,8 @@ void AmeDirs::addStdDirs()
 		localAmeDir = home + "/.ame/";
 #endif
 	}
+
+	s_localHome = new QString(home);
 	
 	s_localResources = new QString(localAmeDir);
 	

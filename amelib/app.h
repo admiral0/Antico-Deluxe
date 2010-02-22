@@ -8,13 +8,19 @@
 class AME_EXPORT AmeApplication : public QApplication
 {
 public:
-	explicit AmeApplication(int& argc, char** argv);
+	explicit AmeApplication(int& argc, char** argv, bool single = false);
 	virtual ~AmeApplication();
 
-private:
+	bool isSingle;
+	bool isRunning;
 
 protected:
 	AmeIconTheme* theme;
+
+	virtual void init();
+
+private:
+	QObject obj;
 
 };
 

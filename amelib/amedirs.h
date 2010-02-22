@@ -32,6 +32,7 @@ public:
 
 	enum DefaultDirs {
 		Local,
+		Home,
 		System,
 		Desktop,
 		Autostart,

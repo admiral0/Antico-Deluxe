@@ -20,27 +20,27 @@ class AME_EXPORT AmeSelectableWidget : public QWidget {
 
 	Q_PROPERTY(bool isSelected READ isSelected WRITE select)
 
-	public:
-		AmeSelectableWidget (QWidget *parent = 0);
-		~AmeSelectableWidget();
+public:
+	AmeSelectableWidget (QWidget *parent = 0);
+	~AmeSelectableWidget();
 
-		bool isSelected (void) const;
+	bool isSelected (void) const;
 
-	signals:
-		void selected (void);
-		void selected (AmeSelectableWidget *widget);
+signals:
+	void selected (void);
+	void selected (AmeSelectableWidget *widget);
 
-	public slots:
-		void select (void);
-		void select (bool isSelected);
-		void unselect (void);
+public slots:
+	void select (void);
+	void select (bool isSelected);
+	void unselect (void);
 
-	protected:
-		void mouseReleaseEvent (QMouseEvent *event);
+protected:
+	void mouseReleaseEvent (QMouseEvent *event);
 
-	private:
-		class Private;
-		Private *d;
+private:
+	class Private;
+	Private *d;
 };
 
 #endif

@@ -22,6 +22,7 @@ class AmeNavBarItem::Private {
 		QHBoxLayout *layout;
 		QLabel *labelIcon;
 		QLabel *labelText;
+		QString link;
 
 	public:
 		void initialize (AmeNavBarItem *item);
@@ -32,6 +33,7 @@ void AmeNavBarItem::Private::initialize (AmeNavBarItem *item) {
 	layout = new QHBoxLayout;
 	labelIcon = new QLabel;
 	labelText = new QLabel;
+	link = "";
 
 	// Setup Text Label
 	labelText->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
@@ -60,20 +62,22 @@ AmeNavBarItem::AmeNavBarItem (QWidget *parent)
 	d->initialize(this);
 }
 
-AmeNavBarItem::AmeNavBarItem (const QString& text, QWidget *parent)
+AmeNavBarItem::AmeNavBarItem (const QString &text, const QString &link, QWidget *parent)
 	: AmeSelectableWidget(parent), d(new AmeNavBarItem::Private)
 {
 	d->initialize(this);
 	d->labelText->setText(text);
+	d->link = link;
 }
 
-AmeNavBarItem::AmeNavBarItem (const QPixmap& icon, const QString& text, QWidget *parent)
+AmeNavBarItem::AmeNavBarItem (const QPixmap& icon, const QString& text, const QString &link, QWidget *parent)
 	: AmeSelectableWidget(parent), d(new AmeNavBarItem::Private)
 {
 	d->initialize(this);
 
 	setIcon(icon);
 	d->labelText->setText(text);
+	d->link = link;
 }
 
 AmeNavBarItem::~AmeNavBarItem() {
@@ -108,6 +112,10 @@ QString AmeNavBarItem::text (void) const {
 	return(d->labelText->text());
 }
 
+QString AmeNavBarItem::link(void) const {
+	return d->link;
+}
+
 const QPixmap *AmeNavBarItem::icon (void) const {
 	return(d->labelIcon->pixmap());
 }
@@ -115,6 +123,11 @@ const QPixmap *AmeNavBarItem::icon (void) const {
 // =============================================================================
 //  NavBarItem: PUBLIC Set Properties
 // =============================================================================
+void AmeNavBarItem::setLink(const QString &link)
+{
+	d->link = link;
+}
+
 void AmeNavBarItem::setIcon (const QPixmap& icon) {
 	if (icon.height() > 20)
 		d->labelIcon->setPixmap(icon.scaledToHeight(20, Qt::SmoothTransformation));

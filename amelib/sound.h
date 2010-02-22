@@ -57,7 +57,7 @@ public:
 	// Mixer setup routines
 	// public here for easy access outside AmeSystemSound
 	int setupMixer(QString card, QString device);
-	int reinitMixer(QString card, QString device);
+	bool reinitMixer(QString card, QString device);
 	void parseMixerName(char *str, char **name, int *index);
 	int getMixer(snd_mixer_t **mixer, QString card);
 

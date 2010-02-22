@@ -350,10 +350,10 @@ int AmeSystemSound::setupMixer(QString card, QString device)
     return 0;
 }
 
-int AmeSystemSound::reinitMixer(QString card, QString device)
+bool AmeSystemSound::reinitMixer(QString card, QString device)
 {
 	if (!useMixer)
-		return 0;
+		return false;
 
 	if (mixer) {
 		snd_mixer_close(mixer);
@@ -361,6 +361,7 @@ int AmeSystemSound::reinitMixer(QString card, QString device)
 	}
 
 	setupMixer(card, device);
+	return true;
 }
 
 void AmeSystemSound::parseMixerName(char *str, char **name, int *index)

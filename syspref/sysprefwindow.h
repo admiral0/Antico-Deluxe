@@ -3,6 +3,7 @@
 
 #include <QtGui>
 #include <StaticIconList>
+#include <ToolBar>
 #include "browser.h"
 
 class PrefWidget;
@@ -40,7 +41,7 @@ protected:
 private:
 	AmeStaticIconList *personal, *hardware, *network, *system;
 	Browser *browser;
-	QToolBar *toolbar;
+	AmeToolBar *toolbar;
 	QAction *prevAct, *nextAct, *showAllAct;
 	QStackedWidget *stack;
 	PrefWidget *prevWidget, *nextWidget;

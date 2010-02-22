@@ -19,17 +19,17 @@
 class AME_EXPORT AmeClickableLabel : public QLabel {
 	Q_OBJECT
 
-	public:
-		AmeClickableLabel (QWidget *parent = 0, Qt::WindowFlags f = 0);
-		AmeClickableLabel (const QString& text, QWidget *parent = 0, Qt::WindowFlags f = 0);
-		~AmeClickableLabel();
+public:
+	AmeClickableLabel (QWidget *parent = 0, Qt::WindowFlags f = 0);
+	AmeClickableLabel (const QString& text, QWidget *parent = 0, Qt::WindowFlags f = 0);
+	~AmeClickableLabel();
 
-	signals:
-		void clicked (void);
-		void clicked (AmeClickableLabel *label);
+signals:
+	void clicked (void);
+	void clicked (AmeClickableLabel *label);
 
-	protected:
-		void mouseReleaseEvent (QMouseEvent *event);
+protected:
+	void mouseReleaseEvent (QMouseEvent *event);
 };
 
 #endif

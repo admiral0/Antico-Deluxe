@@ -99,7 +99,8 @@ void SysPref::onShowNext()
 
 void SysPref::createToolbar()
 {
-	toolbar = addToolBar("Main");
+	toolbar = new AmeToolBar();
+	addToolBar(toolbar);
 	prevAct = new QAction(QIcon(":/icons/tool/go-previous.png"), "Previous", this);
 	connect(prevAct, SIGNAL(triggered()), this, SLOT(onShowPrev()));
 	nextAct = new QAction(QIcon(":/icons/tool/go-next.png"),"Next", this);
@@ -110,7 +111,7 @@ void SysPref::createToolbar()
 
 	toolbar->addAction(prevAct);
 	toolbar->addAction(nextAct);
-	toolbar->addSeparator();
+	toolbar->addSpace(40);
 	toolbar->addAction(showAllAct);
 }
 
