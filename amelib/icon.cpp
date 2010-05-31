@@ -21,17 +21,16 @@ public:
 };
 
 AmeIcon::AmeIcon(QWidget *parent)
-	: QWidget(parent),
-	  d (new IconPrivate)
+        : QWidget(parent),
+          d (new IconPrivate)
 {
-	d->label = "";
-	d->fullText = "";
-	d->scaleFactor = normal;
-	d->drawBorder = false;
-	d->elideMode = true;
-	d->state = Normal;
+        d->label = "";
+        d->fullText = "";
+        d->scaleFactor = normal;
+        d->drawBorder = false;
+        d->elideMode = true;
+        d->state = Normal;
 }
-
 
 AmeIcon::AmeIcon(const QString &name, const QString &label, int scale, 
 			AmeIconTheme *theme, QWidget *parent) 
@@ -220,21 +219,19 @@ void AmeIcon::paintEvent(QPaintEvent *event)
 
 void AmeIcon::mousePressEvent(QMouseEvent *event)
 {
-	QWidget::mousePressEvent(event);
-    if (event->button() == Qt::LeftButton)
-    {
-		d->state = Selected;
-		update();
-    }
+        QWidget::mousePressEvent(event);
+        if (event->button() == Qt::LeftButton) {
+                d->state = Selected;
+                update();
+        }
 }
 
 void AmeIcon::mouseReleaseEvent(QMouseEvent *event)
 {
-	QWidget::mouseReleaseEvent(event);
-    if (event->button() == Qt::LeftButton)
-    {
-		d->state = Normal;
-		update();
-		emit clicked();
-    }
+        QWidget::mouseReleaseEvent(event);
+        if (event->button() == Qt::LeftButton) {
+                d->state = Normal;
+                update();
+                emit clicked();
+        }
 }

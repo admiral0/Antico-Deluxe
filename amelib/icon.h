@@ -21,7 +21,7 @@ class AME_EXPORT AmeIcon : public QWidget
 public:
         enum ScaleFactor {
                 undefined = 0,
-                verysmall = 24,
+                verysmall = 22,
                 small = 32,
                 average = 40,
                 medium = 48,

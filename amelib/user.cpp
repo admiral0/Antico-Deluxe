@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File      : user.cpp				//
-//  Written by: ludmiloff@gmail.com		//
-//  Copyright : GPL2					//
+//  File      : user.cpp		//
+//  Written by: ludmiloff@gmail.com	//
+//  Copyright : GPL2			//
 //////////////////////////////////////////
 
 #include <User>

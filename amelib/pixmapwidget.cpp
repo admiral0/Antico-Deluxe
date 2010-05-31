@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File      : pixmapwidget.cpp		//
-//  Written by: ludmiloff@gmail.com		//
-//  Copyright : GPL2					//
+//  File      : pixmapwidget.cpp	//
+//  Written by: ludmiloff@gmail.com	//
+//  Copyright : GPL2			//
 //////////////////////////////////////////
 
 #include <QPixmap>
@@ -44,7 +44,7 @@ void AmePixmapWidget::setSolidColor(const QColor color)
 
 void AmePixmapWidget::paintEvent(QPaintEvent *)
 {
-	QPainter paint(this);
-	paint.drawPixmap(0, 0, m_pixmap);
+        QPainter painter(this);
+        painter.drawPixmap(0, 0, m_pixmap);
 }
 

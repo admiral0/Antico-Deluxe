@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File      : passworddlg.cpp			//
-//  Written by: ludmiloff@gmail.com		//
-//  Copyright : GPL2					//
+//  File      : passworddlg.cpp		//
+//  Written by: ludmiloff@gmail.com	//
+//  Copyright : GPL2			//
 //////////////////////////////////////////
 
 #include <PasswordDlg>
