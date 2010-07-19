@@ -40,7 +40,7 @@ SOURCES += dbusadapt.cpp \
                 sysprefmain.cpp
 
 INCLUDEPATH += ../amelib /usr/include/ame/
-LIBS += -L/usr/lib -L../amelib -lxkbfile -lame
+LIBS += -L/usr/lib -L../amelib -lxkbfile -lasound -lame
 OBJECTS_DIR += ../build
 MOC_DIR += ../build
 QMAKE_INCDIR += /usr/include forms/

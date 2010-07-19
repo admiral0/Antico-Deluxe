@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>604</width>
+    <width>623</width>
     <height>374</height>
    </rect>
   </property>
@@ -30,7 +30,10 @@
        <string>Sound Effects</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0" colspan="5">
+       <property name="horizontalSpacing">
+        <number>2</number>
+       </property>
+       <item row="0" column="0" colspan="2">
         <widget class="QLabel" name="label">
          <property name="sizePolicy">
           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
@@ -68,7 +71,7 @@
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>27</width>
+           <width>23</width>
            <height>20</height>
           </size>
          </property>
@@ -126,39 +129,7 @@
         </spacer>
        </item>
        <item row="2" column="4">
-        <widget class="QToolButton" name="helpBtn">
-         <property name="minimumSize">
-          <size>
-           <width>27</width>
-           <height>27</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>27</width>
-           <height>27</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../syspref.qrc">
-           <normaloff>:/icons/tool/question.png</normaloff>:/icons/tool/question.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>12</width>
-           <height>12</height>
-          </size>
-         </property>
-        </widget>
+        <widget class="AmeHelpButton" name="helpBtn1"/>
        </item>
       </layout>
      </widget>
@@ -297,39 +268,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QToolButton" name="helpBtn_2">
-           <property name="minimumSize">
-            <size>
-             <width>27</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>27</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>?</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../syspref.qrc">
-             <normaloff>:/icons/tool/question.png</normaloff>:/icons/tool/question.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>12</width>
-             <height>12</height>
-            </size>
-           </property>
-          </widget>
+          <widget class="AmeHelpButton" name="helpBtn2"/>
          </item>
         </layout>
        </item>
@@ -507,6 +446,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AmeHelpButton</class>
+   <extends>QToolButton</extends>
+   <header>HelpButton</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../syspref.qrc"/>
  </resources>

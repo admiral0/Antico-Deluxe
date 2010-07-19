@@ -1,7 +1,7 @@
 //////////////////////////////////////////
-//  File       	: appearance.cpp		//
+//  File       	: appearance.cpp	//
 //  Written by	: ludmiloff@gmail.com	//
-//  Copyright  	: GPL2					//
+//  Copyright  	: GPL2			//
 //////////////////////////////////////////
 
 #include <QtDBus>
@@ -173,7 +173,7 @@ void Appearance::setupStyles()
 void Appearance::setupColors()
 {
 	// AquaBlue
-	QColor c0(0, 170, 255);
+        QColor c0(20, 90, 200);
 	ui.colorCb->insertItem(0, "AquaBlue");
 	ui.colorCb->setItemData(0, c0, Qt::DecorationRole);
 

@@ -7,6 +7,7 @@
 #include "soundpref.h"
 #include "intnl.h"
 #include "dbusadapt.h"
+#include <RectButton>
 
 SysPref::SysPref(int module)
 {
@@ -101,18 +102,21 @@ void SysPref::createToolbar()
 {
 	toolbar = new AmeToolBar();
 	addToolBar(toolbar);
-	prevAct = new QAction(QIcon(":/icons/tool/go-previous.png"), "Previous", this);
-	connect(prevAct, SIGNAL(triggered()), this, SLOT(onShowPrev()));
-	nextAct = new QAction(QIcon(":/icons/tool/go-next.png"),"Next", this);
-	connect(nextAct, SIGNAL(triggered()), this, SLOT(onShowNext()));
-	showAllAct = new QAction("Show All", this);
-	connect(showAllAct, SIGNAL(triggered()), this, SLOT(onShowMain()));
+        prev = new AmeRectButton(AmeSystemIcon::GoPrevious, "Previous section");
+        connect(prev, SIGNAL(clicked()), this, SLOT(onShowPrev()));
+
+        next = new AmeRectButton(AmeSystemIcon::GoNext,"Next section");
+        connect(next, SIGNAL(clicked()), this, SLOT(onShowNext()));
+
+        showAll = new AmeRectButton("Show All", "Show all sections", this);
+        connect(showAll, SIGNAL(clicked()), this, SLOT(onShowMain()));
 
 
-	toolbar->addAction(prevAct);
-	toolbar->addAction(nextAct);
-	toolbar->addSpace(40);
-	toolbar->addAction(showAllAct);
+        toolbar->addButton(prev);
+        toolbar->addButton(next);
+        toolbar->addSpace(8);
+        toolbar->addButton(showAll);
+
 }
 
 void SysPref::onWallpaper()

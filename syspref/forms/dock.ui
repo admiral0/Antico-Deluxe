@@ -248,46 +248,21 @@
       </spacer>
      </item>
      <item>
-      <widget class="QToolButton" name="helpBtn">
-       <property name="minimumSize">
-        <size>
-         <width>27</width>
-         <height>27</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>27</width>
-         <height>27</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>?</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../../../tmp1/anticodeluxe/syspref/syspref.qrc">
-         <normaloff>:/icons/tool/question.png</normaloff>:/icons/tool/question.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>12</width>
-         <height>12</height>
-        </size>
-       </property>
-      </widget>
+      <widget class="AmeHelpButton" name="helpBtn"/>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AmeHelpButton</class>
+   <extends>QToolButton</extends>
+   <header>HelpButton</header>
+  </customwidget>
+ </customwidgets>
  <resources>
-  <include location="../../../../tmp1/anticodeluxe/syspref/syspref.qrc"/>
+  <include location="../syspref.qrc"/>
  </resources>
  <connections/>
 </ui>

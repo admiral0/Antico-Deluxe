@@ -153,7 +153,7 @@ void SoundPref::onSoundItemChange(QTreeWidgetItem *it, int col)
 void SoundPref::onSoundItem(QTreeWidgetItem *it, int col) {
 	Q_UNUSED(col);
 	snd->setEmbedSound(it->data(1, Qt::UserRole).toInt(), true);
-	snd->play();
+	snd->play("");
 }
 
 void SoundPref::onMixerDevice(const QString &device)

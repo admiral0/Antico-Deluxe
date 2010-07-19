@@ -42,7 +42,7 @@ private:
 	AmeStaticIconList *personal, *hardware, *network, *system;
 	Browser *browser;
 	AmeToolBar *toolbar;
-	QAction *prevAct, *nextAct, *showAllAct;
+        AmeRectButton *prev, *next, *showAll;
 	QStackedWidget *stack;
 	PrefWidget *prevWidget, *nextWidget;
 	// DBus control
