@@ -1,5 +1,5 @@
 #include <AmeDirs>
-#include "soundtheme.h"
+#include <SoundTheme>
 
 AmeSoundThemeItem::AmeSoundThemeItem(const QString &aname, const QString &afileName, int id, bool aenabled)
 {
@@ -19,8 +19,8 @@ AmeSoundTheme::AmeSoundTheme(QObject *parent)
 {
 	list = new SoundList;
 	settings = new AmeSettings(AmeDirs::global()->stdDir(AmeDirs::Configs) + "/Sound", QSettings::IniFormat);
-	initEmbedSounds();
-	readThemeSettings();
+        readThemeSettings();
+        initSounds();
 }
 
 AmeSoundTheme::~AmeSoundTheme()
@@ -61,25 +61,53 @@ Sounds AmeSoundTheme::getAll() const
 	return list->values();
 }
 
-void AmeSoundTheme::initEmbedSounds()
+void AmeSoundTheme::initSounds()
 {
-	list->insert(AmeSoundTheme::Click, new AmeSoundThemeItem("Click", ":/common/sounds/Click1.ogg", AmeSoundTheme::Click));
-	list->insert(AmeSoundTheme::Error1, new AmeSoundThemeItem("Application Error", ":/common/sounds/Error1.ogg", AmeSoundTheme::Error1));
-	list->insert(AmeSoundTheme::Error2, new AmeSoundThemeItem("System Error", ":/common/sounds/Error2.ogg", AmeSoundTheme::Error2));
-	list->insert(AmeSoundTheme::Clap, new AmeSoundThemeItem("Clap", ":/common/sounds/Kopete_status.ogg", AmeSoundTheme::Clap));
-	list->insert(AmeSoundTheme::Maximize, new AmeSoundThemeItem("Maximize", ":/common/sounds/Maximize.ogg", AmeSoundTheme::Maximize));
-	list->insert(AmeSoundTheme::Minimize, new AmeSoundThemeItem("Minimize", ":/common/sounds/Minimize4.ogg", AmeSoundTheme::Minimize));
-	list->insert(AmeSoundTheme::Popup, new AmeSoundThemeItem("Notification popup", ":/common/sounds/Popup.ogg", AmeSoundTheme::Popup));
-	list->insert(AmeSoundTheme::Question, new AmeSoundThemeItem("Question", ":/common/sounds/Question.ogg", AmeSoundTheme::Question));
-	list->insert(AmeSoundTheme::Background, new AmeSoundThemeItem("Information", ":/common/sounds/Question_background.ogg", AmeSoundTheme::Background));
-	list->insert(AmeSoundTheme::RestoreDown, new AmeSoundThemeItem("Restore down", ":/common/sounds/Restore_down.ogg", AmeSoundTheme::RestoreDown));
-	list->insert(AmeSoundTheme::RestoreUp, new AmeSoundThemeItem("Restore up", ":/common/sounds/Restore_up.ogg", AmeSoundTheme::RestoreUp));
-	list->insert(AmeSoundTheme::Lock, new AmeSoundThemeItem("Lock/Unlock item", ":/common/sounds/Shade_down.ogg", AmeSoundTheme::Lock));
-	list->insert(AmeSoundTheme::Shade, new AmeSoundThemeItem("Shade/Withdraw", ":/common/sounds/Shade_up.ogg", AmeSoundTheme::Shade));
+        addFile("Click.ogg", "Click", AmeSoundTheme::Click);
+        addFile("Error1.ogg", "Application error", AmeSoundTheme::Error1);
+        addFile("Error2.ogg", "System error", AmeSoundTheme::Error1);
+        addFile("Clap.ogg", "Clap", AmeSoundTheme::Clap);
+        addFile("Maximize.ogg", "Maximize", AmeSoundTheme::Maximize);
+        addFile("Minimize.ogg", "Minimize", AmeSoundTheme::Minimize);
+        addFile("Popup.ogg", "Notification popup", AmeSoundTheme::Popup);
+        addFile("Question.ogg", "Question", AmeSoundTheme::Question);
+        addFile("Information.ogg", "Information", AmeSoundTheme::Information);
+        addFile("Restore_down.ogg", "Restore down", AmeSoundTheme::RestoreDown);
+        addFile("Restore_up.ogg", "Restore up", AmeSoundTheme::RestoreUp);
+        addFile("LockItem.ogg", "Lock/Unlock item", AmeSoundTheme::Lock);
+        addFile("Shade.ogg", "Shade/Withdraw", AmeSoundTheme::Shade);
+        // the setting may be changed, save'em now
+        saveThemeSettings();
+}
+
+void AmeSoundTheme::addFile(const QString &file, const QString &name, int soundId)
+{
+        QString path(themeDir + "/" + file);
+        if (QFile::exists(path)) {
+                list->insert(soundId, new AmeSoundThemeItem(name, path, soundId));
+        } else {
+                // file not found: disable this sound
+                AmeSoundThemeItem *it;
+                if ((it = list->value(soundId)) != NULL) {
+                        it->enabled = false;
+                }
+        }
 }
 
 void AmeSoundTheme::readThemeSettings()
 {
+        QDir d;
+        themeName = settings->value("theme", QVariant("default")).toString();
+
+        if (d.exists("/usr/share/ame/sounds/" + themeName)) {
+                themeDir = "/usr/share/ame/sounds/" + themeName;
+        }
+
+        if (d.exists(AmeDirs::global()->stdDir(AmeDirs::SoundTheme) + themeName)) {
+                themeDir = AmeDirs::global()->stdDir(AmeDirs::SoundTheme)  + themeName;
+        }
+
+
 	QStringList e = settings->listValue("sounds_enabled");
 	if (e.isEmpty()) {
 		// save defaults
@@ -101,7 +129,8 @@ void AmeSoundTheme::saveThemeSettings()
 	for (int i=0; i < lst.size(); i++) {
 		e << (lst.at(i)->enabled ? "1" : "0");
 	}
-	settings->setListValue("sounds_enabled", e);
+        settings->setValue("theme", themeName);
+        settings->setListValue("sounds_enabled", e);
 }
 
 AME_GLOBAL_STATIC(AmeSoundTheme, gAmeSoundTheme)

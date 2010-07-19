@@ -30,7 +30,7 @@ public:
 	enum SystemSounds {
 		Click, Error1, Error2, Clap,
 		Maximize, Minimize, Popup,
-		Question, Background,
+                Question, Information,
 		RestoreDown, RestoreUp,
 		Lock, Shade,
 		//
@@ -50,8 +50,10 @@ public:
 private:
 	SoundList *list;
 	AmeSettings *settings;
+        QString themeName, themeDir;
 
-	void initEmbedSounds();
+        void initSounds();
+        void addFile(const QString &file, const QString &name, int soundId);
 	void readThemeSettings();
 	void saveThemeSettings();
 };

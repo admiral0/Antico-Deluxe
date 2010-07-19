@@ -11,7 +11,7 @@
 //  Sound volume mixer taken from QMMP project - 	//
 //  http://qmmp.ylsoftware.com/				//
 //							//
-//  Some modifications & stripping made by me: 		//							//
+//  Some modifications & stripping made by me: 		//
 //  <ludmiloff@gmail.com>				//
 //////////////////////////////////////////////////////////
 
@@ -26,11 +26,9 @@
 #include <AmeDirs>
 
 #include <alsa/asoundlib.h>
-#include <ao/ao.h>
 
-#define AO_WORD_SIZE 2
-
-class VorbisDecoder;
+#include <Phonon/MediaObject>
+#include <Phonon/AudioOutput>
 
 class AME_EXPORT AmeSystemSound : public QThread
 {
@@ -83,29 +81,22 @@ private:
 	QFile *input;
 	bool mInited;
 
-	// Output
-	QString deviceName;
-	int aoDriverId;
-	ao_device *aoDevice;
-	ao_option *aoOptions;
-	ao_sample_format aoFormat;
-	bool mUseMmap;
 
 	// Output cmd
 	bool mPlay;
 	bool mPause;
 	bool mUserStop;
 
-	VorbisDecoder *decoder;
-
-	uint buffer_time;
-	uint period_time;
 
 	// Alsa mixer
 	bool useMixer;
 	snd_mixer_elem_t* getMixerElem(snd_mixer_t *mixer, char *name, int index);
 	snd_mixer_t *mixer;
 	snd_mixer_elem_t *mixer_element;
+
+        // Phonon
+        Phonon::MediaObject *media;
+        Phonon::AudioOutput *output;
 };
 
 #endif

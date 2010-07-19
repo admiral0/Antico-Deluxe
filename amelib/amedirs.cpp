@@ -23,6 +23,7 @@ static QString *s_desktopPath;
 static QString *s_autostartPath;
 static QString *s_documentsPath; 
 static QString *s_iconThemePath;
+static QString *s_soundThemePath;
 
 static QString readEnvPath(const char *env)
 {
@@ -48,6 +49,7 @@ AmeDirs::~AmeDirs()
 	delete s_autostartPath;
 	delete s_documentsPath;
 	delete s_iconThemePath;
+        delete s_soundThemePath;
 }
 
 QString AmeDirs::stdDir(int type) 
@@ -82,6 +84,10 @@ QString AmeDirs::stdDir(int type)
 		case AmeDirs::IconTheme:
 			return *s_iconThemePath;
 			break;
+
+                case AmeDirs::SoundTheme:
+                        return *s_soundThemePath;
+                        break;
 
 		case AmeDirs::ThisApplication:
 			return QCoreApplication::applicationDirPath();
@@ -120,6 +126,8 @@ void AmeDirs::addStdDirs()
 	s_documentsPath = new QString(home + "/Documents/");
 
 	s_iconThemePath = new QString(localAmeDir + "icons/");
+
+        s_soundThemePath = new QString(localAmeDir + "sounds/");
 }
 
 bool AmeDirs::createStdDirs()

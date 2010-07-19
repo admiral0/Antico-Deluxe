@@ -8,6 +8,7 @@
 #define __AMEDIRS_H
 
 #include <Global>
+#include <QDir>
 #include <QString>
 
 /**

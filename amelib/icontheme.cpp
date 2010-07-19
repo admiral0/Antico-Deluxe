@@ -38,10 +38,10 @@ QString AmeIconThemeDir::iconPath(const QString &name) const
 
 
 AmeIconTheme::AmeIconTheme(const QString &dir, QObject *parent)
-  : QObject(parent),
-	themeDir(dir)
+        : QObject(parent),
+        themeDir(dir)
 {
-	setTheme(themeDir + "/default/");
+        setTheme(themeDir + "/default");
 }
 
 AmeIconTheme::~AmeIconTheme()

@@ -1,17 +1,17 @@
-//////////////////////////////////////////////////////////
-//  File      : vorbisdecoder.h							//
-//  Written by: ludmiloff@gmail.com						//
-//  Copyright : GPL2									//
-//	Some parts of the implementation					//
-//  are taken/inspired from Ogg123 code	and 			//
-//	QMMP project http://qmmp.ylsoftware.com/index_en.php//
-//  THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001	//
+//////////////////////////////////////////////////////////////////
+//  File      : vorbisdecoder.h                                 //
+//  Written by: ludmiloff@gmail.com                             //
+//  Copyright : GPL2                                            //
+//	Some parts of the implementation                        //
+//  are taken/inspired from Ogg123 code	and                     //
+//	QMMP project http://qmmp.ylsoftware.com/index_en.php    //
+//  THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001           //
 //  by Stan Seibert <volsung@xiph.org> AND OTHER 		//
-//  CONTRIBUTORS, http://www.xiph.org/					//
-//														//
+//  CONTRIBUTORS, http://www.xiph.org/				//
+//								//
 //  Some modifications & stripping made by me: 			//
-//  <ludmiloff@gmail.com>								//
-//////////////////////////////////////////////////////////
+//  <ludmiloff@gmail.com>                                       //
+//////////////////////////////////////////////////////////////////
 
  
 #include "vorbisdecoder.h"
@@ -55,8 +55,9 @@ static int oggseek(void *src, int64_t offset, int whence)
 
 static int oggclose(void *src)
 {
-    VorbisDecoder *decoder = (VorbisDecoder *) src;
-    decoder->input()->close();
+    //VorbisDecoder *decoder = (VorbisDecoder *) src;
+    //decoder->input()->close();
+
     return 0;
 }
 
@@ -96,12 +97,12 @@ void VorbisDecoder::initialize()
 		bufPtr = outputBuf;
 	}
 	
-	if (!input()->isOpen()) {
-		if (!input()->open(QIODevice::ReadOnly)) {
-			qWarning(qPrintable("VorbisDecoder: failed to open input. " + input()->errorString () + "."));
-			return;
-		}
+    if (!input()->isOpen()) {
+	if (!input()->open(QIODevice::ReadOnly)) {
+		qWarning("VorbisDecoder: failed to open input. %s .", input()->errorString ());
+		return;
 	}
+    }
 
     ov_callbacks oggcb =
         {
@@ -116,9 +117,9 @@ void VorbisDecoder::initialize()
         return;
     }
 		
-	section = -1;
-	beginSection = true;
-	state = Ready;
+    section = -1;
+    beginSection = true;
+    state = Ready;
     return;
 }
 
@@ -137,19 +138,20 @@ void VorbisDecoder::reinitialize(QIODevice *i)
 int VorbisDecoder::read(ao_sample_format *format)
 {	
 	state = Decoding;
-	int nbytes = BUFFER_SIZE;
-    int lastSection;
+        int nbytes = BUFFER_SIZE;
+        int lastSection;
 	outputBytes = 0;
 	bufPtr = outputBuf;
 	
 	if (beginSection) {
+		// just skip tags
+		ov_comment (&oggFile, -1);
+
 		vorbis_info *ogginfo = ov_info(&oggFile, -1);
 		if (ogginfo) {
 			format->rate = ogginfo->rate;
 			format->channels = ogginfo->channels;
 		}
-		// just skip tags
-		ov_comment (&oggFile, -1);
 		beginSection = false;
 	}
 	

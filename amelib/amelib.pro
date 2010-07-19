@@ -1,7 +1,7 @@
 TEMPLATE = lib
 VERSION = 0.2
 
-QT += xml dbus
+QT += xml dbus phonon
 CONFIG += warn_on \
     qt \
     thread \
@@ -53,7 +53,7 @@ MAIN_HEADERS += \
         passworddlg.h \
         app.h
 
-EXTRA_HEADERS += vorbisdecoder.h
+EXTRA_HEADERS +=
 
 HEADERS += $$MAIN_HEADERS \
     $$EXTRA_HEADERS
@@ -89,7 +89,6 @@ FLAT_HEADERS += \
 SOURCES += \
         utils.cpp \
         mime.cpp \
-        vorbisdecoder.cpp \
         soundtheme.cpp \
         sound.cpp \
         user.cpp \
@@ -114,10 +113,34 @@ SOURCES += \
         passworddlg.cpp \
         app.cpp
 
+SHARE_FILES += \
+        sounds/Click.ogg \
+        sounds/Error1.ogg \
+        sounds/Error2.ogg \
+        sounds/Clap.ogg \
+        sounds/Maximize.ogg \
+        sounds/Minimize.ogg \
+        sounds/Popup.ogg \
+        sounds/Question.ogg \
+        sounds/Information.ogg \
+        sounds/Restore_up.ogg \
+        sounds/Restore_down.ogg \
+        sounds/LockItem.ogg \
+        sounds/Shade.ogg \
+        sounds/Status.ogg \
+        sounds/README
+
 TARGET = ame
 target.path = /usr/lib
+
 flat_headers.files += $$MAIN_HEADERS
 flat_headers.files += $$FLAT_HEADERS
 flat_headers.path = /usr/include/ame
+
+
+share_files.files += $$SHARE_FILES
+share_files.path = /usr/share/ame/sounds/default
+
 INSTALLS += target
 INSTALLS += flat_headers
+INSTALLS += share_files

@@ -1,20 +1,4 @@
 <RCC>
-    <qresource prefix="/">
-        <file>../common/sounds/Click1.ogg</file>
-        <file>../common/sounds/Question_background.ogg</file>
-        <file>../common/sounds/Restore_down.ogg</file>
-        <file>../common/sounds/Kopete_status.ogg</file>
-        <file>../common/sounds/Question.ogg</file>
-        <file>../common/sounds/Minimize4.ogg</file>
-        <file>../common/sounds/Shade_up.ogg</file>
-        <file>../common/sounds/Error1.ogg</file>
-        <file>../common/sounds/Maximize.ogg</file>
-        <file>../common/sounds/Popup.ogg</file>
-        <file>../common/sounds/Restore_up.ogg</file>
-        <file>../common/sounds/Shade_down.ogg</file>
-        <file>../common/sounds/Error2.ogg</file>
-        <file alias="freedesktopmime.xml">../common/freedesktop.org.xml</file>
-    </qresource>
     <qresource prefix="/sysicons">
         <file alias="action0.png">icons/action0.png</file>
         <file alias="action1.png">icons/action1.png</file>

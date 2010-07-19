@@ -2,12 +2,6 @@
 //  File      : sound.cpp				//
 //  Written by: ludmiloff@gmail.com			//
 //  Copyright : GPL2					//
-//	Some parts of the implementation		//
-//  are taken/inspired from Ogg123 code			//
-//  THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001	//
-//  by Stan Seibert <volsung@xiph.org> AND OTHER 	//
-//  CONTRIBUTORS, http://www.xiph.org/			//
-//							//
 //  Sound volume mixer taken fro QMMP project - 	//
 //  http://qmmp.ylsoftware.com/				//
 //							//
@@ -19,12 +13,14 @@
 #include <SoundTheme>
 #include <QString>
 
+/*
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
 
 #include "vorbisdecoder.h"
+*/
 
 AmeSystemSound::AmeSystemSound(bool withMixer, QObject *parent)
 	: QThread(parent),
@@ -37,39 +33,27 @@ AmeSystemSound::AmeSystemSound(bool withMixer, QObject *parent)
 AmeSystemSound::~AmeSystemSound()
 {
 	uninitialize();
-	ao_shutdown();
 }
 
 bool AmeSystemSound::play(const QString &src)
 {
-	if (!src.isEmpty())
-		source = src;
+    if (!src.isEmpty())
+            source = src;
 
-	if (source.isEmpty())
-		return false;
-	
-	if (input)
-		delete input;
-	input = new QFile(source);
-	
-	if (!decoder) {
-		decoder = new VorbisDecoder(input);
-	} else {
-		// reinit the decoder
-		decoder->reinitialize(input);
-	}
-	if (mInited && decoder->state == VorbisDecoder::Ready)
-		start();
-	else {
-		qDebug() << "AmeSystemSound: Not inited yet, cannot play."; 
-	}
-	return mInited;
+    if (source.isEmpty())
+            return false;
+
+    media->setCurrentSource(Phonon::MediaSource(source));
+    if (mInited) start();
+    return mInited;
 }
+
 
 bool AmeSystemSound::play()
 {
 	return play("");
 }
+
 
 void AmeSystemSound::stop()
 {
@@ -94,6 +78,8 @@ void AmeSystemSound::setEmbedSound(int soundId, bool force)
 			source = "";
 	} else
 		source = "";
+        if (!QFile::exists(source))
+                source = "";
 }
 
 int AmeSystemSound::volume()
@@ -157,55 +143,26 @@ void AmeSystemSound::initialize()
 		uninitialize();
 	
 	source = "";
-	decoder = 0;
-	input = 0;
 	mixer = 0;
-	aoDevice = 0;
-	aoDriverId = -1;
 		
 	mPause = false;
 	mPlay = false;
 	mUserStop = false;
 	
-	// set preferred audio format (used by decoder)
-	aoFormat.bits = AO_WORD_SIZE * 8;
-	aoFormat.rate = -1;
-	aoFormat.channels = -1;
-	aoFormat.byte_format = (ao_is_big_endian() ? AO_FMT_BIG : AO_FMT_LITTLE);
-	
-	aoOptions = NULL;
-	
-	ao_initialize();
 	
 	QSettings settings(AmeDirs::global()->stdDir(AmeDirs::Configs) + "/Sound", QSettings::IniFormat);
-	
-	deviceName = settings.value("AudioDevice/device", "alsa").toString();
-	char *dev = strdup(deviceName.toAscii().data());
-	aoDriverId = ao_driver_id(dev);
-	if (aoDriverId < 0) {
-		// no driver for this device, try default device
-		qDebug() << "AmeSoundOutput: no driver found, try default device/driver";
-		aoDriverId = ao_default_driver_id();
 		
-		if (aoDriverId < 0)
-			return;
-	}
-		
-	if (deviceName.startsWith("alsa")) {
-		// TODO:
-		//mUse_mmap = settings.value("use_mmap", false).toBool();
-	}
-	
-	// TODO:
-	//buffer_time = settings.value("buffer_time",500).toUInt()*1000;
-	//period_time = settings.value("period_time",100).toUInt()*1000;
-	
 	if (useMixer) {
 		QString mixerCard = settings.value("Mixer/mixer_card", "hw:0").toString();
 		QString mixerDevice = settings.value("Mixer/mixer_device", "Master").toString();
 		setupMixer(mixerCard, mixerDevice);
 	}
 	
+        // Phonon initialization
+        media = new Phonon::MediaObject(this);
+        output = new Phonon::AudioOutput(Phonon::MusicCategory, this);
+        Phonon::createPath(media, output);
+
 	mPause = false;
 	mPlay = false;
 	mUserStop = false;
@@ -215,26 +172,10 @@ void AmeSystemSound::initialize()
 
 void AmeSystemSound::uninitialize()
 {	
-	if (aoDevice) {
-		// TODO: free aoOptions structure, if not null
-		ao_close(aoDevice);
-		aoDevice = 0;
-		aoDriverId = -1;
-	}
 	
 	if (mixer) {
 		snd_mixer_close(mixer);	
 		mixer = 0;
-	}
-	
-	if (input) {
-		delete input;
-		input = 0;
-	}
-	
-	if (decoder) {
-		delete decoder;
-		decoder = 0;
 	}
 	
 	mPause = false;
@@ -246,45 +187,9 @@ void AmeSystemSound::uninitialize()
 
 void AmeSystemSound::run()
 {
-	int len;
-	
-	while (decoder->state == VorbisDecoder::Decoding || decoder->state == VorbisDecoder::Ready) {
-			   
-		ao_sample_format newFmt = aoFormat;
-		   
-		len = decoder->read(&newFmt);
-			   
-		if (len == 0)
-			break;
-		if (len < 0) {
-			// error in decoder
-			qDebug() << "AmeSystemSound:: decoding failure";
-			break;
-		}
-		
-		// if new format is different, reopen device
-		if (newFmt.rate != aoFormat.rate || newFmt.channels != aoFormat.channels || aoDevice == NULL) {
-			if (aoDevice) {
-				ao_close(aoDevice);
-				aoDevice = 0;
-			}
-			aoFormat = newFmt;
-			if ((aoDevice = ao_open_live(aoDriverId, &aoFormat, aoOptions)) == NULL ) {
-				qDebug() << "AmeSoundOutput: error while opening device. errno = " << errno;
-				return;
-			}
-			if (!aoDevice)
-				return;
-		}
-		
-		if (ao_play(aoDevice, decoder->buffer(), len) == 0) {
-			qDebug() << "AmeSystemSound: error while playing, the device should be closed";
-		}
-	}
-	
-	// quick fix to ALSA: underrun, at least 0ms. message
-	ao_close(aoDevice);
-	aoDevice = 0;
+        mPlay = true;
+        media->play();
+        mPlay = false;
 }
 
 
