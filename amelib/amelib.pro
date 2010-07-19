@@ -11,10 +11,7 @@ CONFIG += warn_on \
     link_pkgconfig
 
 PKGCONFIG += alsa \
-    ogg \
-    vorbisfile \
-    vorbis \
-    ao
+
 
 RESOURCES = amelib.qrc
 UI_HEADERS_DIR = forms
