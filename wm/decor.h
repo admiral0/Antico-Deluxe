@@ -101,40 +101,30 @@ public:
 	int cursorPos;
 
 signals:
-    void tMouseRelease();
-    void tMouseMove(QMouseEvent *);
-    void tMouseLeftPress(QMouseEvent *);
-    void tMouseRightPress();
-    void tMouseMidPress();
+        void tMouseRelease();
+        void tMouseMove(QMouseEvent *);
+        void tMouseLeftPress(QMouseEvent *);
+        void tMouseRightPress();
+        void tMouseMidPress();
 	void tMouseDblClick();
 	
 protected:
-    void mousePressEvent(QMouseEvent *);
-    void mouseMoveEvent(QMouseEvent *);
-    void mouseReleaseEvent(QMouseEvent *);
-    virtual void paintEvent(QPaintEvent *);
+        void mousePressEvent(QMouseEvent *);
+        void mouseMoveEvent(QMouseEvent *);
+        void mouseReleaseEvent(QMouseEvent *);
+        virtual void paintEvent(QPaintEvent *);
 
 protected:
 	int borderState;
 	bool changeCursor;
 	bool posLocked;
+        QColor top, bottom, extra;
 };
 
 class Titlebar : public GenericBar
 {
 	Q_OBJECT
 public:
-
-	//enum BorderState {
-	//	borderActive,
-	//	borderInactive
-	//};
-
-	//enum BorderRole {
-	//	normalWindow,
-	//	dialogWindow,
-	//	inspectorWindow,
-	//};
 
 	Titlebar(const QPixmap &, const QString &, int _role = 0, QWidget *parent = 0);
 	~Titlebar();
@@ -146,19 +136,19 @@ public:
 	WinButton *closeBtn, *minBtn, *maxBtn;
 	
 //signals:
-//    void tMouseRelease();
-//    void tMouseMove(QMouseEvent *);
-//    void tMouseLeftPress(QMouseEvent *);
-//    void tMouseRightPress();
-//    void tMouseMidPress();
-//	void tMouseDblClick();
+//      void tMouseRelease();
+//      void tMouseMove(QMouseEvent *);
+//      void tMouseLeftPress(QMouseEvent *);
+//      void tMouseRightPress();
+//      void tMouseMidPress();
+//      void tMouseDblClick();
 	
 protected:
-//    void mousePressEvent(QMouseEvent *);
-//    void mouseMoveEvent(QMouseEvent *);
-//    void mouseReleaseEvent(QMouseEvent *);
+//      void mousePressEvent(QMouseEvent *);
+//      void mouseMoveEvent(QMouseEvent *);
+//      void mouseReleaseEvent(QMouseEvent *);
 	void mouseDoubleClickEvent(QMouseEvent *);
-    void paintEvent(QPaintEvent *);
+        void paintEvent(QPaintEvent *);
 	
 protected:
 	QPixmap icon;

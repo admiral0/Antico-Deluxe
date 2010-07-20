@@ -140,6 +140,10 @@ GenericBar::GenericBar(QWidget *parent)
 	setMouseTracking(true);
 	cursorPos = GenericBar::NonePos;
 	posLocked = false;
+
+        top = QColor(197, 197, 197);
+        bottom = QColor(178, 178, 178);
+        extra = QColor(220, 220, 220, 150);
 }
 
 GenericBar::~GenericBar()
@@ -188,25 +192,31 @@ void GenericBar::mouseMoveEvent(QMouseEvent *event)
 
 void GenericBar::mouseReleaseEvent(QMouseEvent *)
 {
-    emit tMouseRelease();
-	posLocked = false;
+        emit tMouseRelease();
+                posLocked = false;
 }
 
 void GenericBar::paintEvent(QPaintEvent *)
 {
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
+        QPainter painter(this);
+        painter.setRenderHint(QPainter::Antialiasing);
     
 	QRect rect = painter.window();
-	QColor base;
-	base = palette().button().color();
-	if (borderState == borderActive)
-		base = base.darker(140);
 
-	QLinearGradient linearGrad(QPointF(0, rect.top()), QPointF(0, rect.top() + height()));
-	linearGrad.setColorAt(0, base.lighter(125));
-	linearGrad.setColorAt(1, base.darker(150));	
-	painter.fillRect(0, rect.top(), width(), height(), linearGrad);
+        painter.setPen(extra);
+        painter.drawLine(0, 0, rect.width(), 0);
+
+        if (borderState == borderActive) {
+                // TODO:
+        }
+
+        int y1 = rect.top() + 1;
+        int h1 = height() - 1;
+
+        QLinearGradient linearGrad(QPointF(0, y1), QPointF(0, h1));
+        linearGrad.setColorAt(0, top);
+        linearGrad.setColorAt(1, bottom);
+        painter.fillRect(0, y1, width(), h1, linearGrad);
 }
 
 
@@ -292,9 +302,9 @@ void Titlebar::setTitle(const QString &_title)
 
 void Titlebar::paintEvent(QPaintEvent *event)
 {
-	GenericBar::paintEvent(event);
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
+        GenericBar::paintEvent(event);
+        QPainter painter(this);
+        painter.setRenderHint(QPainter::Antialiasing);
 
 	//QRect rect = painter.window();
 	QColor base;
@@ -317,8 +327,9 @@ void Titlebar::paintEvent(QPaintEvent *event)
 	int w = (width() - fontMetrics().width(title) - h) / 2;
 
 	painter.drawPixmap(QRect(w, 2, height()-4, height()-4), icon, 
-		QRect(0, 0, icon.width(), icon.height()));//icon
-    painter.drawText(QRect(w + h, 0, width(), height()), 
+                QRect(0, 0, icon.width(), icon.height()));//icon
+
+        painter.drawText(QRect(w + h, 0, width(), height()),
 		Qt::AlignVCenter, title); //text    
 }
 

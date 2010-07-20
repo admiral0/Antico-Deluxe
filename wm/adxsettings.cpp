@@ -27,8 +27,10 @@ void Adx::readAdxSettings(void)
 	stg->beginGroup("Appearance");
 	// Highlight color defaults to our AquaBlue
 	QColor lastColor = QColor(stg->value("last_highlight", QColor(0, 0, 255).name()).toString());
+        stg->setValue("last_highlight", lastColor.name());
 	setHighlightColor(lastColor);
 	minimizeDblClick = stg->value("minimize_dbl_click", false).toBool();
+        stg->setValue("minimize_dbl_click", minimizeDblClick);
 	stg->endGroup();
 	/////////////////////////////////////////////////////////////////////////
 	stg->sync();

@@ -30,7 +30,7 @@ void AboutDlg::getHWInfo()
 		QStringList data = (line).split(':');
 		
 		if (data.size() == 2) {
-			map.insert(data[0].trimmed(), data[1].trimmed());
+                        map.insert(data[0].simplified(), data[1].simplified());
 			f = true;
 		}
 	}
@@ -45,14 +45,15 @@ void AboutDlg::getHWInfo()
 
 	struct sysinfo memory;
 	sysinfo(&memory);
-	int in_mb = memory.totalram / 1048576; // in Mega bytes
+
+        uint in_mb = memory.totalram * memory.mem_unit / 1048576; // in Mega bytes
 	float in_gb;
 	if (in_mb >= 1024) { 
-		in_gb = in_mb / 1024;
+                in_gb = in_mb / 1024.0;
 		ui.memoryLbl->setText(QString("%1 GB").arg(in_gb, 0, 'f', 2));
 	} else {
 		ui.memoryLbl->setText(QString("%1 MB").arg(in_mb));
 	}
-	//qDebug() << memory.totalram;
+        //qDebug() << in_mb << in_gb << memory.mem_unit * memory.totalram;
 	
 }

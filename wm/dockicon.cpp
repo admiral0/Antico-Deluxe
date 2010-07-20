@@ -1,8 +1,9 @@
-////////////////////////////////////////
-//  File      : dockicon.cpp          //
-//  Written by: g_cigala@virgilio.it  //
-//  Copyright : GPL                   //
-////////////////////////////////////////
+//////////////////////////////////////////////////
+//  File      : dockicon.h                      //
+//  Originally written by: g_cigala@virgilio.it //
+//  Modified by: ludmiloff@gmail.com            //
+//  Copyright : GPL                             //
+//////////////////////////////////////////////////
 
 #include "dockicon.h"
 

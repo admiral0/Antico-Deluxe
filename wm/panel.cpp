@@ -48,6 +48,7 @@ int Panel::calcWidth(void)
 
 void Panel::setupGui(void)
 {
+        qDebug() << "toppanel begin";
 	layout = new QHBoxLayout;
 	layout->setSpacing(0);
 	layout->setContentsMargins(0, 0, 0, 0);
@@ -98,6 +99,7 @@ void Panel::setupGui(void)
 	setFixedHeight(TOP_PANEL_HEIGHT);
 	resize(calcWidth(), TOP_PANEL_HEIGHT);
 	move(QPoint(0,0));
+        qDebug() << "toppanel done";
 
 }
 

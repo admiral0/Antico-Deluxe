@@ -17,7 +17,7 @@
 
 #define MAJOR_VERSION 0
 #define MINOR_VERSION 1
-#define MODIFICATION "96"
+#define MODIFICATION "98-1"
 
 static QApplication::EventFilter prev_x11_event_filter = 0;
 

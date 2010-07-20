@@ -68,7 +68,7 @@ bool KbSwitch::readSettings()
 		rebuildMenu();
 		return true;
 	} else {
-		menu()->clear();
+                if (menu()) menu()->clear(); else setMenu(new QMenu());
 		return false;
 	}
 }

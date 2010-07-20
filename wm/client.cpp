@@ -213,7 +213,7 @@ void Client::iconifyFast()
 void Client::maximize()
 {
 	if (! maximized) {
-		// save parent dimension
+                // save parent dimension
 		n_px = x();
 		n_py = y();
 		n_pw = width();
