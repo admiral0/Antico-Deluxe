@@ -16,7 +16,8 @@ QMAKE_INCDIR += /usr/include forms/
 QMAKE_CLEAN += antico-deluxe
 
 INCLUDEPATH += ../amelib /usr/include/ame/
-LIBS += -L/usr/lib -L../amelib -lame
+#LIBS += -L/usr/lib -L../amelib -lame
+LIBS += -L../amelib -lame -lX11
 
 HEADERS += defs.h \
 			aboutdlg.h \
