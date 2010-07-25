@@ -13,14 +13,6 @@
 #include <SoundTheme>
 #include <QString>
 
-/*
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
-#include <stdlib.h>
-
-#include "vorbisdecoder.h"
-*/
 
 AmeSystemSound::AmeSystemSound(bool withMixer, QObject *parent)
 	: QThread(parent),

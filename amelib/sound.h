@@ -27,8 +27,9 @@
 
 #include <alsa/asoundlib.h>
 
-#include <Phonon/MediaObject>
-#include <Phonon/AudioOutput>
+//Phonon
+#include <phonon/MediaObject>
+#include <phonon/AudioOutput>
 
 class AME_EXPORT AmeSystemSound : public QThread
 {

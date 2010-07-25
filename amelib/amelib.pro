@@ -18,8 +18,9 @@ UI_HEADERS_DIR = forms
 FORMS += forms/password.ui
 OBJECTS_DIR += ../build
 MOC_DIR += ../build
-QMAKE_INCDIR += /usr/include \
-    forms/
+QMAKE_INCDIR += \
+        forms/
+
 INCLUDEPATH += 
 
 MAIN_HEADERS += \
