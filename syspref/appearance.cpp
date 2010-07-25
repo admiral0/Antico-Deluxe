@@ -134,7 +134,7 @@ void Appearance::readSettings()
 	antico->beginGroup("Appearance");
 	lastColorIndx = antico->value("last_highlight_indx", 0).toInt();
 	// defaults to our AquaBlue
-	lastColor = QColor(antico->value("last_highlight", QColor(0, 0, 255).name()).toString());
+        lastColor = QColor(antico->value("last_highlight", QColor(0, 96, 202).name()).toString());
 	dblClickMinimize = antico->value("minimize_dbl_click", false).toBool();
 	antico->endGroup();
 
@@ -173,7 +173,7 @@ void Appearance::setupStyles()
 void Appearance::setupColors()
 {
 	// AquaBlue
-        QColor c0(20, 90, 200);
+        QColor c0(0, 96, 202);
 	ui.colorCb->insertItem(0, "AquaBlue");
 	ui.colorCb->setItemData(0, c0, Qt::DecorationRole);
 
