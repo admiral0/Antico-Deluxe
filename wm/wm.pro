@@ -1,5 +1,5 @@
 TEMPLATE = app
-VERSION = 0.1.96
+VERSION = 0.1.98
 
 QT += dbus
 CONFIG += qt release
@@ -7,16 +7,16 @@ CONFIG += qt release
 RESOURCES = theme/std.qrc
 
 UI_HEADERS_DIR = forms
-FORMS +=	forms/frm_quit.ui \
-			forms/frm_about.ui
+FORMS += \
+        forms/frm_quit.ui \
+        forms/frm_about.ui
 
 OBJECTS_DIR += ../build
 MOC_DIR += ../build
-QMAKE_INCDIR += /usr/include forms/
+QMAKE_INCDIR += forms/
 QMAKE_CLEAN += antico-deluxe
 
 INCLUDEPATH += ../amelib /usr/include/ame/
-#LIBS += -L/usr/lib -L../amelib -lame
 LIBS += -L../amelib -lame -lX11
 
 HEADERS += defs.h \

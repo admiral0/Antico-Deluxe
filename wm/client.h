@@ -98,7 +98,7 @@ public:
         int max_w, max_h;			// XWMNormalHints
         int min_w, min_h;			// XWMNormalHints
 
-        int client_w, client_h;		// client geometry
+        int client_w, client_h;                 // client geometry
 
         QString	appName;			// Application class name
         QString icnName;			// WM_ICON_NAME
@@ -108,8 +108,8 @@ public:
         Titlebar *titlebar;
         GenericBar *bottombar;
 
-        int m_px, m_py, m_pw, m_ph;	// maximize state parent (qt) geometry
-        int n_px, n_py, n_pw, n_ph;	// normal state parent (qt) geometry
+        int m_px, m_py, m_pw, m_ph;             // maximize state parent (qt) geometry
+        int n_px, n_py, n_pw, n_ph;             // normal state parent (qt) geometry
         bool maximized;
 
         bool keyboardGrabbed;

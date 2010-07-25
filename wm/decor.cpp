@@ -141,9 +141,8 @@ GenericBar::GenericBar(QWidget *parent)
 	cursorPos = GenericBar::NonePos;
 	posLocked = false;
 
-        top = QColor(197, 197, 197);
-        bottom = QColor(178, 178, 178);
-        extra = QColor(220, 220, 220, 150);
+        top = QColor(157, 157, 157);
+        bottom = QColor(150, 150, 150);
 }
 
 GenericBar::~GenericBar()
@@ -203,9 +202,6 @@ void GenericBar::paintEvent(QPaintEvent *)
     
 	QRect rect = painter.window();
 
-        painter.setPen(extra);
-        painter.drawLine(0, 0, rect.width(), 0);
-
         if (borderState == borderActive) {
                 // TODO:
         }
@@ -223,6 +219,11 @@ void GenericBar::paintEvent(QPaintEvent *)
 Titlebar::Titlebar(const QPixmap &_icon, const QString &_title, int _role, QWidget *parent)
 	: GenericBar(parent)
 {
+
+        top = QColor(197, 197, 197);
+        bottom = QColor(178, 178, 178);
+        topline = QColor(220, 220, 220, 150);
+
 	icon = _icon;
 	title = _title;
 	role = _role;
@@ -306,18 +307,14 @@ void Titlebar::paintEvent(QPaintEvent *event)
         QPainter painter(this);
         painter.setRenderHint(QPainter::Antialiasing);
 
-	//QRect rect = painter.window();
+        painter.setPen(topline);
+        painter.drawLine(0, 0, width(), 0);
+
 	QColor base;
 	base = palette().button().color();
 	if (borderState == borderActive)
 		base = base.darker(140);
 
-/*
-	QLinearGradient linearGrad(QPointF(0, rect.top()), QPointF(0, rect.top() + height()));
-	linearGrad.setColorAt(0, base.lighter(125));
-	linearGrad.setColorAt(1, base.darker(150));	
-	painter.fillRect(0, rect.top(), width(), height(), linearGrad);
-*/
 	painter.setPen(base.darker(250));// text color
 
 	int h = height() + 4;

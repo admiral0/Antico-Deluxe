@@ -118,7 +118,7 @@ protected:
 	int borderState;
 	bool changeCursor;
 	bool posLocked;
-        QColor top, bottom, extra;
+        QColor top, bottom;
 };
 
 class Titlebar : public GenericBar
@@ -154,6 +154,8 @@ protected:
 	QPixmap icon;
 	QString title;
 	int role;
+        QColor topline;
+
 	//int borderState;
 };
 

@@ -7,21 +7,23 @@
 
 #include "dockicon.h"
 
-DockIcon::DockIcon(Client *c, int t, QWidget *parent) : QLabel(parent)
+DockIcon::DockIcon(Client *c, QWidget *parent) : QLabel(parent)
 {
 	client = c;
 	type = DockIcon::Task;
 	readSettings();
 }
 
-DockIcon::DockIcon(const AmeDesktopFile &file, QWidget *parent) : QLabel(parent)
+DockIcon::DockIcon(const QString &file, QWidget *parent) : QLabel(parent)
 {
 	client = NULL;
 	type = DockIcon::Launcher;
+        desktopFile = new AmeDesktopFile(file);
 }
 
 DockIcon::~DockIcon()
 {
+        delete desktopFile;
 }
 
 

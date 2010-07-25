@@ -21,8 +21,8 @@ public:
 	enum IconType {Task, Launcher, Applet};
 	enum IconState {Running, Stopped, Inactive, Prelight};
 
-	DockIcon(Client *c, int t=Task, QWidget *parent=0);
-	DockIcon(const AmeDesktopFile &file, QWidget *parent=0);
+        DockIcon(Client *c, QWidget *parent=0);
+        DockIcon(const QString &file, QWidget *parent=0);
 	~DockIcon();
 
 	void readSettings();
@@ -30,6 +30,7 @@ public:
 	void updateSize(int w, int h);
 
 	Client *client;
+        AmeDesktopFile *desktopFile;
 	int type;
 
 protected:
