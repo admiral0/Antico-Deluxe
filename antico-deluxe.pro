@@ -3,7 +3,9 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS = amelib \
+	designer \
+	bobcat \
 	wm \
+	syspref \
 	runner \
-        syspref \
-        term \
+	term \
