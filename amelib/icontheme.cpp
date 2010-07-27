@@ -163,7 +163,7 @@ bool AmeIconTheme::setTheme(const QString &theme)
         return themeValid;
 }
 
-QPixmap *AmeIconTheme::loadIcon(const QString &name, int ctx, int size) const
+QPixmap AmeIconTheme::loadIcon(const QString &name, int ctx, int size) const
 {
         if (!themeValid)
                 return NULL;
@@ -196,10 +196,10 @@ QPixmap *AmeIconTheme::loadIcon(const QString &name, int ctx, int size) const
                 path = dirs.at(i)->iconPath(name);
                 if (path.isEmpty())
                         continue;
-                return new QPixmap(path);
+                return QPixmap(path);
         }
 
-	return NULL;
+        return QPixmap();
 }
 
 void AmeIconTheme::paint(QPainter *paint, const QRect &rect, const QString &name, QIcon::Mode mode, QIcon::State state)

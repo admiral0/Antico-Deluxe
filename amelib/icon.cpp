@@ -18,6 +18,7 @@ public:
 	bool drawBorder;
 	bool elideMode;
 	int state;
+        AmeIconTheme *theme;
 };
 
 AmeIcon::AmeIcon(QWidget *parent)
@@ -37,11 +38,17 @@ AmeIcon::AmeIcon(const QString &name, const QString &label, int scale,
 	: QWidget(parent),
 	  d (new IconPrivate)
 {
-	d->elideMode = true;
-	setLabel(label);
-	d->scaleFactor = scale;
-	d->drawBorder = false;
-	// TODO:
+        d->scaleFactor = scale;
+        d->drawBorder = false;
+        d->elideMode = true;
+        d->state = Normal;
+        adjustFont();
+        setLabel(label);
+        d->theme = theme;
+
+        int s = scale - 4;
+        d->pix = theme->loadIcon(name, AmeIconThemeDir::Any, s);
+        d->gray_pix = QIcon(d->pix).pixmap(QSize(s, s), QIcon::Disabled);
 }
 
 AmeIcon::AmeIcon(const QString &label, const QPixmap &copy, int scale, QWidget *parent)
@@ -54,6 +61,7 @@ AmeIcon::AmeIcon(const QString &label, const QPixmap &copy, int scale, QWidget *
 	d->state = Normal;
 	adjustFont();
 	setLabel(label);
+
 	int s = scale - 4;
 	d->pix = QPixmap(copy.scaled(QSize(s, s), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 	d->gray_pix = QIcon(d->pix).pixmap(QSize(s, s), QIcon::Disabled);

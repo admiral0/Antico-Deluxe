@@ -73,7 +73,7 @@ public:
 
 	bool setTheme(const QString &theme);
 
-        QPixmap *loadIcon(const QString &name, int ctx, int size) const;
+        QPixmap loadIcon(const QString &name, int ctx, int size) const;
 
 private:
 
