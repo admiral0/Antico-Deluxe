@@ -5,6 +5,7 @@
 #include <QString>
 #include <QStringList>
 
+#include <Icon>
 #include <SimpleRC>
 
 class AME_EXPORT AmeDesktopFile : public AmeSimpleRC
@@ -17,6 +18,7 @@ public:
 	QStringList readCategories() const;
 	QString readCommand() const;
 	bool isVisible();
+        AmeIcon icon() const;
 };
 
 #endif
