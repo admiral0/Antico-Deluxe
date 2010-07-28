@@ -18,14 +18,15 @@
 XContainer::XContainer(QWidget *parent)
         : QX11EmbedContainer(parent)
 {
+        // just in case QX11EmbedContainer get fixed
         connect(this, SIGNAL(clientClosed()), SLOT(deleteLater()));
 }
 
 XContainer::~XContainer()
 {
-        //qDebug() << "CONTAINER DELETED";
         emit containerDeleted(clientWinId());
 }
+
 
 Systray::Systray(QWidget *parent) : QWidget(parent)
 {
@@ -93,8 +94,5 @@ void Systray::removeEmbed(Window wId)
                 layout->removeWidget(container);
                 container->close();
                 container->deleteLater();
-                //qDebug() << "REMOVIND TRAY ICON icons number = " << embed.count();
         }
 }
-
-
