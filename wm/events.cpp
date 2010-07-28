@@ -75,12 +75,12 @@ bool Adx::x11_event_filter(void *message, long *result)
 			break;
 		
 		case UnmapNotify:
-			//qDebug() << "*** UNMAP NOTIFY *** window: " << event->xunmap.window;
+                        //qDebug() << "*** UNMAP NOTIFY *** window: " << event->xunmap.window;
 			return deluxe->unmapWindow(event);
 			break;
 		
 		case DestroyNotify:
-			//qDebug() << """ DESTROY NOTIFY ***";
+                        //qDebug() << """ DESTROY NOTIFY *** window: " << event->xdestroywindow.window;
 			return deluxe->destroyWindow(event);
 			break;
 		
@@ -351,6 +351,10 @@ bool Adx::destroyWindow(XEvent *event)
 		QTimer::singleShot(100, this, SLOT(focusTopmostClient()));
 		return true;
 	}
+
+        // try to remove try icon, if exists
+        toppanel->tray->removeEmbed(event->xdestroywindow.window);
+
 	if (event->xdestroywindow.event != event->xdestroywindow.window)
 		return true;
 	

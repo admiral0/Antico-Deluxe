@@ -15,6 +15,18 @@
 #define SYSTEM_TRAY_CANCEL_MESSAGE 2
 
 
+XContainer::XContainer(QWidget *parent)
+        : QX11EmbedContainer(parent)
+{
+        connect(this, SIGNAL(clientClosed()), SLOT(deleteLater()));
+}
+
+XContainer::~XContainer()
+{
+        //qDebug() << "CONTAINER DELETED";
+        emit containerDeleted(clientWinId());
+}
+
 Systray::Systray(QWidget *parent) : QWidget(parent)
 {
         embedSize = TOP_PANEL_HEIGHT-1;
@@ -25,7 +37,6 @@ Systray::Systray(QWidget *parent) : QWidget(parent)
         setLayout(layout);
         resize(embedSize, embedSize);
         setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        qDebug() << "TRAY WIDTH " << width();
 
         // Freedesktop.org System Tray support
         char name[20] = {0};
@@ -61,16 +72,15 @@ void Systray::addEmbed(Window wId)
         XResizeWindow(display(), wId, embedSize, embedSize);
         XMapWindow(display(), wId);
 
-        container = new QX11EmbedContainer(this);
+        container = new XContainer(this);
         container->setContentsMargins(0, 0, 0, 0);
         container->setFixedSize(embedSize, embedSize);
 
         container->embedClient(wId);
 
         embed.insert(wId, container); // save the Client winId/QX11EmbedContainer
-        qDebug() << "Client added to System Tray." << "QX11EmbedContainer id:" << container->winId() << "Client Id:" << wId;
+        //qDebug() << "Client added to System Tray." << "QX11EmbedContainer id:" << container->winId() << "Client Id:" << wId;
 
-        qDebug() << "CONTAINER SIZES = " << container->width() << container->height();
         layout->addWidget(container);
 }
 
@@ -79,11 +89,11 @@ void Systray::removeEmbed(Window wId)
 {
         if (embed.contains(wId)) {
                 container = embed.take(wId);
-                qDebug() << "QX11EmbedContainer:" << container->winId() << "Client:" << wId << "remove from Systray cmd.";
+                //qDebug() << "QX11EmbedContainer:" << container->winId() << "Client:" << wId << "remove from Systray cmd.";
                 layout->removeWidget(container);
                 container->close();
-                qDebug() << "REMOVIND TRAY ICON icons number = " << embed.count();
-                setFixedWidth((embedSize + 2) * embed.count());
+                container->deleteLater();
+                //qDebug() << "REMOVIND TRAY ICON icons number = " << embed.count();
         }
 }
 

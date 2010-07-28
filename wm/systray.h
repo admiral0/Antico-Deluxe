@@ -11,9 +11,20 @@
 #include "defs.h"
 
 
+class XContainer : public QX11EmbedContainer
+{
+        Q_OBJECT
+public:
+        XContainer(QWidget *parent = 0);
+        ~XContainer();
+
+signals:
+        void containerDeleted(WId);
+};
+
 class Systray : public QWidget
 {
-    Q_OBJECT
+        Q_OBJECT
 
 public:
         Systray(QWidget *parent=0);
@@ -22,12 +33,13 @@ public:
         void addEmbed(Window);
         void removeEmbed(Window);
 
+
 private:
         int embedSize;
-        QHash<int, QX11EmbedContainer* > embed; // mapping Client win_id with QX11EmbedContainer
+        QHash<int, XContainer* > embed; // mapping Client win_id with QX11EmbedContainer
                                                 // (key=client id, value=Container)
         QHBoxLayout *layout;
-        QX11EmbedContainer *container;
+        XContainer *container;
 };
 
 #endif
