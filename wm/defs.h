@@ -63,6 +63,7 @@
 #include <QToolBox>
 #include <QToolButton>
 #include <QShortcut>
+#include <QX11EmbedContainer>
 
 #include <unistd.h>
 #include <string.h>

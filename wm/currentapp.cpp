@@ -9,6 +9,7 @@ CurrentApp::CurrentApp(Adx *a, Panel *p, QWidget *parent)
 	client = NULL;
 	iconified = false;
 	allIconified = false;
+        setMenu(new QMenu());
 }
 
 CurrentApp::~CurrentApp()
@@ -17,10 +18,7 @@ CurrentApp::~CurrentApp()
 
 void CurrentApp::rebuildMenu()
 {
-	if (menu()) {
-		menu()->clear();
-	} else 
-		setMenu(new QMenu());
+        menu()->clear();
 	if (!client) {
 		hideAll = new QAction("Hide All", this);
 		hideAll->setShortcut(Qt::CTRL+Qt::ALT+Qt::Key_F9);

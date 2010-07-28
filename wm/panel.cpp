@@ -12,6 +12,7 @@
 #include "clock.h"
 #include "volumectrl.h"
 #include "kbswitch.h"
+#include "systray.h"
 #include "adx.h"
 #include "client.h"
 
@@ -66,10 +67,7 @@ void Panel::setupGui(void)
 	layout->addWidget(currentApp);
 	//layout->addSpacing(1);
 	
-	//QSpacerItem *spacer = new QSpacerItem(100, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	//layout->addItem(spacer);
 	layout->addStretch();	
-	//layout->addSpacing(width()-280);
 	desktopBtn = new ShowDesktop(app, this);
 	layout->addWidget(desktopBtn);
 	layout->addSpacing(8);
@@ -87,9 +85,14 @@ void Panel::setupGui(void)
 	volume->enableFeedback(app->stg->value("volume_feedback", true).toBool());
 	layout->addWidget(volume);
 	showSoundVolumeCtrl(app->stg->value("show_volume_ctrl", true).toBool());
-        layout->addSpacing(8);
+        layout->addSpacing(4);
         app->stg->endGroup();
 
+        tray = new Systray(this);
+        layout->addWidget(tray);
+        tray->show();
+
+        layout->addSpacing(4);
 	ClockWidget *clock = new ClockWidget();
 	layout->addWidget(clock);
 	clock->show();

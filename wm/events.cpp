@@ -9,6 +9,12 @@
 #include "atoms.h"
 #include "alttab.h"
 #include "kbswitch.h"
+#include "systray.h"
+
+/* defined in the systray spec */
+#define SYSTEM_TRAY_REQUEST_DOCK 0
+#define SYSTEM_TRAY_BEGIN_MESSAGE 1
+#define SYSTEM_TRAY_CANCEL_MESSAGE 2
 
 Adx *deluxe;
 bool replay;
@@ -91,11 +97,44 @@ bool Adx::x11_event_filter(void *message, long *result)
 			deluxe->onFocusIn(event);
 			return false;
 			break;
+
+                case ClientMessage:
+                        qDebug() << "X11 Client message" << event->xclient.message_type;
+                        if (event->xclient.message_type == Atoms::atom(Atoms:: NET_SYSTEM_TRAY_OPCODE)) {
+
+                                if (event->xclient.data.l[1] == SYSTEM_TRAY_REQUEST_DOCK) {
+                                        qDebug() << "SYSTEM_TRAY_REQUEST_DOCK";
+                                        deluxe->onAddTrayIcon(event->xclient.data.l[2]);
+                                } else
+                                if (event->xclient.data.l[1] == SYSTEM_TRAY_BEGIN_MESSAGE) {
+                                        qDebug() << "SYSTEM_TRAY_BEGIN_MESSAGE";
+                                } else
+                                if (event->xclient.data.l[1] == SYSTEM_TRAY_CANCEL_MESSAGE) {
+                                        qDebug() << "SYSTEM_TRAY_CANCEL_MESSAGE";
+                                }
+                                return true;
+                                break;
+                        }
+                        else if (event->xclient.data.l[1] == (signed)Atoms::atom(Atoms::NET_SYSTEM_TRAY_MESSAGE_DATA)) {
+                                qDebug() << "Text message from Dockapp:" << event->xclient.data.b;
+                        }
+                        return false;
+                        break;
 			
 	}
 	if (prev_x11_event_filter)
 		return prev_x11_event_filter(message, result);
 	return false;
+}
+
+void Adx::onAddTrayIcon(Window w)
+{
+        toppanel->tray->addEmbed(w);
+}
+
+void Adx::onRemoveTrayIcon(Window w)
+{
+        toppanel->tray->removeEmbed(w);
 }
 
 void Adx::sendKeyEvent(XEvent *event, long mask)

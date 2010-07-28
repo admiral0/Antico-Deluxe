@@ -1,7 +1,7 @@
 TEMPLATE = app
 VERSION = 0.1.98
 
-QT += dbus
+QT += dbus xml
 CONFIG += qt release
 
 RESOURCES = theme/std.qrc
@@ -20,52 +20,54 @@ INCLUDEPATH += ../amelib /usr/include/ame/
 LIBS += -L../amelib -lame -lX11
 
 HEADERS += defs.h \
-			aboutdlg.h \
-			quitdlg.h \
-			alttab.h \
-			atoms.h \
-			adx.h \
-			dbusadaptor.h \
-			decor.h \
-			client.h \
-			desktop.h \
-			dockicon.h \
-			dockbar.h \
-			button.h \
-			menu.h \
-			currentapp.h \
-			sysmenu.h \
-			showdesktop.h \
-			clock.h \
-			volumectrl.h \
-			kbswitch.h \
-			panel.h
+        aboutdlg.h \
+        quitdlg.h \
+        alttab.h \
+        atoms.h \
+        adx.h \
+        dbusadaptor.h \
+        decor.h \
+        client.h \
+        desktop.h \
+        dockicon.h \
+        dockbar.h \
+        button.h \
+        menu.h \
+        currentapp.h \
+        sysmenu.h \
+        showdesktop.h \
+        clock.h \
+        volumectrl.h \
+        kbswitch.h \
+        systray.h \
+        panel.h
 
 SOURCES += main.cpp \
-			aboutdlg.cpp \
-			quitdlg.cpp \
-			alttab.cpp \
-			atoms.cpp \
-			adx.cpp \
-			adxsettings.cpp \
-			keybindings.cpp \
-			dbusadaptor.cpp \
-			events.cpp \
-			decor.cpp \
-			client.cpp \
-			x11management.cpp \
-			panel.cpp \
-			desktop.cpp \
-			dockicon.cpp \
-			dockbar.cpp \
-			button.cpp \
-			menu.cpp \
-			currentapp.cpp \
-			sysmenu.cpp \
-			showdesktop.cpp \
-			clock.cpp \
-			volumectrl.cpp \
-			kbswitch.cpp
+        aboutdlg.cpp \
+        quitdlg.cpp \
+        alttab.cpp \
+        atoms.cpp \
+        adx.cpp \
+        adxsettings.cpp \
+        keybindings.cpp \
+        dbusadaptor.cpp \
+        events.cpp \
+        decor.cpp \
+        client.cpp \
+        x11management.cpp \
+        panel.cpp \
+        desktop.cpp \
+        dockicon.cpp \
+        dockbar.cpp \
+        button.cpp \
+        menu.cpp \
+        currentapp.cpp \
+        sysmenu.cpp \
+        showdesktop.cpp \
+        clock.cpp \
+        volumectrl.cpp \
+        kbswitch.cpp \
+        systray.cpp
 
 TARGET = antico-deluxe
 target.path=/usr/bin

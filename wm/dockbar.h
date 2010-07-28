@@ -74,6 +74,10 @@ public slots:
 signals:
 	void clientRemoved(Client *);
 
+protected:
+        virtual void dragEnterEvent(QDragEnterEvent *event);
+        virtual void dropEvent(QDropEvent *event);
+
 private:
 	QHBoxLayout *dockLayout;
 	QHBoxLayout *iconLayout;

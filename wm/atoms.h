@@ -29,6 +29,7 @@ enum AtomType {
         NET_SUPPORTED,
         NET_SUPPORTING_WM_CHECK,
         NET_SYSTEM_TRAY_OPCODE,
+        NET_SYSTEM_TRAY_MESSAGE_DATA,
         NET_WM_ACTION_ABOVE,
         NET_WM_ACTION_BELOW,
         NET_WM_ACTION_CHANGE_DESKTOP,
@@ -98,6 +99,7 @@ enum AtomType {
         WM_WINDOW_ROLE,
         XROOTPMAP_ID,
         XSETROOT_ID,
+        MANAGER,
         ATOM_COUNT
 };
 

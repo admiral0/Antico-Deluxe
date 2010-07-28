@@ -12,7 +12,6 @@ SystemMenu::SystemMenu(Adx *a, Panel *p, QWidget *parent)
 	setFixedWidth(28);
 
 	setIconSize(QSize(17, 16));
-	//setImages(pix, pix_active);
 	setImages(QPixmap(":/default/ame-logo.png"), QPixmap(":/default/ame-logo-active.png"));
 	rebuildMenu();
 }

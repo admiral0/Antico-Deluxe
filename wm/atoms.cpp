@@ -34,6 +34,7 @@ bool Atoms::createNetWMAtoms(Display *d)
         "_NET_SUPPORTED",
         "_NET_SUPPORTING_WM_CHECK",
         "_NET_SYSTEM_TRAY_OPCODE",
+        "_NET_SYSTEM_TRAY_MESSAGE_DATA",
         "_NET_WM_ACTION_ABOVE",
         "_NET_WM_ACTION_BELOW",
         "_NET_WM_ACTION_CHANGE_DESKTOP",
@@ -95,7 +96,7 @@ bool Atoms::createNetWMAtoms(Display *d)
         "WM_COLORMAP_WINDOWS",
         "WM_DELETE_WINDOW",
         "WM_HINTS",
-		"WM_NORMAL_HINTS",
+        "WM_NORMAL_HINTS",
         "WM_PROTOCOLS",
         "WM_STATE",
         "WM_TAKE_FOCUS",
@@ -104,7 +105,8 @@ bool Atoms::createNetWMAtoms(Display *d)
         "XFWM4_COMPOSITING_MANAGER",
         "XFWM4_TIMESTAMP_PROP",
         "_XROOTPMAP_ID",
-        "_XSETROOT_ID"
+        "_XSETROOT_ID",
+        "MANAGER"
     };
 
     return (XInternAtoms (d, (char **) atomNames, ATOM_COUNT, FALSE, atoms) != 0);

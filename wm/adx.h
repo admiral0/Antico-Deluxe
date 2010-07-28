@@ -69,6 +69,8 @@ public:
 	bool colormapNotify(XEvent *);
 	bool isSystemWidget(Window);
 	void restack(Client *);
+        void onAddTrayIcon(Window);
+        void onRemoveTrayIcon(Window);
 
 	// Window management routines
 	void minimizeOthers(Client *);

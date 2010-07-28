@@ -5,6 +5,8 @@
 //  Copyright  : GPL2			//
 //////////////////////////////////////////
 
+#include <QUrl>
+#include <Mime>
 #include "dockbar.h"
 #include "dockicon.h"
 #include "adx.h"
@@ -25,6 +27,7 @@ Dockbar::Dockbar(Adx *a, QWidget *parent) : QLabel(parent)
 	
 	dockState = Dockbar::Normal;
 	setAutoHide(autoHide);
+        setAcceptDrops(true);
 
 	// to store dockicons
 	iconsList = new DockIconsList;
@@ -119,6 +122,25 @@ bool Dockbar::removeAll()
 void Dockbar::addLauncher(const QString &file)
 {
 }
+
+void Dockbar::dragEnterEvent(QDragEnterEvent *event)
+{
+        if (event->mimeData()->hasUrls()) {
+                event->acceptProposedAction();
+        }
+}
+
+void Dockbar::dropEvent(QDropEvent *event)
+{
+    if (event->mimeData()->hasUrls()) {
+        foreach (QUrl url, event->mimeData()->urls()) {
+                qDebug() << url.path();
+                AmeMime mime;
+                qDebug() << mime.fromFileName(url.path());
+        }
+    }
+}
+
 
 void Dockbar::setAutoHide(bool active)
 {
